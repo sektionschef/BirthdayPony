@@ -168,6 +168,67 @@ function setup() {
   // cam1.setPosition(1200, 200, 500);
 
   // setCamera(cam1);
+
+  texMex = new TexMex({
+    custom_width: 300,
+    custom_height: 400,
+    posX: 200,
+    posY: 300,
+    elementSizeMin: 0.002 * DOMINANTSIDE,
+    elementSizeMax: 0.007 * DOMINANTSIDE,
+    margin: 0.05,
+    fillColor: color(PALETTE.primaries[0]),
+    fillColorNoise: 5,
+    fillColorOpacity: 255,
+    noStroke: true,
+    strokeColor: color("black"),
+    strokeWeight: 0.0001 * DOMINANTSIDE,
+    strokeColorNoise: 60,
+    strokeOpacity: 255,
+    numberQuantisizer: 80,
+  })
+  texMex.show();
+
+  texMex2 = new TexMex({
+    custom_width: 400,
+    custom_height: 300,
+    posX: 300,
+    posY: 300,
+    elementSizeMin: 0.002 * DOMINANTSIDE,
+    elementSizeMax: 0.006 * DOMINANTSIDE,
+    margin: 0.05,
+    fillColor: color(PALETTE.primaries[1]),
+    fillColorNoise: 5,
+    fillColorOpacity: 255,
+    noStroke: true,
+    strokeColor: color("black"),
+    strokeWeight: 0.0001 * DOMINANTSIDE,
+    strokeColorNoise: 60,
+    strokeOpacity: 255,
+    numberQuantisizer: 80,
+  })
+  texMex2.show();
+
+  texMex3 = new TexMex({
+    custom_width: width,
+    custom_height: height,
+    posX: 0,
+    posY: 0,
+    elementSizeMin: 0.002 * DOMINANTSIDE,
+    elementSizeMax: 0.006 * DOMINANTSIDE,
+    margin: 0.05,
+    fillColor: color(PALETTE.hatches[1]),
+    fillColorNoise: 10,
+    fillColorOpacity: 255,
+    noStroke: true,
+    strokeColor: color("black"),
+    strokeWeight: 0.0001 * DOMINANTSIDE,
+    strokeColorNoise: 60,
+    strokeOpacity: 255,
+    numberQuantisizer: 80,
+  })
+  texMex3.show();
+
 }
 
 
@@ -195,12 +256,30 @@ function draw() {
 
   if (frameCount == 1) {
     pixelDensity(CURRENTPIXELDENS);
-    cam1.setPosition(0, 0, 200);
-    cam1.lookAt(-100, 0, 0);
+    // cam1.setPosition(0, 0, 200);
+    // cam1.lookAt(-100, 0, 0);
 
     // background(color("purple"));
   }
   background(color(PALETTE.background));
+  // background(color(PALETTE.primaries[0]));
+
+  push();
+  translate(-width / 2, -height / 2);
+  image(texMex3.buffer, texMex3.posX, texMex2.posY, texMex3.buffer.width, texMex3.buffer.height);
+  pop();
+
+
+  push();
+  translate(-width / 2, -height / 2);
+  image(texMex2.buffer, texMex2.posX, texMex2.posY, texMex2.buffer.width, texMex2.buffer.height);
+  pop();
+
+  push();
+  translate(-width / 2, -height / 2);
+  image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
+  pop();
+
 
   // hatchesHigh.show();
   // hatchesLong.show();
@@ -211,7 +290,7 @@ function draw() {
   // mastaBrush.show();
   brushSystem.show();
 
-  cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
+  // cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
 
   // show center
   // push();
@@ -232,12 +311,11 @@ function draw() {
   // brushBug.update();
   // brushBug.display();
 
-
   dots1.show();
   // dots2.show();
   // dots3.show();
 
-  if (frameCount > 1000) {
+  if (frameCount > 100) {
     ALLDONE = true;
   }
 

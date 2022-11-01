@@ -2,7 +2,7 @@ class DrawDots {
     constructor() {
         // z value is missing - with light
         this.margin = 0.05;
-        this.dotCount = 2;
+        this.dotCount = 20;
         this.dots = []
 
         this.randomPoolXstart = Math.round(DOMINANTSIDE * this.margin);
