@@ -16,7 +16,7 @@ let PALETTE_LABEL;
 let ALLDONE = false;
 let DOMINANTSIDE;  // side which is the limiting factor
 
-let RESCALINGCONSTANT = 948;  // the width the painting was designed in
+let RESCALINGCONSTANT = 800;  // the width the painting was designed in
 let FRAMEDWIDTH = 800;
 let FRAMED = false;
 
@@ -120,6 +120,7 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
+  dots = new DrawDots();
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
@@ -135,8 +136,10 @@ function setup() {
   // HATCHOFFSET = Math.round(HATCHOFFSET / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
 
 
+  mastaBrush = new Brush(createVector(-100, 0), createVector(100, 0), color("black"));
+
   // EXAMPLES for DEV
-  brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
+  // brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
   // brushXY = new Brush(createVector(400, 450), createVector(560, 600));
   // brushY = new Brush(createVector(300, 400), createVector(300, 800));
   // brushYX = new Brush(createVector(400, 600), createVector(560, 450));
@@ -150,6 +153,13 @@ function setup() {
 
   // hatchesBug = new Hatches("y", createVector(717, 50), createVector(898, 898), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
 
+  // camM = createCamera();
+  cam1 = createCamera();
+
+  // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
+  // cam1.lookAt(-50, 0, 0);
+  // cam1.ortho();
+  // cam1.perspective();
 }
 
 
@@ -178,7 +188,8 @@ function draw() {
   if (frameCount == 1) {
     pixelDensity(CURRENTPIXELDENS);
 
-    background(color(PALETTE.background));
+    background(color("purple"));
+    // background(color(PALETTE.background));
   }
 
   // hatchesHigh.show();
@@ -186,9 +197,26 @@ function draw() {
 
   // hatchesBug.show();
 
+  mastaBrush.update();
+  mastaBrush.display();
+
+  // cam1.setPosition(-50, 0, 20);
+  // setCamera(cam1);
+
+  // console.log(mastaBrush.pos.x)
+  // cam1.setPosition((mastaBrush.pos.x + 50), 0, 250);
+  // cam1.pan(0.01);
+  // cam1.move((mastaBrush.pos.x + 50), 0, 0);
+  // cam1.move(mastaBrush.vel.x, 0, 0);
+
+  push();
+  translate(0, 0, 0);
+  ellipse(0, 0, 30);
+  pop();
+
   // brush examples
-  brushX.update();
-  brushX.display();
+  // brushX.update();
+  // brushX.display();
   // brushXY.update();
   // brushXY.display();
   // brushY.update();
