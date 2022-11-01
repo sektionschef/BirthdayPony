@@ -120,7 +120,7 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  dots = new DrawDots();
+  dots1 = new DrawDots();
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
@@ -209,10 +209,11 @@ function draw() {
   // cam1.move((mastaBrush.pos.x + 50), 0, 0);
   // cam1.move(mastaBrush.vel.x, 0, 0);
 
-  push();
-  translate(0, 0, 0);
-  ellipse(0, 0, 30);
-  pop();
+  // show center
+  // push();
+  // translate(0, 0, 0);
+  // ellipse(0, 0, 5);
+  // pop();
 
   // brush examples
   // brushX.update();
@@ -227,6 +228,8 @@ function draw() {
   // brushBug.update();
   // brushBug.display();
 
+
+  dots1.show();
 
 
   if (ALLDONE == true) {

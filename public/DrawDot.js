@@ -1,8 +1,8 @@
 class DrawDots {
     constructor() {
         // z value is missing - with light
-        this.margin = 0.1;
-        this.dotCount = 7;
+        this.margin = 0.05;
+        this.dotCount = 17;
         this.dots = []
 
         this.randomPoolXstart = Math.round(DOMINANTSIDE * this.margin);
@@ -14,7 +14,7 @@ class DrawDots {
         var dotY;
         var dotZ;
 
-        for (var i = 0; i <= this.dotCount; i++) {
+        for (var i = 0; i < this.dotCount; i++) {
 
             dotX = Math.round(getRandomFromInterval(this.randomPoolXstart, this.randomPoolXstop));
             dotY = Math.round(getRandomFromInterval(this.randomPoolYstart, this.randomPoolYstop));
@@ -22,15 +22,49 @@ class DrawDots {
 
             this.dots.push(createVector(dotX, dotY, dotZ));
         }
-        // console.log(this.dots);
 
-        this.show();
+        this.dots.sort(function (a, b) { return a.y - b.y });
+        // console.log(this.dots);
     }
 
 
     show() {
-        for (var point of this.dots) {
-            console.log(point.y);
+
+        if (MODE > 1) {
+            push();
+            translate(-width / 2, -height / 2);
+            // translate(this.randomPoolXstart, this.randomPoolYstart);
+            noFill();
+            strokeWeight(1);
+            rectMode(CORNERS);
+            rect(this.randomPoolXstart, this.randomPoolYstart, this.randomPoolXstop, this.randomPoolYstop);
+            pop();
+        }
+
+        var currentPointX;
+        var currentPointY;
+        var currentPointZ;
+
+        var nextPointX;
+        var nextPointY;
+        var nextPointZ;
+
+        // for (var point of this.dots) {
+        for (var i = 0; i < (this.dots.length - 1); i++) {
+
+            currentPointX = Math.round(this.dots[i].x / width * DOMINANTSIDE);
+            currentPointY = Math.round(this.dots[i].y / height * DOMINANTSIDE);
+            currentPointZ = Math.round(this.dots[i].z);
+
+            nextPointX = Math.round(this.dots[i + 1].x / width * DOMINANTSIDE);
+            nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
+            nextPointZ = Math.round(this.dots[i + 1].z);
+
+            push();
+            translate(-width / 2, -height / 2);
+            line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
+
+            pop();
         }
 
     }
