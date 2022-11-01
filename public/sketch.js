@@ -190,8 +190,8 @@ function draw() {
   if (frameCount == 1) {
     pixelDensity(CURRENTPIXELDENS);
 
-    background(color("purple"));
-    // background(color(PALETTE.background));
+    // background(color("purple"));
+    background(color(PALETTE.background));
   }
 
   // hatchesHigh.show();

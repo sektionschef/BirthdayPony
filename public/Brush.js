@@ -3,7 +3,7 @@ class Brush {
         this.fullspeed = 3; // BRUSHFULLSPEED // 2-5;
         this.radiusMin = 1; // BRUSHSIZEMIN; // 1;
         this.radiusMax = 2; //BRUSHSIZEMAX; // 2;
-        this.brushShape = "Ellipse"; //BRUSHSHAPE;
+        this.brushShape = "Triangle"; //BRUSHSHAPE;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
         // this.amplitudeNoiseY = 3.5;  // up and down on Y axis
@@ -190,6 +190,7 @@ class Brush {
                 // this.radius = map(this.vel.y, 0, 3, 1, 0.3)
                 this.radius = Math.round(map(this.vel.y, BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX, this.radiusMax, this.radiusMin) * 100) / 100
             }
+            this.definePath();
         }
 
     }
@@ -237,58 +238,108 @@ class Brush {
             pop();
         }
 
-        if (this.alive) {
+        // if (this.alive) {
 
-            push();
-            // translate(-width / 2, -height / 2);
-            translate(this.pos);
-            if (MODE >= 5) {
-                noStroke();
-                fill("black");
-                ellipse(0, 0, this.radius * 3, this.radius * 3);
-            } else {
-                // noStroke();
-                // strokeWeight(this.strokeSize);
-                // stroke(this.strokeColor);
-                // noFill();
-                // fill(this.fillColor);
-                // rotate(frameCount % 3);
-                // ellipse(0, 0, this.radius, this.radius);
-                // rectMode(CENTER);
-                // rect(0, 0, this.radius, this.radius);
+        push();
+        // translate(-width / 2, -height / 2);
+        translate(this.pos);
+        if (MODE >= 5) {
+            noStroke();
+            fill("black");
+            ellipse(0, 0, this.radius * 3, this.radius * 3);
+        } else {
+            this.drawBrush();
+        }
+        pop();
+        // }
+    }
 
-                this.drawBrush();
+    definePath() {
+
+        this.brushSize = this.radius;
+        this.elementCount = 5;  // per step
+
+        this.elements = [];
+
+        if (this.brushShape == "Line") {
+
+            for (var i = 0; i < this.elementCount; i++) {
+                this.elements.push({
+                    shape: "Line",
+                    posX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posBX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posBY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                })
             }
-            pop();
+        } else if (this.brushShape == "Ellipse") {
 
+            for (var i = 0; i < this.elementCount; i++) {
+                this.elements.push({
+                    shape: "Ellipse",
+                    posX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    width: getP5RandomFromInterval(0, this.brushSize / 2),
+                    height: getP5RandomFromInterval(0, this.brushSize / 2),
+                })
+            }
+        } else if (this.brushShape == "Triangle") {
+            for (var i = 0; i < this.elementCount; i++) {
+                this.elements.push({
+                    shape: "Triangle",
+                    posX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posBX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posBY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posCX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posCY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                })
+            }
+        } else {
+            console.warn("No brush shape specified, oida!")
         }
     }
 
     drawBrush() {
 
-        this.brushSize = this.radius;
-
-        push();
-        strokeWeight(this.strokeSize);
-        for (var i = 0; i <= 5; i++) {
-            // stroke(this.strokeColor);
+        for (var i = 0; i < this.elements.length; i++) {
+            push();
+            strokeWeight(this.strokeSize);
             stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
+            noFill();
             if (this.brushShape == "Line") {
-                // line(getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize));
-                line(getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize));
+                line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
             } else if (this.brushShape == "Ellipse") {
-                noFill();
-                // ellipse(getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(0, this.brushSize / 2), getRandomFromInterval(0, this.brushSize / 2));
-                ellipse(getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(0, this.brushSize / 2), getP5RandomFromInterval(0, this.brushSize / 2));
+                ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
             } else if (this.brushShape == "Triangle") {
-                noFill();
-                // triangle(getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize),);
-                triangle(getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize),);
+                triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
             } else {
                 console.warn("No brush shape specified, oida!")
             }
+            pop();
         }
-        pop();
+
+        // push();
+        // strokeWeight(this.strokeSize);
+        // for (var i = 0; i <= 5; i++) {
+        //     // stroke(this.strokeColor);
+        //     stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
+        //     if (this.brushShape == "Line") {
+        //         // line(getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize));
+        //         line(getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize));
+        //     } else if (this.brushShape == "Ellipse") {
+        //         noFill();
+        //         // ellipse(getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(0, this.brushSize / 2), getRandomFromInterval(0, this.brushSize / 2));
+        //         ellipse(getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(0, this.brushSize / 2), getP5RandomFromInterval(0, this.brushSize / 2));
+        //     } else if (this.brushShape == "Triangle") {
+        //         noFill();
+        //         // triangle(getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize), getRandomFromInterval(-this.brushSize, this.brushSize),);
+        //         triangle(getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize), getP5RandomFromInterval(-this.brushSize, this.brushSize),);
+        //     } else {
+        //         console.warn("No brush shape specified, oida!")
+        //     }
+        // }
+        // pop();
     }
 
 
