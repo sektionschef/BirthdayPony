@@ -120,9 +120,11 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
+  brushSystem = new BrushSystem();
+
   dots1 = new DrawDots();
-  dots2 = new DrawDots();
-  dots3 = new DrawDots();
+  // dots2 = new DrawDots();
+  // dots3 = new DrawDots();
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
@@ -138,7 +140,8 @@ function setup() {
   // HATCHOFFSET = Math.round(HATCHOFFSET / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
 
 
-  mastaBrush = new Brush(createVector(-100, 0), createVector(100, 0), color("black"));
+  mastaBrush = new Brush(createVector(-100 + height / 2, width / 2, 0), createVector(100 + height / 2, width / 2, 0), color("black"));
+  // brushSystem.add(mastaBrush);
 
   // EXAMPLES for DEV
   // brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
@@ -191,8 +194,8 @@ function draw() {
     pixelDensity(CURRENTPIXELDENS);
 
     // background(color("purple"));
-    background(color(PALETTE.background));
   }
+  background(color(PALETTE.background));
 
   // hatchesHigh.show();
   // hatchesLong.show();
@@ -200,7 +203,8 @@ function draw() {
   // hatchesBug.show();
 
   mastaBrush.update();
-  mastaBrush.display();
+  mastaBrush.show();
+  // brushSystem.show();
 
   // cam1.setPosition(-50, 0, 20);
   // setCamera(cam1);
@@ -232,9 +236,12 @@ function draw() {
 
 
   dots1.show();
-  dots2.show();
-  dots3.show();
+  // dots2.show();
+  // dots3.show();
 
+  if (frameCount > 1000) {
+    ALLDONE = true;
+  }
 
   if (ALLDONE == true) {
     console.log("All done");

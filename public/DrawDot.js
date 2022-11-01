@@ -2,7 +2,7 @@ class DrawDots {
     constructor() {
         // z value is missing - with light
         this.margin = 0.05;
-        this.dotCount = 17;
+        this.dotCount = 2;
         this.dots = []
 
         this.randomPoolXstart = Math.round(DOMINANTSIDE * this.margin);
@@ -25,6 +25,32 @@ class DrawDots {
 
         this.dots.sort(function (a, b) { return a.y - b.y });
         // console.log(this.dots);
+
+        this.addBrushsystem(brushSystem);
+    }
+
+    addBrushsystem(system) {
+        var currentPointX;
+        var currentPointY;
+        var currentPointZ;
+
+        var nextPointX;
+        var nextPointY;
+        var nextPointZ;
+
+        for (var i = 0; i < (this.dots.length - 1); i++) {
+
+            currentPointX = Math.round(this.dots[i].x / width * DOMINANTSIDE);
+            currentPointY = Math.round(this.dots[i].y / height * DOMINANTSIDE);
+            currentPointZ = Math.round(this.dots[i].z);
+
+            nextPointX = Math.round(this.dots[i + 1].x / width * DOMINANTSIDE);
+            nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
+            nextPointZ = Math.round(this.dots[i + 1].z);
+
+            system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("black")))
+        }
+
     }
 
 
@@ -41,30 +67,32 @@ class DrawDots {
             pop();
         }
 
-        var currentPointX;
-        var currentPointY;
-        var currentPointZ;
+        if (MODE > 1) {
+            var currentPointX;
+            var currentPointY;
+            var currentPointZ;
 
-        var nextPointX;
-        var nextPointY;
-        var nextPointZ;
+            var nextPointX;
+            var nextPointY;
+            var nextPointZ;
 
-        // for (var point of this.dots) {
-        for (var i = 0; i < (this.dots.length - 1); i++) {
+            // for (var point of this.dots) {
+            for (var i = 0; i < (this.dots.length - 1); i++) {
 
-            currentPointX = Math.round(this.dots[i].x / width * DOMINANTSIDE);
-            currentPointY = Math.round(this.dots[i].y / height * DOMINANTSIDE);
-            currentPointZ = Math.round(this.dots[i].z);
+                currentPointX = Math.round(this.dots[i].x / width * DOMINANTSIDE);
+                currentPointY = Math.round(this.dots[i].y / height * DOMINANTSIDE);
+                currentPointZ = Math.round(this.dots[i].z);
 
-            nextPointX = Math.round(this.dots[i + 1].x / width * DOMINANTSIDE);
-            nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
-            nextPointZ = Math.round(this.dots[i + 1].z);
+                nextPointX = Math.round(this.dots[i + 1].x / width * DOMINANTSIDE);
+                nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
+                nextPointZ = Math.round(this.dots[i + 1].z);
 
-            push();
-            translate(-width / 2, -height / 2);
-            line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
+                push();
+                translate(-width / 2, -height / 2);
 
-            pop();
+                line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
+                pop();
+            }
         }
 
     }
