@@ -3,7 +3,9 @@ class Brush {
         this.fullspeed = 3; // BRUSHFULLSPEED // 2-5;
         this.radiusMin = 1; // BRUSHSIZEMIN; // 1;
         this.radiusMax = 2; //BRUSHSIZEMAX; // 2;
-        this.brushShape = "Line"; // "Triangle"; //BRUSHSHAPE;
+        this.brushShape = "Ellipse";
+        // this.brushShape = "Line";
+        // this.brushShape = "Triangle"; //BRUSHSHAPE;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
         // this.amplitudeNoiseY = 3.5;  // up and down on Y axis
@@ -167,8 +169,8 @@ class Brush {
             for (var i = 0; i < this.elementCount; i++) {
                 this.elements.push({
                     shape: "Ellipse",
-                    posX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
                     width: getP5RandomFromInterval(0, this.brushSize / 2),
                     height: getP5RandomFromInterval(0, this.brushSize / 2),
                 })
@@ -177,12 +179,12 @@ class Brush {
             for (var i = 0; i < this.elementCount; i++) {
                 this.elements.push({
                     shape: "Triangle",
-                    posX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posBX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posBY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posCX: getP5RandomFromInterval(-this.brushSize, this.brushSize),
-                    posCY: getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posBX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posBY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posCX: this.pos.x + getP5RandomFromInterval(-this.brushSize, this.brushSize),
+                    posCY: this.pos.y + getP5RandomFromInterval(-this.brushSize, this.brushSize),
                 })
             }
         } else {
