@@ -9,7 +9,7 @@ class Brush {
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
         // this.amplitudeNoiseY = 3.5;  // up and down on Y axis
-        this.OkLevel = 8;  // some offset is ok.
+        this.OkLevel = 4;  // some offset is ok.
         this.fillColor = colorObject;
         this.strokeColor = colorObject;
         this.strokeSize = 0.1; // BRUSHFIBRESIZE;  // good one
@@ -105,6 +105,9 @@ class Brush {
 
         if (this.orientation == "left-right") {
             if (this.pos.x > (this.end.x - this.OkLevel)) {
+                this.acc = createVector(0, 0, 0);
+                this.vel = createVector(0, 0, 0);
+                // console.log("stop");
                 this.alive = false;
             }
             if (this.pos.x > this.checkpointA.x) {
@@ -115,6 +118,8 @@ class Brush {
             }
         } else if (this.orientation == "top/left-bottom/right") {
             if (this.pos.x > (this.end.x - this.OkLevel) && this.pos.y > (this.end.y - this.OkLevel)) {
+                this.acc = createVector(0, 0, 0);
+                this.vel = createVector(0, 0, 0);
                 this.alive = false;
             }
             if (this.pos.x > this.checkpointA.x && this.pos.y > this.checkpointA.y) {
@@ -125,6 +130,8 @@ class Brush {
             }
         } else if (this.orientation == "top-bottom") {
             if (this.pos.y > (this.end.y - this.OkLevel)) {
+                this.acc = createVector(0, 0, 0);
+                this.vel = createVector(0, 0, 0);
                 this.alive = false;
             }
             if (this.pos.y > this.checkpointA.y) {
@@ -135,6 +142,8 @@ class Brush {
             }
         } else if (this.orientation == "left/bottom-top/right") {
             if (this.pos.x > (this.end.x - this.OkLevel) && this.pos.y < (this.end.y + this.OkLevel)) {
+                this.acc = createVector(0, 0, 0);
+                this.vel = createVector(0, 0, 0);
                 this.alive = false;
             }
             if (this.pos.x > this.checkpointA.x && this.pos.y < this.checkpointA.y) {
@@ -210,8 +219,6 @@ class Brush {
                 this.acc = this.sloBoost;
             } else if (this.alive == false) {
                 // console.log("stop");
-                this.acc = createVector(0, 0, 0);
-                this.vel = createVector(0, 0, 0);
             }
 
             this.vel.add(this.acc);
@@ -244,7 +251,7 @@ class Brush {
         if (MODE >= 5) {
             // start
             push();
-            // translate(-width / 2, -height / 2);
+            translate(-width / 2, -height / 2);
             translate(this.start);
             noStroke();
             fill("blue");
@@ -253,7 +260,7 @@ class Brush {
 
             // accA
             push();
-            // translate(-width / 2, -height / 2);
+            translate(-width / 2, -height / 2);
             translate(this.checkpointA);
             noStroke();
             fill("red");
@@ -264,7 +271,7 @@ class Brush {
 
             // accB
             push();
-            // translate(-width / 2, -height / 2);
+            translate(-width / 2, -height / 2);
             translate(this.checkpointB);
             noStroke();
             fill("red");
@@ -274,7 +281,7 @@ class Brush {
 
             // end
             push();
-            // translate(-width / 2, -height / 2);
+            translate(-width / 2, -height / 2);
             translate(this.end);
             noStroke();
             fill("purple");

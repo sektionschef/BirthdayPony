@@ -141,7 +141,7 @@ function setup() {
 
 
   mastaBrush = new Brush(createVector(-100 + height / 2, width / 2, 0), createVector(100 + height / 2, width / 2, 0), color("black"));
-  // brushSystem.add(mastaBrush);
+  brushSystem.add(mastaBrush);
 
   // EXAMPLES for DEV
   // brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
@@ -160,11 +160,14 @@ function setup() {
 
   // camM = createCamera();
   cam1 = createCamera();
+  // cam1.perspective();
+  // cam1.ortho();
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
-  // cam1.lookAt(-50, 0, 0);
-  // cam1.ortho();
-  // cam1.perspective();
+  // cam1.lookAt(-100, 0, 0);
+  // cam1.setPosition(1200, 200, 500);
+
+  // setCamera(cam1);
 }
 
 
@@ -192,6 +195,8 @@ function draw() {
 
   if (frameCount == 1) {
     pixelDensity(CURRENTPIXELDENS);
+    cam1.setPosition(0, 0, 200);
+    cam1.lookAt(-100, 0, 0);
 
     // background(color("purple"));
   }
@@ -202,18 +207,11 @@ function draw() {
 
   // hatchesBug.show();
 
-  mastaBrush.update();
-  mastaBrush.show();
-  // brushSystem.show();
+  // mastaBrush.update();
+  // mastaBrush.show();
+  brushSystem.show();
 
-  // cam1.setPosition(-50, 0, 20);
-  // setCamera(cam1);
-
-  // console.log(mastaBrush.pos.x)
-  // cam1.setPosition((mastaBrush.pos.x + 50), 0, 250);
-  // cam1.pan(0.01);
-  // cam1.move((mastaBrush.pos.x + 50), 0, 0);
-  // cam1.move(mastaBrush.vel.x, 0, 0);
+  cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
 
   // show center
   // push();

@@ -67,7 +67,7 @@ class DrawDots {
             pop();
         }
 
-        if (MODE > 1) {
+        if (MODE > 0) {
             var currentPointX;
             var currentPointY;
             var currentPointZ;
@@ -76,7 +76,6 @@ class DrawDots {
             var nextPointY;
             var nextPointZ;
 
-            // for (var point of this.dots) {
             for (var i = 0; i < (this.dots.length - 1); i++) {
 
                 currentPointX = Math.round(this.dots[i].x / width * DOMINANTSIDE);
@@ -90,7 +89,9 @@ class DrawDots {
                 push();
                 translate(-width / 2, -height / 2);
 
+
                 line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
+                ellipse(currentPointX, currentPointY, 30)
                 pop();
             }
         }
