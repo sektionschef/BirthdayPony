@@ -121,6 +121,8 @@ function setup() {
   }
 
   dots1 = new DrawDots();
+  dots2 = new DrawDots();
+  dots3 = new DrawDots();
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
@@ -230,6 +232,8 @@ function draw() {
 
 
   dots1.show();
+  dots2.show();
+  dots3.show();
 
 
   if (ALLDONE == true) {
