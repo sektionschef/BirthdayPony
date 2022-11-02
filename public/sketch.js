@@ -170,64 +170,25 @@ function setup() {
   // setCamera(cam1);
 
   texMex = new TexMex({
-    custom_width: 300,
-    custom_height: 400,
-    posX: 200,
-    posY: 300,
-    elementSizeMin: 0.002 * DOMINANTSIDE,
-    elementSizeMax: 0.007 * DOMINANTSIDE,
-    margin: 0.05,
-    fillColor: color(PALETTE.primaries[0]),
-    fillColorNoise: 5,
-    fillColorOpacity: 255,
-    noStroke: true,
-    strokeColor: color("black"),
-    strokeWeight: 0.0001 * DOMINANTSIDE,
-    strokeColorNoise: 60,
-    strokeOpacity: 255,
-    numberQuantisizer: 80,
-  })
-  texMex.show();
-
-  texMex2 = new TexMex({
-    custom_width: 400,
-    custom_height: 300,
-    posX: 300,
-    posY: 300,
-    elementSizeMin: 0.002 * DOMINANTSIDE,
-    elementSizeMax: 0.006 * DOMINANTSIDE,
-    margin: 0.05,
-    fillColor: color(PALETTE.primaries[1]),
-    fillColorNoise: 5,
-    fillColorOpacity: 255,
-    noStroke: true,
-    strokeColor: color("black"),
-    strokeWeight: 0.0001 * DOMINANTSIDE,
-    strokeColorNoise: 60,
-    strokeOpacity: 255,
-    numberQuantisizer: 80,
-  })
-  texMex2.show();
-
-  texMex3 = new TexMex({
     custom_width: width,
     custom_height: height,
     posX: 0,
     posY: 0,
-    elementSizeMin: 0.002 * DOMINANTSIDE,
+    elementSizeMin: 0.003 * DOMINANTSIDE,
     elementSizeMax: 0.006 * DOMINANTSIDE,
     margin: 0.05,
-    fillColor: color(PALETTE.hatches[1]),
-    fillColorNoise: 10,
-    fillColorOpacity: 255,
-    noStroke: true,
-    strokeColor: color("black"),
-    strokeWeight: 0.0001 * DOMINANTSIDE,
+    fillColor: color(PALETTE.primaries[0]),
+    fillColorNoise: 5,
+    fillColorOpacity: 55,
+    noStroke: false,
+    strokeColor: color(100),
+    strokeWeight: 0.00008 * DOMINANTSIDE,
     strokeColorNoise: 60,
-    strokeOpacity: 255,
-    numberQuantisizer: 80,
+    strokeOpacity: 80,
+    numberQuantisizer: 880,
+    backgroundColor: color(PALETTE.primaries[0]),
   })
-  texMex3.show();
+  texMex.show();
 
 }
 
@@ -261,19 +222,8 @@ function draw() {
 
     // background(color("purple"));
   }
-  background(color(PALETTE.background));
-  // background(color(PALETTE.primaries[0]));
-
-  push();
-  translate(-width / 2, -height / 2);
-  image(texMex3.buffer, texMex3.posX, texMex2.posY, texMex3.buffer.width, texMex3.buffer.height);
-  pop();
-
-
-  push();
-  translate(-width / 2, -height / 2);
-  image(texMex2.buffer, texMex2.posX, texMex2.posY, texMex2.buffer.width, texMex2.buffer.height);
-  pop();
+  // background(color(PALETTE.background));
+  background(color(PALETTE.primaries[0]));
 
   push();
   translate(-width / 2, -height / 2);
