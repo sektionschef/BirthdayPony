@@ -2,7 +2,7 @@ class DrawDots {
     constructor() {
         // z value is missing - with light
         this.margin = 0.05;
-        this.dotCount = 20;
+        this.dotCount = 7;
         this.dots = []
 
         this.randomPoolXstart = Math.round(DOMINANTSIDE * this.margin);
@@ -26,7 +26,7 @@ class DrawDots {
         this.dots.sort(function (a, b) { return a.y - b.y });
         // console.log(this.dots);
 
-        this.addBrushsystem(brushSystem);
+        // this.addBrushsystem(brushSystem);
     }
 
     addBrushsystem(system) {
@@ -86,13 +86,15 @@ class DrawDots {
                 nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
                 nextPointZ = Math.round(this.dots[i + 1].z);
 
-                push();
-                translate(-width / 2, -height / 2);
+                if (MODE > 0) {
+                    push();
+                    translate(-width / 2, -height / 2);
 
 
-                // line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
-                // ellipse(currentPointX, currentPointY, 30)
-                pop();
+                    line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
+                    ellipse(currentPointX, currentPointY, 10)
+                    pop();
+                }
             }
         }
 

@@ -123,8 +123,8 @@ function setup() {
   brushSystem = new BrushSystem();
 
   dots1 = new DrawDots();
-  // dots2 = new DrawDots();
-  // dots3 = new DrawDots();
+  dots2 = new DrawDots();
+  dots3 = new DrawDots();
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
@@ -142,6 +142,12 @@ function setup() {
 
   mastaBrush = new Brush(createVector(-100 + height / 2, width / 2, 0), createVector(100 + height / 2, width / 2, 0), color("black"));
   brushSystem.add(mastaBrush);
+
+  for (var i = 0; i < 150; i += 2) {
+    // console.log(i);
+    line(0, Math.round(i / 3), 130, i)
+    brushSystem.add(new Brush(createVector(0, Math.round(i / 3), 0), createVector(130, i, 0), color("black")));
+  }
 
   // EXAMPLES for DEV
   // brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
@@ -169,28 +175,28 @@ function setup() {
 
   // setCamera(cam1);
 
-  texMex = new TexMex({
-    custom_width: width,
-    custom_height: height,
-    posX: 0,
-    posY: 0,
-    elementSizeMin: 0.003 * DOMINANTSIDE,
-    elementSizeMax: 0.006 * DOMINANTSIDE,
-    margin: 0.05,
-    // fillColor: color(PALETTE.primaries[0]),
-    fillColor: color(PALETTE.background),
-    fillColorNoise: 10,
-    fillColorOpacity: 55,
-    noStroke: false,
-    strokeColor: color(100),
-    strokeWeight: 0.00008 * DOMINANTSIDE,
-    strokeColorNoise: 60,
-    strokeOpacity: 80,
-    numberQuantisizer: 380,
-    // backgroundColor: color(PALETTE.primaries[0]),
-    backgroundColor: color(PALETTE.background),
-  })
-  texMex.show();
+  // texMex = new TexMex({
+  //   custom_width: width,
+  //   custom_height: height,
+  //   posX: 0,
+  //   posY: 0,
+  //   elementSizeMin: 0.003 * DOMINANTSIDE,
+  //   elementSizeMax: 0.006 * DOMINANTSIDE,
+  //   margin: 0.05,
+  //   // fillColor: color(PALETTE.primaries[0]),
+  //   fillColor: color(PALETTE.background),
+  //   fillColorNoise: 10,
+  //   fillColorOpacity: 55,
+  //   noStroke: false,
+  //   strokeColor: color(100),
+  //   strokeWeight: 0.00008 * DOMINANTSIDE,
+  //   strokeColorNoise: 60,
+  //   strokeOpacity: 80,
+  //   numberQuantisizer: 380,
+  //   // backgroundColor: color(PALETTE.primaries[0]),
+  //   backgroundColor: color(PALETTE.background),
+  // })
+  // texMex.show();
 
 }
 
@@ -227,10 +233,11 @@ function draw() {
   // background(color(PALETTE.background));
   background(color(PALETTE.primaries[0]));
 
-  push();
-  translate(-width / 2, -height / 2);
-  image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
-  pop();
+  // TEX
+  // push();
+  // translate(-width / 2, -height / 2);
+  // image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
+  // pop();
 
 
   // hatchesHigh.show();
@@ -264,10 +271,10 @@ function draw() {
   // brushBug.display();
 
   dots1.show();
-  // dots2.show();
-  // dots3.show();
+  dots2.show();
+  dots3.show();
 
-  if (frameCount > 100) {
+  if (frameCount > 5000) {
     ALLDONE = true;
   }
 

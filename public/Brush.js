@@ -3,8 +3,8 @@ class Brush {
         this.fullspeed = 3; // BRUSHFULLSPEED // 2-5;
         this.radiusMin = 1; // BRUSHSIZEMIN; // 1;
         this.radiusMax = 2; //BRUSHSIZEMAX; // 2;
-        this.brushShape = "Ellipse";
-        // this.brushShape = "Line";
+        // this.brushShape = "Ellipse";
+        this.brushShape = "Line";
         // this.brushShape = "Triangle"; //BRUSHSHAPE;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
@@ -88,73 +88,79 @@ class Brush {
                 console.warn("some noise with this.angle: " + this.angle);
             }
             // throw "no orientation"
-            this.alive = false;
+            // this.alive = false;
+            this.orientation = "unkown";
         }
     }
 
     get_status() {
 
         // SOLUTION WITH TOTAL DISTANCE - achtung kein else if
-        // if (this.pos.dist(this.end) <= this.OkLevel) {
-        //     this.alive = false;  // reaching the goal of one axis is enough (xy & yx case)
-        // } else if (this.pos.dist(this.checkpointA) <= 2) {
-        //     this.passedA = true;
-        // } else if (this.pos.dist(this.checkpointB) <= 2) {
-        //     this.passedB = true;
-        // }
-
-        if (this.orientation == "left-right") {
-            if (this.pos.x > (this.end.x - this.OkLevel)) {
-                this.acc = createVector(0, 0, 0);
-                this.vel = createVector(0, 0, 0);
-                // console.log("stop");
-                this.alive = false;
-            }
-            if (this.pos.x > this.checkpointA.x) {
-                this.passedA = true;
-            }
-            if (this.pos.x > this.checkpointB.x) {
-                this.passedB = true;
-            }
-        } else if (this.orientation == "top/left-bottom/right") {
-            if (this.pos.x > (this.end.x - this.OkLevel) && this.pos.y > (this.end.y - this.OkLevel)) {
-                this.acc = createVector(0, 0, 0);
-                this.vel = createVector(0, 0, 0);
-                this.alive = false;
-            }
-            if (this.pos.x > this.checkpointA.x && this.pos.y > this.checkpointA.y) {
-                this.passedA = true;
-            }
-            if (this.pos.x > this.checkpointB.x && this.pos.y > this.checkpointB.y) {
-                this.passedB = true;
-            }
-        } else if (this.orientation == "top-bottom") {
-            if (this.pos.y > (this.end.y - this.OkLevel)) {
-                this.acc = createVector(0, 0, 0);
-                this.vel = createVector(0, 0, 0);
-                this.alive = false;
-            }
-            if (this.pos.y > this.checkpointA.y) {
-                this.passedA = true;
-            }
-            if (this.pos.y > this.checkpointB.y) {
-                this.passedB = true;
-            }
-        } else if (this.orientation == "left/bottom-top/right") {
-            if (this.pos.x > (this.end.x - this.OkLevel) && this.pos.y < (this.end.y + this.OkLevel)) {
-                this.acc = createVector(0, 0, 0);
-                this.vel = createVector(0, 0, 0);
-                this.alive = false;
-            }
-            if (this.pos.x > this.checkpointA.x && this.pos.y < this.checkpointA.y) {
-                this.passedA = true;
-            }
-            if (this.pos.x > this.checkpointB.x && this.pos.y < this.checkpointB.y) {
-                this.passedB = true;
-            }
-        } else {
-
+        if (this.pos.dist(this.end) <= this.OkLevel) {
+            this.alive = false;  // reaching the goal of one axis is enough (xy & yx case)
+            this.acc = createVector(0, 0, 0);
+            this.vel = createVector(0, 0, 0);
+            // console.log("stop");
         }
+        if (this.pos.dist(this.checkpointA) <= 2) {
+            this.passedA = true;
+        }
+        if (this.pos.dist(this.checkpointB) <= 2) {
+            this.passedB = true;
+        }
+
+        // if (this.orientation == "left-right") {
+        //     if (this.pos.x > (this.end.x - this.OkLevel)) {
+        //         this.acc = createVector(0, 0, 0);
+        //         this.vel = createVector(0, 0, 0);
+        //         // console.log("stop");
+        //         this.alive = false;
+        //     }
+        //     if (this.pos.x > this.checkpointA.x) {
+        //         this.passedA = true;
+        //     }
+        //     if (this.pos.x > this.checkpointB.x) {
+        //         this.passedB = true;
+        //     }
+        // } else if (this.orientation == "top/left-bottom/right") {
+        //     if (this.pos.x > (this.end.x - this.OkLevel) && this.pos.y > (this.end.y - this.OkLevel)) {
+        //         this.acc = createVector(0, 0, 0);
+        //         this.vel = createVector(0, 0, 0);
+        //         this.alive = false;
+        //     }
+        //     if (this.pos.x > this.checkpointA.x && this.pos.y > this.checkpointA.y) {
+        //         this.passedA = true;
+        //     }
+        //     if (this.pos.x > this.checkpointB.x && this.pos.y > this.checkpointB.y) {
+        //         this.passedB = true;
+        //     }
+        // } else if (this.orientation == "top-bottom") {
+        //     if (this.pos.y > (this.end.y - this.OkLevel)) {
+        //         this.acc = createVector(0, 0, 0);
+        //         this.vel = createVector(0, 0, 0);
+        //         this.alive = false;
+        //     }
+        //     if (this.pos.y > this.checkpointA.y) {
+        //         this.passedA = true;
+        //     }
+        //     if (this.pos.y > this.checkpointB.y) {
+        //         this.passedB = true;
+        //     }
+        // } else if (this.orientation == "left/bottom-top/right") {
+        //     if (this.pos.x > (this.end.x - this.OkLevel) && this.pos.y < (this.end.y + this.OkLevel)) {
+        //         this.acc = createVector(0, 0, 0);
+        //         this.vel = createVector(0, 0, 0);
+        //         this.alive = false;
+        //     }
+        //     if (this.pos.x > this.checkpointA.x && this.pos.y < this.checkpointA.y) {
+        //         this.passedA = true;
+        //     }
+        //     if (this.pos.x > this.checkpointB.x && this.pos.y < this.checkpointB.y) {
+        //         this.passedB = true;
+        //     }
+        // } else {
+
+        // }
 
     }
 
