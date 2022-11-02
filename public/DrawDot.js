@@ -90,8 +90,8 @@ class DrawDots {
                 translate(-width / 2, -height / 2);
 
 
-                line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
-                ellipse(currentPointX, currentPointY, 30)
+                // line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
+                // ellipse(currentPointX, currentPointY, 30)
                 pop();
             }
         }

@@ -177,16 +177,18 @@ function setup() {
     elementSizeMin: 0.003 * DOMINANTSIDE,
     elementSizeMax: 0.006 * DOMINANTSIDE,
     margin: 0.05,
-    fillColor: color(PALETTE.primaries[0]),
-    fillColorNoise: 5,
+    // fillColor: color(PALETTE.primaries[0]),
+    fillColor: color(PALETTE.background),
+    fillColorNoise: 10,
     fillColorOpacity: 55,
     noStroke: false,
     strokeColor: color(100),
     strokeWeight: 0.00008 * DOMINANTSIDE,
     strokeColorNoise: 60,
     strokeOpacity: 80,
-    numberQuantisizer: 880,
-    backgroundColor: color(PALETTE.primaries[0]),
+    numberQuantisizer: 380,
+    // backgroundColor: color(PALETTE.primaries[0]),
+    backgroundColor: color(PALETTE.background),
   })
   texMex.show();
 

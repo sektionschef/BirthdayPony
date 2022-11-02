@@ -47,10 +47,12 @@ class TexMex {
                 // posYEl: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
                 // posXRe: getRandomFromInterval(this.margin * this.custom_width, this.custom_width - (this.margin * this.custom_width)),
                 // posYRe: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
-                posXEl: randomGaussian(this.custom_width / 2, this.custom_width),
-                posYEl: randomGaussian(this.custom_height / 2, this.custom_height),
+                posXEl: randomGaussian(this.custom_width / 8, this.custom_width / 3),
+                posYEl: randomGaussian(this.custom_height / 8, this.custom_height / 3),
                 posXRe: randomGaussian(this.custom_width / 2, this.custom_width),
                 posYRe: randomGaussian(this.custom_height / 2, this.custom_height),
+                posXT1: randomGaussian(this.custom_width / 5, this.custom_width / 6),
+                posYT1: randomGaussian(this.custom_height / 5, this.custom_height / 6),
             })
         }
     }
@@ -75,7 +77,7 @@ class TexMex {
 
             this.buffer.ellipse(element.posXEl, element.posYEl, element.widthShape, element.heightShape);
             this.buffer.rect(element.posXRe, element.posYRe, element.widthShape, element.heightShape);
-            this.buffer.triangle(element.posXRe, element.posYRe, element.posXRe + element.widthShape, element.posYRe, element.posXRe, (element.posYRe + element.heightShape));
+            this.buffer.triangle(element.posXT1, element.posYT1, element.posXT1 + element.widthShape, element.posYT1, element.posXT1, (element.posYT1 + element.heightShape));
             this.buffer.pop();
         }
 
