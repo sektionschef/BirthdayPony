@@ -61,7 +61,7 @@ class paintBro {
                 this.buffer.stroke(element.strokeColor);
             }
 
-            angle = getRandomFromInterval(0, 2 * PI);
+            angle = getRandomFromInterval(200, 2 * PI);
             // angle = getRandomFromInterval(0, PI / 4);
 
 
