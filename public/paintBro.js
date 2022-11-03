@@ -48,8 +48,9 @@ class paintBro {
     show() {
 
         // this.buffer.translate(-width / 2, -height / 2);
+        this.buffer.push();
+
         for (var element of this.elements) {
-            this.buffer.push();
             this.buffer.fill(element.fillColor);
             this.buffer.rectMode(CENTER);
             // this.buffer.translate((this.posX), (this.posY));
@@ -61,18 +62,19 @@ class paintBro {
                 this.buffer.stroke(element.strokeColor);
             }
 
-            if (fxrand() < 0.5) {
+            if (fxrand() < 0.5) {  // X movement
                 for (var i = 0; i < 20; i++) {
                     this.buffer.rect(element.posXRe + i, element.posYRe, element.widthShape, element.heightShape);
                 }
-            } else {
+            } else {  // Y movement
                 for (var i = 0; i < 20; i++) {
-                    this.buffer.rect(element.posXRe + i, element.posYRe, element.widthShape, element.heightShape);
+                    this.buffer.rect(element.posXRe, element.posYRe + i, element.widthShape, element.heightShape);
                 }
             }
 
-            this.buffer.pop();
         }
+        this.buffer.pop();
+
 
         return this.buffer;
     }

@@ -59,13 +59,14 @@ class TexMex {
 
     show() {
 
-        this.buffer.background(this.backgroundColor);
+        // this.buffer.background(this.backgroundColor);
 
         for (var element of this.elements) {
             this.buffer.push();
             // this.buffer.translate(-width / 2, -height / 2);
             // this.buffer.translate((this.posX), (this.posY));
-            this.buffer.fill(element.fillColor);
+            // this.buffer.fill(element.fillColor);
+            this.buffer.noFill();
             this.buffer.rectMode(CENTER);
             this.buffer.ellipseMode(CENTER);
             if (this.noStroke == true) {
@@ -79,21 +80,6 @@ class TexMex {
             this.buffer.rect(element.posXRe, element.posYRe, element.widthShape, element.heightShape);
             this.buffer.triangle(element.posXT1, element.posYT1, element.posXT1 + element.widthShape, element.posYT1, element.posXT1, (element.posYT1 + element.heightShape));
             this.buffer.pop();
-        }
-
-        if (MODE >= 5) {
-            push();
-            translate(-width / 2, -height / 2);
-            noFill();
-            strokeWeight(2);
-            stroke("#000000");
-            // translate((this.posX + this.custom_width / 2), (this.posY + this.custom_height / 2));
-            rectMode(CENTER);
-            translate(this.custom_width / 2, this.custom_height / 2, 0);
-            // translate(this.margin, this.margin, 0);
-            // rect(0, 0, this.custom_width / exportRatio, this.custom_height / exportRatio);
-            rect(0, 0, this.custom_width - this.margin * 2, this.custom_height - this.margin * 2);
-            pop();
         }
     }
 

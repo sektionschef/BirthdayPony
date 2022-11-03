@@ -123,7 +123,6 @@ function setup() {
   brushBuffer = createGraphics(width, height, "WEBGL");
   paintBroBuffer = createGraphics(width, height, "WEBGL");
 
-
   brushSystem = new BrushSystem();
 
   dots1 = new DrawDots();
@@ -179,6 +178,26 @@ function setup() {
 
   // setCamera(cam1);
 
+  paintbro = new paintBro({
+    buffer: paintBroBuffer,
+    posX: 0,
+    posY: 0,
+    elementSizeMin: 0.04 * DOMINANTSIDE, //width * 0.01,
+    elementSizeMax: 0.08 * DOMINANTSIDE, //width * 0.05,
+    // fillColor: color(PALETTE.background),
+    fillColor: color(PALETTE.primaries[1]),
+    // fillColor: color("black"),
+    fillColorNoise: 10,
+    fillColorOpacity: 30,
+    noStroke: true,
+    strokeColor: color(100),
+    strokeWeight: 1 * DOMINANTSIDE,// width * 0.001,
+    strokeColorNoise: 3,
+    strokeOpacity: 50, // 50, // 15,
+    numberQuantisizer: 10, // 20
+  })
+  paintbro.show();
+
   // texMex = new TexMex({
   //   custom_width: width,
   //   custom_height: height,
@@ -190,36 +209,26 @@ function setup() {
   //   // fillColor: color(PALETTE.primaries[0]),
   //   fillColor: color(PALETTE.background),
   //   fillColorNoise: 10,
-  //   fillColorOpacity: 55,
+  //   fillColorOpacity: 15,
   //   noStroke: false,
-  //   strokeColor: color(100),
+  //   strokeColor: color(30),
   //   strokeWeight: 0.00008 * DOMINANTSIDE,
-  //   strokeColorNoise: 60,
-  //   strokeOpacity: 80,
-  //   numberQuantisizer: 380,
+  //   strokeColorNoise: 0,
+  //   strokeOpacity: 255,
+  //   numberQuantisizer: 80,
   //   // backgroundColor: color(PALETTE.primaries[0]),
   //   backgroundColor: color(PALETTE.background),
   // })
   // texMex.show();
 
-  paintbro = new paintBro({
-    buffer: paintBroBuffer,
-    posX: 0,
-    posY: 0,
-    elementSizeMin: 0.01 * DOMINANTSIDE, //width * 0.01,
-    elementSizeMax: 0.03 * DOMINANTSIDE, //width * 0.05,
-    // fillColor: color(PALETTE.primaries[1]),
-    fillColor: color("black"),
-    fillColorNoise: 3,
-    fillColorOpacity: 10,
-    noStroke: true,
-    strokeColor: color(100),
-    strokeWeight: 1 * DOMINANTSIDE,// width * 0.001,
-    strokeColorNoise: 3,
-    strokeOpacity: 50, // 50, // 15,
-    numberQuantisizer: 5, // 20
-  })
-  paintbro.show();
+  push();
+  buffer = createGraphics(width, height, "WEBGL");
+  // buffer.translate(-width / 2, -height / 2);
+  buffer.drawingContext.filter = 'blur(5px)';
+  buffer.image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
+  drawingContext.filter = 'none';
+  pop();
+
 }
 
 
@@ -255,34 +264,45 @@ function draw() {
   // background(color(PALETTE.background));
   background(color(PALETTE.primaries[0]));
 
-  // TEX
-  // push();
-  // translate(-width / 2, -height / 2);
-  // image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
-  // pop();
 
   // hatchesHigh.show();
   // hatchesLong.show();
 
   // hatchesBug.show();
 
+  // PAINT
+  // drawingContext.filter = `blur(${70}px)`;
+  // fill("black");
+  // // drawingContext.filter = 'blur(60px)';
+  // fill(200);
+  // drawingContext.shadowOffsetX = 5;
+  // drawingContext.shadowOffsetY = -5;
+  // drawingContext.shadowBlur = 10;
+  // drawingContext.shadowColor = 'black';
+  // ellipse(0, 0, 50, 50);
+
+  push();
+  translate(-width / 2, -height / 2);
+  image(buffer, 0, 0, buffer.width, buffer.height);
+  pop();
+
+
+  // TEX
+  // push();
+  // translate(-width / 2, -height / 2);
+  // image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
+  // pop();
+
+  // BRUSHES
   // mastaBrush.update();
   // mastaBrush.show();
   brushSystem.show();
-
 
   // BRUSHBUFFER
   push();
   // brushBuffer.ellipse(50, 50, 40);
   translate(-width / 2, -height / 2);
   image(brushBuffer, 0, 0, brushBuffer.width, brushBuffer.height);
-  pop();
-
-  // BRUSHBUFFER
-  push();
-  // paintBroBuffer.ellipse(50, 50, 40);
-  translate(-width / 2, -height / 2);
-  image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
   pop();
 
 
@@ -306,6 +326,24 @@ function draw() {
 
   // brushBug.update();
   // brushBug.display();
+
+
+  // bubu = createGraphics(width, height, "WEBGL");
+  // bubu.drawingContext.shadowOffsetX = 5;
+  // bubu.drawingContext.shadowOffsetY = -5;
+  // bubu.drawingContext.shadowBlur = 10;
+  // bubu.drawingContext.shadowColor = 'black';
+  // bubu.drawingContext.filter = 'blur(4px)';
+  // bubu.translate(-width / 2, -height / 2);
+  // bubu.background(200);
+  // bubu.ellipse(width / 2, height / 2, 50, 50);
+
+  // push();
+  // brushBuffer.ellipse(50, 50, 40);
+  // bubu.translate(-width / 2, -height / 2);
+  // image(bubu, -width / 2, -height / 2, bubu.width, bubu.height);
+  // pop();
+
 
   dots1.show();
   dots2.show();
