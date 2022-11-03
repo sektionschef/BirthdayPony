@@ -28,15 +28,11 @@ class paintBro {
 
         for (var i = 0; i < this.shapeNumber; i++) {
 
-            let widthShape = getRandomFromInterval(this.elementSizeMin, this.elementSizeMax);
-            let heightShape = getRandomFromInterval(this.elementSizeMin, this.elementSizeMax);
-
             this.elements.push({
                 strokeColor: this.strokeColor,
                 fillColor: distortColorNew(this.fillColor, this.fillColorNoise),
-                angle: getRandomFromInterval(0, 2 * PI),
-                widthShape: widthShape,
-                heightShape: heightShape,
+                widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
+                heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
                 strokeSize: this.strokeWeight,
                 strokeColor: distortColorNew(this.strokeColor, this.strokeColorNoise),
                 posXRe: getRandomFromInterval(0, this.buffer.width),
@@ -53,8 +49,9 @@ class paintBro {
         for (var element of this.elements) {
             this.buffer.fill(element.fillColor);
             this.buffer.rectMode(CENTER);
+            this.buffer.ellipseMode(CENTER);
             // this.buffer.translate((this.posX), (this.posY));
-            this.buffer.rotate(element.angle)
+            // this.buffer.rotate(element.angle)
             if (this.noStroke == true) {
                 this.buffer.noStroke();
             } else {
@@ -62,13 +59,18 @@ class paintBro {
                 this.buffer.stroke(element.strokeColor);
             }
 
+
             if (fxrand() < 0.5) {  // X movement
                 for (var i = 0; i < 20; i++) {
+                    this.buffer.rotate(getRandomFromInterval(0, 2 * PI))
                     this.buffer.rect(element.posXRe + i, element.posYRe, element.widthShape, element.heightShape);
+                    this.buffer.ellipse(element.posXRe, element.posYRe + i, element.widthShape / 2, element.heightShape / 2);
                 }
             } else {  // Y movement
                 for (var i = 0; i < 20; i++) {
+                    this.buffer.rotate(getRandomFromInterval(0, 2 * PI))
                     this.buffer.rect(element.posXRe, element.posYRe + i, element.widthShape, element.heightShape);
+                    this.buffer.ellipse(element.posXRe, element.posYRe + i, element.widthShape / 2, element.heightShape / 2);
                 }
             }
 
