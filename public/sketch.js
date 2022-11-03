@@ -187,14 +187,14 @@ function setup() {
     // fillColor: color(PALETTE.background),
     fillColor: color(PALETTE.primaries[1]),
     // fillColor: color("black"),
-    fillColorNoise: 10,
-    fillColorOpacity: 30,
+    fillColorNoise: 30,
+    fillColorOpacity: 2,
     noStroke: true,
     strokeColor: color(100),
     strokeWeight: 1 * DOMINANTSIDE,// width * 0.001,
     strokeColorNoise: 3,
     strokeOpacity: 50, // 50, // 15,
-    numberQuantisizer: 10, // 20
+    numberQuantisizer: 40, // 20
   })
   paintbro.show();
 
@@ -221,13 +221,14 @@ function setup() {
   // })
   // texMex.show();
 
-  push();
-  buffer = createGraphics(width, height, "WEBGL");
-  // buffer.translate(-width / 2, -height / 2);
-  buffer.drawingContext.filter = 'blur(5px)';
-  buffer.image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
-  drawingContext.filter = 'none';
-  pop();
+  // trying to blur
+  // push();
+  // buffer = createGraphics(width, height, "WEBGL");
+  // // buffer.translate(-width / 2, -height / 2);
+  // buffer.drawingContext.filter = 'blur(5px)';
+  // buffer.image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
+  // drawingContext.filter = 'none';
+  // pop();
 
 }
 
@@ -281,10 +282,11 @@ function draw() {
   // drawingContext.shadowColor = 'black';
   // ellipse(0, 0, 50, 50);
 
-  push();
-  translate(-width / 2, -height / 2);
-  image(buffer, 0, 0, buffer.width, buffer.height);
-  pop();
+  // trying to blut
+  // push();
+  // translate(-width / 2, -height / 2);
+  // image(buffer, 0, 0, buffer.width, buffer.height);
+  // pop();
 
 
   // TEX
@@ -303,6 +305,12 @@ function draw() {
   // brushBuffer.ellipse(50, 50, 40);
   translate(-width / 2, -height / 2);
   image(brushBuffer, 0, 0, brushBuffer.width, brushBuffer.height);
+  pop();
+
+  // PAINT
+  push();
+  translate(-width / 2, -height / 2);
+  image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
   pop();
 
 
@@ -326,23 +334,6 @@ function draw() {
 
   // brushBug.update();
   // brushBug.display();
-
-
-  // bubu = createGraphics(width, height, "WEBGL");
-  // bubu.drawingContext.shadowOffsetX = 5;
-  // bubu.drawingContext.shadowOffsetY = -5;
-  // bubu.drawingContext.shadowBlur = 10;
-  // bubu.drawingContext.shadowColor = 'black';
-  // bubu.drawingContext.filter = 'blur(4px)';
-  // bubu.translate(-width / 2, -height / 2);
-  // bubu.background(200);
-  // bubu.ellipse(width / 2, height / 2, 50, 50);
-
-  // push();
-  // brushBuffer.ellipse(50, 50, 40);
-  // bubu.translate(-width / 2, -height / 2);
-  // image(bubu, -width / 2, -height / 2, bubu.width, bubu.height);
-  // pop();
 
 
   dots1.show();
