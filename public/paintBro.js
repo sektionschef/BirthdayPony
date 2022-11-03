@@ -43,6 +43,8 @@ class paintBro {
 
     show() {
 
+        let angle;
+
         // this.buffer.translate(-width / 2, -height / 2);
         this.buffer.push();
 
@@ -59,16 +61,19 @@ class paintBro {
                 this.buffer.stroke(element.strokeColor);
             }
 
+            angle = getRandomFromInterval(0, 2 * PI);
+            // angle = getRandomFromInterval(0, PI / 4);
+
 
             if (fxrand() < 0.5) {  // X movement
-                for (var i = 0; i < 20; i++) {
-                    this.buffer.rotate(getRandomFromInterval(0, 2 * PI))
+                for (var i = 0; i < 30; i++) {
+                    this.buffer.rotate(angle);
                     this.buffer.rect(element.posXRe + i, element.posYRe, element.widthShape, element.heightShape);
                     this.buffer.ellipse(element.posXRe, element.posYRe + i, element.widthShape / 2, element.heightShape / 2);
                 }
             } else {  // Y movement
-                for (var i = 0; i < 20; i++) {
-                    this.buffer.rotate(getRandomFromInterval(0, 2 * PI))
+                for (var i = 0; i < 30; i++) {
+                    this.buffer.rotate(angle);
                     this.buffer.rect(element.posXRe, element.posYRe + i, element.widthShape, element.heightShape);
                     this.buffer.ellipse(element.posXRe, element.posYRe + i, element.widthShape / 2, element.heightShape / 2);
                 }
