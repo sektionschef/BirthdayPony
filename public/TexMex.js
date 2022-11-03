@@ -8,7 +8,6 @@ class TexMex {
         this.posY = data.posY;
         this.elementSizeMin = data.elementSizeMin;
         this.elementSizeMax = data.elementSizeMax;
-        this.margin = data.margin;
         this.fillColor = data.fillColor;
         this.fillColorNoise = data.fillColorNoise;
         this.fillColorOpacity = data.fillColorOpacity;
@@ -33,26 +32,23 @@ class TexMex {
 
         for (var i = 0; i < this.shapeNumber; i++) {
 
-            let widthShape = getRandomFromInterval(this.elementSizeMin, this.elementSizeMax);
-            let heightShape = getRandomFromInterval(this.elementSizeMin, this.elementSizeMax);
-
             this.elements.push({
                 // fillColor: distortColorNew(this.fillColor, this.fillColorNoise),
                 fillColor: distortColorNew(this.fillColor, randomGaussian(0, this.fillColorNoise)),
-                widthShape: widthShape,
-                heightShape: heightShape,
+                widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
+                heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
                 strokeWeight: this.strokeWeight,
                 strokeColor: distortColorNew(this.strokeColor, this.strokeColorNoise),
                 // posXEl: getRandomFromInterval(this.margin * this.custom_width, this.custom_width - (this.margin * this.custom_width)),
                 // posYEl: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
                 // posXRe: getRandomFromInterval(this.margin * this.custom_width, this.custom_width - (this.margin * this.custom_width)),
                 // posYRe: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
-                posXEl: randomGaussian(this.custom_width / 8, this.custom_width / 3),
-                posYEl: randomGaussian(this.custom_height / 8, this.custom_height / 3),
+                posXEl: randomGaussian(this.custom_width / 8, this.custom_width / 2),
+                posYEl: randomGaussian(this.custom_height / 8, this.custom_height / 2),
                 posXRe: randomGaussian(this.custom_width / 2, this.custom_width),
                 posYRe: randomGaussian(this.custom_height / 2, this.custom_height),
-                posXT1: randomGaussian(this.custom_width / 5, this.custom_width / 6),
-                posYT1: randomGaussian(this.custom_height / 5, this.custom_height / 6),
+                posXT1: randomGaussian(this.custom_width / 5, this.custom_width / 2),
+                posYT1: randomGaussian(this.custom_height / 5, this.custom_height / 2),
             })
         }
     }
@@ -65,8 +61,8 @@ class TexMex {
             this.buffer.push();
             // this.buffer.translate(-width / 2, -height / 2);
             // this.buffer.translate((this.posX), (this.posY));
-            // this.buffer.fill(element.fillColor);
-            this.buffer.noFill();
+            this.buffer.fill(element.fillColor);
+            // this.buffer.noFill();
             this.buffer.rectMode(CENTER);
             this.buffer.ellipseMode(CENTER);
             if (this.noStroke == true) {

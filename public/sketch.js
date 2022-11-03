@@ -198,28 +198,27 @@ function setup() {
   })
   paintbro.show();
 
-  // texMex = new TexMex({
-  //   custom_width: width,
-  //   custom_height: height,
-  //   posX: 0,
-  //   posY: 0,
-  //   elementSizeMin: 0.003 * DOMINANTSIDE,
-  //   elementSizeMax: 0.006 * DOMINANTSIDE,
-  //   margin: 0.05,
-  //   // fillColor: color(PALETTE.primaries[0]),
-  //   fillColor: color(PALETTE.background),
-  //   fillColorNoise: 10,
-  //   fillColorOpacity: 15,
-  //   noStroke: false,
-  //   strokeColor: color(30),
-  //   strokeWeight: 0.00008 * DOMINANTSIDE,
-  //   strokeColorNoise: 0,
-  //   strokeOpacity: 255,
-  //   numberQuantisizer: 80,
-  //   // backgroundColor: color(PALETTE.primaries[0]),
-  //   backgroundColor: color(PALETTE.background),
-  // })
-  // texMex.show();
+  texMex = new TexMex({
+    custom_width: width,
+    custom_height: height,
+    posX: 0,
+    posY: 0,
+    elementSizeMin: 0.002 * DOMINANTSIDE,
+    elementSizeMax: 0.003 * DOMINANTSIDE,
+    fillColor: color(PALETTE.primaries[1]),
+    // fillColor: color(PALETTE.background),
+    fillColorNoise: 90,
+    fillColorOpacity: 10,
+    noStroke: true,
+    strokeColor: color(30),
+    strokeWeight: 0.00008 * DOMINANTSIDE,
+    strokeColorNoise: 0,
+    strokeOpacity: 255,
+    numberQuantisizer: 80,
+    // backgroundColor: color(PALETTE.primaries[0]),
+    backgroundColor: color(PALETTE.background),
+  })
+  texMex.show();
 
   // trying to blur
   // push();
@@ -289,12 +288,6 @@ function draw() {
   // pop();
 
 
-  // TEX
-  // push();
-  // translate(-width / 2, -height / 2);
-  // image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
-  // pop();
-
   // BRUSHES
   // mastaBrush.update();
   // mastaBrush.show();
@@ -313,6 +306,11 @@ function draw() {
   image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
   pop();
 
+  // TEX
+  push();
+  translate(-width / 2, -height / 2);
+  image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
+  pop();
 
   // cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
 
