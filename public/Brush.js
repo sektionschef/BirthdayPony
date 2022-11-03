@@ -1,10 +1,11 @@
 class Brush {
     constructor(start, end, colorObject) {
+        // this.buffer = buffer;
         this.fullspeed = 3; // BRUSHFULLSPEED // 2-5;
         this.radiusMin = 1; // BRUSHSIZEMIN; // 1;
         this.radiusMax = 2; //BRUSHSIZEMAX; // 2;
-        // this.brushShape = "Ellipse";
-        this.brushShape = "Line";
+        this.brushShape = "Ellipse";
+        // this.brushShape = "Line";
         // this.brushShape = "Triangle"; //BRUSHSHAPE;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
@@ -168,6 +169,8 @@ class Brush {
 
         this.brushSize = this.radius;
 
+        this.elements = [];  // remove history
+
         if (this.brushShape == "Line") {
 
             for (var i = 0; i < this.elementCount; i++) {
@@ -313,22 +316,22 @@ class Brush {
 
     drawBrush() {
         for (var i = 0; i < this.elements.length; i++) {
-            push();
-            translate(-width / 2, -height / 2);
+            brushBuffer.push();
+            // brushBuffer.translate(-width / 2, -height / 2);
             // console.log(this.elements);
-            strokeWeight(this.strokeSize);
-            stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
-            noFill();
+            brushBuffer.strokeWeight(this.strokeSize);
+            brushBuffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
+            brushBuffer.noFill();
             if (this.brushShape == "Line") {
-                line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
+                brushBuffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
             } else if (this.brushShape == "Ellipse") {
-                ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
+                brushBuffer.ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
             } else if (this.brushShape == "Triangle") {
-                triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
+                brushBuffer.triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
             } else {
                 console.warn("No brush shape specified, oida!")
             }
-            pop();
+            brushBuffer.pop();
         }
     }
 

@@ -120,6 +120,10 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
+  brushBuffer = createGraphics(width, height, "WEBGL");
+  paintBroBuffer = createGraphics(width, height, "WEBGL");
+
+
   brushSystem = new BrushSystem();
 
   dots1 = new DrawDots();
@@ -143,10 +147,10 @@ function setup() {
   mastaBrush = new Brush(createVector(-100 + height / 2, width / 2, 0), createVector(100 + height / 2, width / 2, 0), color("black"));
   brushSystem.add(mastaBrush);
 
-  for (var i = 0; i < 150; i += 2) {
+  for (var i = 0; i < 150; i += 5) {
     // console.log(i);
     line(0, Math.round(i / 3), 130, i)
-    brushSystem.add(new Brush(createVector(0, Math.round(i / 3), 0), createVector(130, i, 0), color("black")));
+    brushSystem.add(new Brush(createVector(100, 500 + Math.round(i / 3), 0), createVector(230, 500 + i, 0), color("black")));
   }
 
   // EXAMPLES for DEV
@@ -198,6 +202,24 @@ function setup() {
   // })
   // texMex.show();
 
+  paintbro = new paintBro({
+    buffer: paintBroBuffer,
+    posX: 0,
+    posY: 0,
+    elementSizeMin: 0.01 * DOMINANTSIDE, //width * 0.01,
+    elementSizeMax: 0.03 * DOMINANTSIDE, //width * 0.05,
+    // fillColor: color(PALETTE.primaries[1]),
+    fillColor: color("black"),
+    fillColorNoise: 3,
+    fillColorOpacity: 10,
+    noStroke: true,
+    strokeColor: color(100),
+    strokeWeight: 1 * DOMINANTSIDE,// width * 0.001,
+    strokeColorNoise: 3,
+    strokeOpacity: 50, // 50, // 15,
+    numberQuantisizer: 5, // 20
+  })
+  paintbro.show();
 }
 
 
@@ -239,7 +261,6 @@ function draw() {
   // image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
   // pop();
 
-
   // hatchesHigh.show();
   // hatchesLong.show();
 
@@ -248,6 +269,22 @@ function draw() {
   // mastaBrush.update();
   // mastaBrush.show();
   brushSystem.show();
+
+
+  // BRUSHBUFFER
+  push();
+  // brushBuffer.ellipse(50, 50, 40);
+  translate(-width / 2, -height / 2);
+  image(brushBuffer, 0, 0, brushBuffer.width, brushBuffer.height);
+  pop();
+
+  // BRUSHBUFFER
+  push();
+  // paintBroBuffer.ellipse(50, 50, 40);
+  translate(-width / 2, -height / 2);
+  image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
+  pop();
+
 
   // cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
 

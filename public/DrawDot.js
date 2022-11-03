@@ -26,7 +26,7 @@ class DrawDots {
         this.dots.sort(function (a, b) { return a.y - b.y });
         // console.log(this.dots);
 
-        // this.addBrushsystem(brushSystem);
+        this.addBrushsystem(brushSystem);
     }
 
     addBrushsystem(system) {
@@ -86,7 +86,7 @@ class DrawDots {
                 nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
                 nextPointZ = Math.round(this.dots[i + 1].z);
 
-                if (MODE > 0) {
+                if (MODE > 1) {
                     push();
                     translate(-width / 2, -height / 2);
 
