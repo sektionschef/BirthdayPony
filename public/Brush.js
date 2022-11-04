@@ -316,22 +316,22 @@ class Brush {
 
     drawBrush() {
         for (var i = 0; i < this.elements.length; i++) {
-            brushBuffer.push();
+            paintBroBuffer.push();
             // brushBuffer.translate(-width / 2, -height / 2);
             // console.log(this.elements);
-            brushBuffer.strokeWeight(this.strokeSize);
-            brushBuffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
-            brushBuffer.noFill();
+            paintBroBuffer.strokeWeight(this.strokeSize);
+            paintBroBuffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
+            paintBroBuffer.noFill();
             if (this.brushShape == "Line") {
-                brushBuffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
+                paintBroBuffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
             } else if (this.brushShape == "Ellipse") {
-                brushBuffer.ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
+                paintBroBuffer.ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
             } else if (this.brushShape == "Triangle") {
-                brushBuffer.triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
+                paintBroBuffer.triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
             } else {
                 console.warn("No brush shape specified, oida!")
             }
-            brushBuffer.pop();
+            paintBroBuffer.pop();
         }
     }
 

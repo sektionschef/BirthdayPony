@@ -80,8 +80,8 @@ class TexMex {
             }
 
             this.buffer.ellipse(element.posXEl, element.posYEl, element.widthShape, element.heightShape);
-            // this.buffer.rect(element.posXRe, element.posYRe, element.widthShape, element.heightShape);
-            // this.buffer.triangle(element.posXT1, element.posYT1, element.posXT1 + element.widthShape, element.posYT1, element.posXT1, (element.posYT1 + element.heightShape));
+            this.buffer.rect(element.posXRe, element.posYRe, element.widthShape, element.heightShape);
+            this.buffer.triangle(element.posXT1, element.posYT1, element.posXT1 + element.widthShape, element.posYT1, element.posXT1, (element.posYT1 + element.heightShape));
             this.buffer.pop();
         }
         return this.buffer;

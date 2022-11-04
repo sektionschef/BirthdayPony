@@ -120,7 +120,6 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
-  brushBuffer = createGraphics(width, height, "WEBGL");
   paintBroBuffer = createGraphics(width, height, "WEBGL");
 
   brushSystem = new BrushSystem();
@@ -143,13 +142,13 @@ function setup() {
   // HATCHOFFSET = Math.round(HATCHOFFSET / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
 
 
-  mastaBrush = new Brush(createVector(-100 + height / 2, width / 2, 0), createVector(100 + height / 2, width / 2, 0), color("black"));
+  mastaBrush = new Brush(createVector(-100 + height / 2, width / 2, 0), createVector(100 + height / 2, width / 2, 0), color("#f55442"));
   brushSystem.add(mastaBrush);
 
   for (var i = 0; i < 150; i += 5) {
     // console.log(i);
     line(0, Math.round(i / 3), 130, i)
-    brushSystem.add(new Brush(createVector(100, 500 + Math.round(i / 3), 0), createVector(230, 500 + i, 0), color("black")));
+    brushSystem.add(new Brush(createVector(100, 500 + Math.round(i / 3), 0), createVector(230, 500 + i, 0), color("#f55442")));
   }
 
   // EXAMPLES for DEV
@@ -218,7 +217,7 @@ function setup() {
     strokeWeight: 0.00008 * DOMINANTSIDE,
     strokeColorNoise: 0,
     strokeOpacity: 0,
-    numberQuantisizer: 230,
+    numberQuantisizer: 30,
     // backgroundColor: color(PALETTE.primaries[0]),
     backgroundColor: color(PALETTE.background),
   })
@@ -303,13 +302,6 @@ function draw() {
   push();
   translate(-width / 2, -height / 2);
   image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
-  pop();
-
-  // BRUSHBUFFER
-  push();
-  // brushBuffer.ellipse(50, 50, 40);
-  translate(-width / 2, -height / 2);
-  image(brushBuffer, 0, 0, brushBuffer.width, brushBuffer.height);
   pop();
 
 
