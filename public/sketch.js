@@ -182,43 +182,44 @@ function setup() {
     buffer: paintBroBuffer,
     posX: 0,
     posY: 0,
-    elementSizeMin: 0.001 * DOMINANTSIDE, //width * 0.01,
-    elementSizeMax: 0.009 * DOMINANTSIDE, //width * 0.05,
+    elementSizeMin: 0.05 * DOMINANTSIDE, //width * 0.01,
+    elementSizeMax: 0.09 * DOMINANTSIDE, //width * 0.05,
     // fillColor: color(PALETTE.background),
-    fillColor: color(PALETTE.primaries[1]),
+    fillColor: color("#104F55"),
+    secondaryFillColor: color("#114449"),
     // fillColor: color("black"),
-    fillColorNoise: 5,
-    fillColorOpacity: 40,
+    fillColorNoise: 0,
+    fillColorOpacity: 5,
     noStroke: true,
     strokeColor: color(100),
     strokeWeight: 10 * DOMINANTSIDE,// width * 0.001,
     strokeColorNoise: 3,
     strokeOpacity: 20, // 50, // 15,
-    numberQuantisizer: 140, // 20
+    numberQuantisizer: 5,
   })
   paintbro.show();
 
-  texMex = new TexMex({
-    custom_width: width,
-    custom_height: height,
-    posX: 0,
-    posY: 0,
-    elementSizeMin: 0.002 * DOMINANTSIDE,
-    elementSizeMax: 0.003 * DOMINANTSIDE,
-    fillColor: color(PALETTE.primaries[1]),
-    // fillColor: color(PALETTE.background),
-    fillColorNoise: 90,
-    fillColorOpacity: 10,
-    noStroke: true,
-    strokeColor: color(30),
-    strokeWeight: 0.00008 * DOMINANTSIDE,
-    strokeColorNoise: 0,
-    strokeOpacity: 255,
-    numberQuantisizer: 80,
-    // backgroundColor: color(PALETTE.primaries[0]),
-    backgroundColor: color(PALETTE.background),
-  })
-  texMex.show();
+  // texMex = new TexMex({
+  //   custom_width: width,
+  //   custom_height: height,
+  //   posX: 0,
+  //   posY: 0,
+  //   elementSizeMin: 0.002 * DOMINANTSIDE,
+  //   elementSizeMax: 0.003 * DOMINANTSIDE,
+  //   fillColor: color(PALETTE.primaries[1]),
+  //   // fillColor: color(PALETTE.background),
+  //   fillColorNoise: 90,
+  //   fillColorOpacity: 10,
+  //   noStroke: true,
+  //   strokeColor: color(30),
+  //   strokeWeight: 0.00008 * DOMINANTSIDE,
+  //   strokeColorNoise: 0,
+  //   strokeOpacity: 255,
+  //   numberQuantisizer: 80,
+  //   // backgroundColor: color(PALETTE.primaries[0]),
+  //   backgroundColor: color(PALETTE.background),
+  // })
+  // texMex.show();
 
   // trying to blur
   // push();
@@ -307,10 +308,10 @@ function draw() {
   pop();
 
   // TEX
-  push();
-  translate(-width / 2, -height / 2);
-  image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
-  pop();
+  // push();
+  // translate(-width / 2, -height / 2);
+  // image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
+  // pop();
 
   // cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
 

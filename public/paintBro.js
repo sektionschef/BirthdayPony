@@ -8,6 +8,7 @@ class paintBro {
         this.elementSizeMin = data.elementSizeMin;
         this.elementSizeMax = data.elementSizeMax;
         this.fillColor = data.fillColor;
+        this.secondaryFillColor = data.secondaryFillColor;
         this.fillColorNoise = data.fillColorNoise;
         this.fillColorOpacity = data.fillColorOpacity;
         this.noStroke = data.noStroke;
@@ -19,11 +20,12 @@ class paintBro {
 
         this.area = Math.round(Math.round(this.buffer.width / DOMINANTSIDE * 100) * Math.round(this.buffer.height / DOMINANTSIDE * 100)) / 100;
         // console.log("area: " + this.area);
-        this.shapeNumber = Math.round(this.area * 10 * this.numberQuantisizer);  // relative to size
+        this.shapeNumber = Math.round(this.area * this.numberQuantisizer);  // relative to size
         // console.log("this.shapeNumber:" + this.shapeNumber); // 250 / 500 - quantisizer ist 20
 
         this.elements = [];
         this.fillColor = color(red(this.fillColor), green(this.fillColor), blue(this.fillColor), this.fillColorOpacity);
+        this.secondaryFillColor = color(red(this.secondaryFillColor), green(this.secondaryFillColor), blue(this.secondaryFillColor), this.fillColorOpacity);
         this.strokeColor = color(red(this.strokeColor), green(this.strokeColor), blue(this.strokeColor), this.strokeOpacity);
 
         for (var i = 0; i < this.shapeNumber; i++) {
@@ -48,35 +50,45 @@ class paintBro {
         // this.buffer.translate(-width / 2, -height / 2);
         this.buffer.push();
 
-        for (var element of this.elements) {
-            this.buffer.fill(element.fillColor);
+        for (var e = 0; e < this.elements.length; e++) {
+            // if ((fxrand() < 0.8) && (e > this.shapeNumber / 3 * 2)) {
+            if ((fxrand() < 0.3)) {
+                this.buffer.fill(this.elements[e].fillColor);
+            } else {
+                this.buffer.fill(this.secondaryFillColor);
+            }
             this.buffer.rectMode(CENTER);
             this.buffer.ellipseMode(CENTER);
             // this.buffer.translate((this.posX), (this.posY));
-            // this.buffer.rotate(element.angle)
+            // this.buffer.rotate(this.elements[e].angle)
             if (this.noStroke == true) {
                 this.buffer.noStroke();
             } else {
                 this.buffer.strokeWeight(strokeWeight);
-                this.buffer.stroke(element.strokeColor);
+                this.buffer.stroke(this.elements[e].strokeColor);
             }
 
-            angle = getRandomFromInterval(200, 2 * PI);
             // angle = getRandomFromInterval(0, PI / 4);
 
 
-            if (fxrand() < 0.5) {  // X movement
-                for (var i = 0; i < 30; i++) {
-                    this.buffer.rotate(angle);
-                    this.buffer.rect(element.posXRe + i, element.posYRe, element.widthShape, element.heightShape);
-                    this.buffer.ellipse(element.posXRe, element.posYRe + i, element.widthShape / 2, element.heightShape / 2);
-                }
-            } else {  // Y movement
-                for (var i = 0; i < 30; i++) {
-                    this.buffer.rotate(angle);
-                    this.buffer.rect(element.posXRe, element.posYRe + i, element.widthShape, element.heightShape);
-                    this.buffer.ellipse(element.posXRe, element.posYRe + i, element.widthShape / 2, element.heightShape / 2);
-                }
+            // if (fxrand() < 0.5) {  // X movement
+            for (var i = 0; i < 60; i++) {
+                this.buffer.push();
+                angle = getRandomFromInterval(PI, 2 * PI);
+                this.buffer.translate(this.elements[e].posXRe + i, this.elements[e].posYRe)
+                this.buffer.rotate(angle);
+                this.buffer.rect(0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
+                this.buffer.pop();
+                //     }
+                // } else {  // Y movement
+                //     for (var i = 0; i < 60; i++) {
+                //         this.buffer.push();
+                //         this.buffer.translate(element.posXRe, element.posYRe + i);
+                //         this.buffer.rotate(angle);
+                //         this.buffer.rect(0, 0, element.widthShape, element.heightShape);
+                //         // this.buffer.ellipse(0, 0, element.widthShape / 2, element.heightShape / 2);
+                //         this.buffer.pop();
+                //     }
             }
 
         }
