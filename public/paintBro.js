@@ -33,8 +33,10 @@ class paintBro {
             this.elements.push({
                 strokeColor: this.strokeColor,
                 fillColor: distortColorNew(this.fillColor, this.fillColorNoise),
-                widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
-                heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
+                // widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
+                // heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
+                widthShape: map(i, 0, this.shapeNumber, this.elementSizeMax, this.elementSizeMin),
+                heightShape: map(i, 0, this.shapeNumber, this.elementSizeMax, this.elementSizeMin),
                 strokeSize: this.strokeWeight,
                 strokeColor: distortColorNew(this.strokeColor, this.strokeColorNoise),
                 posXRe: getRandomFromInterval(0, this.buffer.width),
@@ -51,8 +53,8 @@ class paintBro {
         this.buffer.push();
 
         for (var e = 0; e < this.elements.length; e++) {
-            // if ((fxrand() < 0.8) && (e > this.shapeNumber / 3 * 2)) {
-            if ((fxrand() < 0.3)) {
+            // if ((fxrand() < 0.7) && (e > this.shapeNumber / 2)) {
+            if ((fxrand() < 0.5)) {
                 this.buffer.fill(this.elements[e].fillColor);
             } else {
                 this.buffer.fill(this.secondaryFillColor);
@@ -71,16 +73,16 @@ class paintBro {
             // angle = getRandomFromInterval(0, PI / 4);
 
 
-            // if (fxrand() < 0.5) {  // X movement
             for (var i = 0; i < 60; i++) {
                 this.buffer.push();
                 angle = getRandomFromInterval(PI, 2 * PI);
+                // if (fxrand() < 0.5) {  // X movement
                 this.buffer.translate(this.elements[e].posXRe + i, this.elements[e].posYRe)
                 this.buffer.rotate(angle);
                 this.buffer.rect(0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
                 this.buffer.pop();
-                //     }
                 // } else {  // Y movement
+                //     }
                 //     for (var i = 0; i < 60; i++) {
                 //         this.buffer.push();
                 //         this.buffer.translate(element.posXRe, element.posYRe + i);
