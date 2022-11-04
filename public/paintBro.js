@@ -48,16 +48,25 @@ class paintBro {
     show() {
 
         let angle;
+        let distort;
 
         // this.buffer.translate(-width / 2, -height / 2);
         this.buffer.push();
 
         for (var e = 0; e < this.elements.length; e++) {
-            // if ((fxrand() < 0.7) && (e > this.shapeNumber / 2)) {
-            if ((fxrand() < 0.5)) {
-                this.buffer.fill(this.elements[e].fillColor);
+            // if ((fxrand() < 0.9) && (e > this.shapeNumber / 2)) {
+            if (this.elements[e].posXRe > 230 && this.elements[e].posXRe < 330 && this.elements[e].posYRe > 550 && this.elements[e].posYRe < 750) {
+                if ((fxrand() < 0.5)) {
+                    this.buffer.fill(color("#f5544215"));
+                } else {
+                    this.buffer.fill(color("#db443318"));
+                }
             } else {
-                this.buffer.fill(this.secondaryFillColor);
+                if ((fxrand() < 0.5)) {
+                    this.buffer.fill(this.elements[e].fillColor);
+                } else {
+                    this.buffer.fill(this.secondaryFillColor);
+                }
             }
             this.buffer.rectMode(CENTER);
             this.buffer.ellipseMode(CENTER);
@@ -72,16 +81,30 @@ class paintBro {
 
             // angle = getRandomFromInterval(0, PI / 4);
 
+            if (fxrand() < 0.25) {
+                this.orientation = getRandomFromList(["vertical"])
+            } else {
+                this.orientation = getRandomFromList(["horizontal"])
+            }
+
 
             for (var i = 0; i < 60; i++) {
+                // for (var i = 0; i < 60; i += 5) {
                 this.buffer.push();
-                angle = getRandomFromInterval(PI, 2 * PI);
-                // if (fxrand() < 0.5) {  // X movement
-                this.buffer.translate(this.elements[e].posXRe + i, this.elements[e].posYRe)
+
+                // angle = getRandomFromInterval(PI, 2 * PI);
+                angle = getRandomFromInterval(0, 2 * PI);
+                // angle = getRandomFromList([PI / 2, PI / 3, PI / 4, PI / 5])
+                distort = getRandomFromInterval(-10, 10);
+
+                if (this.orientation == "horizontal") {  // X movement
+                    this.buffer.translate(this.elements[e].posXRe + i + distort, this.elements[e].posYRe + distort)
+                } else {  // Y movement
+                    this.buffer.translate(this.elements[e].posXRe + distort, this.elements[e].posYRe + i + distort)
+                }
                 this.buffer.rotate(angle);
                 this.buffer.rect(0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
                 this.buffer.pop();
-                // } else {  // Y movement
                 //     }
                 //     for (var i = 0; i < 60; i++) {
                 //         this.buffer.push();

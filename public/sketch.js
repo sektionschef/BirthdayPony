@@ -202,27 +202,27 @@ function setup() {
   })
   paintbro.show();
 
-  // texMex = new TexMex({
-  //   custom_width: width,
-  //   custom_height: height,
-  //   posX: 0,
-  //   posY: 0,
-  //   elementSizeMin: 0.002 * DOMINANTSIDE,
-  //   elementSizeMax: 0.003 * DOMINANTSIDE,
-  //   fillColor: color(PALETTE.primaries[1]),
-  //   // fillColor: color(PALETTE.background),
-  //   fillColorNoise: 90,
-  //   fillColorOpacity: 10,
-  //   noStroke: true,
-  //   strokeColor: color(30),
-  //   strokeWeight: 0.00008 * DOMINANTSIDE,
-  //   strokeColorNoise: 0,
-  //   strokeOpacity: 255,
-  //   numberQuantisizer: 80,
-  //   // backgroundColor: color(PALETTE.primaries[0]),
-  //   backgroundColor: color(PALETTE.background),
-  // })
-  // texMex.show();
+  texMex = new TexMex({
+    buffer: paintBroBuffer,
+    posX: 0,
+    posY: 0,
+    elementSizeMin: 0.001 * DOMINANTSIDE,
+    elementSizeMax: 0.001 * DOMINANTSIDE,
+    fillColor: color(PALETTE.primaries[1]),
+    // fillColor: color(100),
+    secondaryFillColor: color(180, 60),
+    fillColorNoise: 5,
+    fillColorOpacity: 255,
+    noStroke: true,
+    strokeColor: color(0),
+    strokeWeight: 0.00008 * DOMINANTSIDE,
+    strokeColorNoise: 0,
+    strokeOpacity: 0,
+    numberQuantisizer: 230,
+    // backgroundColor: color(PALETTE.primaries[0]),
+    backgroundColor: color(PALETTE.background),
+  })
+  texMex.show();
 
   // trying to blur
   // push();
@@ -237,6 +237,8 @@ function setup() {
 
 
 function draw() {
+
+  smooth();
 
   // pixelDensity(CURRENTPIXELDENS);
 
@@ -297,6 +299,12 @@ function draw() {
   // mastaBrush.show();
   brushSystem.show();
 
+  // PAINT
+  push();
+  translate(-width / 2, -height / 2);
+  image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
+  pop();
+
   // BRUSHBUFFER
   push();
   // brushBuffer.ellipse(50, 50, 40);
@@ -304,11 +312,6 @@ function draw() {
   image(brushBuffer, 0, 0, brushBuffer.width, brushBuffer.height);
   pop();
 
-  // PAINT
-  push();
-  translate(-width / 2, -height / 2);
-  image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
-  pop();
 
   // TEX
   // push();
