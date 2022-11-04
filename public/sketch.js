@@ -358,10 +358,30 @@ function draw() {
     // console.warn(Math.round(fxrand() * 1000) / 1000);
   }
 
-  translate(-width / 2, -height / 2);
-  fill("blue");
-  ellipse(AB.x, AB.y, 20);
+  var PolA = createVector(DOMINANTSIDE * 0.2, DOMINANTSIDE * 0.3);
+  var PolB = createVector(DOMINANTSIDE * 0.6, DOMINANTSIDE * 0.2);
+  var PolC = createVector(DOMINANTSIDE * 0.5, DOMINANTSIDE * 0.9);
+  var PolD = createVector(DOMINANTSIDE * 0.2, DOMINANTSIDE * 0.7);
 
+  push();
+  translate(-width / 2, -height / 2);
+  noFill();
+  beginShape();
+  vertex(PolA.x, PolA.y);
+  vertex(PolB.x, PolB.y);
+  vertex(PolC.x, PolC.y);
+  vertex(PolD.x, PolD.y);
+  endShape(CLOSE);
+
+  var point = [400, 300];
+  var vs = [[PolA.x, PolA.y],
+  [PolB.x, PolB.y],
+  [PolC.x, PolC.y],
+  [PolD.x, PolD.y]]
+  // console.log(insidePolygon(point, vs));
+
+  ellipse(point[0], point[1], 10);
+  pop();
 }
 
 function mousePressed() {

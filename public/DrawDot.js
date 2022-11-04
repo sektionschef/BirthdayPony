@@ -92,6 +92,8 @@ class DrawDots {
 
 
                     line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
+                    fill("blue");
+                    noStroke();
                     ellipse(currentPointX, currentPointY, 10)
                     pop();
                 }
