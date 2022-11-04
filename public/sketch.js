@@ -126,7 +126,6 @@ function setup() {
 
   dots1 = new DrawDots();
   dots2 = new DrawDots();
-  dots3 = new DrawDots();
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
@@ -141,15 +140,27 @@ function setup() {
   // DISTANCE_BETWEEN_LINES = Math.round(DISTANCE_BETWEEN_LINES / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
   // HATCHOFFSET = Math.round(HATCHOFFSET / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
 
+  A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
+  A2 = createVector(0.6 * DOMINANTSIDE, width / 2, 0);
+  B1 = createVector(0.2 * DOMINANTSIDE, height / 2 - 100, 0);
+  B2 = createVector(0.6 * DOMINANTSIDE, width / 2 + 100, 0);
 
-  mastaBrush = new Brush(createVector(-100 + height / 2, width / 2, 0), createVector(100 + height / 2, width / 2, 0), color("#f55442"));
+  mastaBrush = new Brush(A1, A2, color("#f55442"));
   brushSystem.add(mastaBrush);
+  mastaBrush2 = new Brush(B1, B2, color("#f55442"));
+  brushSystem.add(mastaBrush2);
 
-  for (var i = 0; i < 150; i += 5) {
-    // console.log(i);
-    line(0, Math.round(i / 3), 130, i)
-    brushSystem.add(new Brush(createVector(100, 500 + Math.round(i / 3), 0), createVector(230, 500 + i, 0), color("#f55442")));
-  }
+  ALine = getSteep(A1, A2);
+  BLine = getSteep(B1, B2);
+
+  AB = getIntersectionPoint(ALine, BLine);
+
+  // GRID WITH LINES
+  // for (var i = 0; i < 150; i += 5) {
+  //   // console.log(i);
+  //   line(0, Math.round(i / 3), 130, i)
+  //   brushSystem.add(new Brush(createVector(100, 500 + Math.round(i / 3), 0), createVector(230, 500 + i, 0), color("#f55442")));
+  // }
 
   // EXAMPLES for DEV
   // brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
@@ -201,27 +212,27 @@ function setup() {
   })
   paintbro.show();
 
-  texMex = new TexMex({
-    buffer: paintBroBuffer,
-    posX: 0,
-    posY: 0,
-    elementSizeMin: 0.001 * DOMINANTSIDE,
-    elementSizeMax: 0.001 * DOMINANTSIDE,
-    fillColor: color(PALETTE.primaries[1]),
-    // fillColor: color(100),
-    secondaryFillColor: color(180, 60),
-    fillColorNoise: 5,
-    fillColorOpacity: 255,
-    noStroke: true,
-    strokeColor: color(0),
-    strokeWeight: 0.00008 * DOMINANTSIDE,
-    strokeColorNoise: 0,
-    strokeOpacity: 0,
-    numberQuantisizer: 30,
-    // backgroundColor: color(PALETTE.primaries[0]),
-    backgroundColor: color(PALETTE.background),
-  })
-  texMex.show();
+  // texMex = new TexMex({
+  //   buffer: paintBroBuffer,
+  //   posX: 0,
+  //   posY: 0,
+  //   elementSizeMin: 0.001 * DOMINANTSIDE,
+  //   elementSizeMax: 0.001 * DOMINANTSIDE,
+  //   fillColor: color(PALETTE.primaries[1]),
+  //   // fillColor: color(100),
+  //   secondaryFillColor: color(180, 60),
+  //   fillColorNoise: 5,
+  //   fillColorOpacity: 255,
+  //   noStroke: true,
+  //   strokeColor: color(0),
+  //   strokeWeight: 0.00008 * DOMINANTSIDE,
+  //   strokeColorNoise: 0,
+  //   strokeOpacity: 0,
+  //   numberQuantisizer: 30,
+  //   // backgroundColor: color(PALETTE.primaries[0]),
+  //   backgroundColor: color(PALETTE.background),
+  // })
+  // texMex.show();
 
   // trying to blur
   // push();
@@ -335,7 +346,6 @@ function draw() {
 
   dots1.show();
   dots2.show();
-  dots3.show();
 
   if (frameCount > 5000) {
     ALLDONE = true;
@@ -347,6 +357,10 @@ function draw() {
     fxpreview();
     // console.warn(Math.round(fxrand() * 1000) / 1000);
   }
+
+  translate(-width / 2, -height / 2);
+  fill("blue");
+  ellipse(AB.x, AB.y, 20);
 
 }
 

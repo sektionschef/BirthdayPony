@@ -24,7 +24,7 @@ class DrawDots {
         }
 
         this.dots.sort(function (a, b) { return a.y - b.y });
-        // console.log(this.dots);
+        console.log(this.dots);
 
         this.addBrushsystem(brushSystem);
     }
@@ -48,7 +48,7 @@ class DrawDots {
             nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
             nextPointZ = Math.round(this.dots[i + 1].z);
 
-            system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("#f55442")))
+            // system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("#f55442")))
         }
 
     }

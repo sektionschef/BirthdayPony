@@ -318,3 +318,20 @@ function setTagsHTML() {
     document.querySelector('meta[property="og:url"]').setAttribute("content", URL);
     document.querySelector('meta[property="og:description"]').setAttribute("content", DESCRIPTION);
 }
+
+function getSteep(A1, A2) {
+    var k = (A1.y - A2.y) / (A1.x - A2.x);
+    // console.log(k);
+    var d = A1.y - k * A1.x;
+    // console.log(d);
+
+    return [k, d];
+}
+
+function getIntersectionPoint([Ak, Ad], [Bk, Bd]) {
+
+    var x = Math.round((Bd - Ad) / (Ak - Bk));
+    var y = Math.round(Ak * x + Ad);
+
+    return createVector(x, y);
+}
