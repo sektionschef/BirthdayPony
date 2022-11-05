@@ -124,8 +124,7 @@ function setup() {
 
   brushSystem = new BrushSystem();
 
-  dots1 = new DrawDots();
-  dots2 = new DrawDots(startLeft = false);
+  dotSystem = new drawDotsSystem();
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
@@ -356,9 +355,7 @@ function draw() {
   // brushBug.update();
   // brushBug.display();
 
-
-  dots1.show();
-  dots2.show();
+  dotSystem.show();
 
   if (frameCount > 5000) {
     ALLDONE = true;

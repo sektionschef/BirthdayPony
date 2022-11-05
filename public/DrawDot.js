@@ -72,7 +72,6 @@ class DrawDots {
 
     }
 
-
     show() {
 
         if (MODE > 1) {
@@ -130,4 +129,66 @@ class DrawDots {
 
     }
 
+}
+
+
+
+
+class drawDotsSystem {
+
+    constructor() {
+        this.dots1 = new DrawDots();
+        // this.dots2 = new DrawDots(startLeft = false);
+        this.dots2 = new DrawDots(false);
+
+        this.getIntersections();
+    }
+
+    getIntersections() {
+
+        this.intersectionPoints = [];
+        this.poinCount = this.dots1.dotCount - 1;
+
+        var A1;
+        var A2;
+        var B1;
+        var B2;
+
+        for (var i = 0; i < (this.poinCount); i++) {
+
+            A1 = this.dots1.dots[i];
+            A2 = this.dots1.dots[i + 1];
+            B1 = this.dots2.dots[i];
+            B2 = this.dots2.dots[i + 1];
+
+            this.intersectionPoints.push(getIntersectionPoint(A1, A2, B1, B2));
+        }
+
+        console.log(this.intersectionPoints);
+
+
+    }
+
+    showIntersectionPoint() {
+
+        // console.log(this.I1.x);
+        // console.log(this.I1.y);
+
+        for (var i = 0; i < (this.intersectionPoints.length); i++) {
+            push();
+            translate(-width / 2, -height / 2);
+            translate(this.intersectionPoints[i].x, this.intersectionPoints[i].y);
+            fill("green");
+            noStroke();
+            ellipse(0, 0, 10)
+            pop();
+        }
+    }
+
+    show() {
+        this.dots1.show();
+        this.dots2.show();
+
+        this.showIntersectionPoint();
+    }
 }
