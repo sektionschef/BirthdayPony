@@ -49,25 +49,39 @@ class paintBro {
 
         let angle;
         let distort;
+        var currentPolygon;
 
         // this.buffer.translate(-width / 2, -height / 2);
-        this.buffer.push();
+        // this.buffer.push();
 
         for (var e = 0; e < this.elements.length; e++) {
             // if ((fxrand() < 0.9) && (e > this.shapeNumber / 2)) {
             // console.log(insidePolygon(point, PolyProto));
+
+            // static one
             // if (this.elements[e].posXRe > 230 && this.elements[e].posXRe < 330 && this.elements[e].posYRe > 550 && this.elements[e].posYRe < 750) {
-            if (insidePolygon([this.elements[e].posXRe, this.elements[e].posYRe], PolyProto)) {
-                if ((fxrand() < 0.5)) {
-                    this.buffer.fill(color("#f5544215"));
+
+            for (var p = 0; p < dotSystem.polygons.length; p++) {
+
+                currentPolygon = [
+                    [dotSystem.polygons[p][0].x, dotSystem.polygons[p][0].y,],
+                    [dotSystem.polygons[p][1].x, dotSystem.polygons[p][1].y,],
+                    [dotSystem.polygons[p][2].x, dotSystem.polygons[p][2].y,],
+                    [dotSystem.polygons[p][3].x, dotSystem.polygons[p][3].y,],
+                ]
+
+                if (insidePolygon([this.elements[e].posXRe, this.elements[e].posYRe], currentPolygon)) {
+                    if ((fxrand() < 0.5)) {
+                        this.buffer.fill(color("#f5544215"));
+                    } else {
+                        this.buffer.fill(color("#db443318"));
+                    }
                 } else {
-                    this.buffer.fill(color("#db443318"));
-                }
-            } else {
-                if ((fxrand() < 0.5)) {
-                    this.buffer.fill(this.elements[e].fillColor);
-                } else {
-                    this.buffer.fill(this.secondaryFillColor);
+                    if ((fxrand() < 0.5)) {
+                        this.buffer.fill(this.elements[e].fillColor);
+                    } else {
+                        this.buffer.fill(this.secondaryFillColor);
+                    }
                 }
             }
             this.buffer.rectMode(CENTER);
@@ -119,7 +133,7 @@ class paintBro {
             }
 
         }
-        this.buffer.pop();
+        // this.buffer.pop();
 
 
         return this.buffer;

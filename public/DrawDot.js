@@ -207,7 +207,7 @@ class drawDotsSystem {
 
             push();
             translate(-width / 2, -height / 2);
-            // noFill();
+            noFill();
             beginShape();
             vertex(this.polygons[i][0].x, this.polygons[i][0].y);
             vertex(this.polygons[i][1].x, this.polygons[i][1].y);
