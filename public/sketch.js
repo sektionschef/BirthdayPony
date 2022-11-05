@@ -10,6 +10,7 @@ if (MODE > 1) {
 let canvas;
 let rescaling_width;
 let rescaling_height;
+// let theShader;
 
 let PALETTE;
 let PALETTE_LABEL;
@@ -97,6 +98,8 @@ function preload() {
     setPlainHTML();
   }
   setTagsHTML();
+
+
 }
 
 function setup() {
@@ -121,6 +124,13 @@ function setup() {
   }
 
   paintBroBuffer = createGraphics(width, height, "WEBGL");
+
+  // shader
+  // shaders can only be used in WEBGL mode
+  grainBuffer = createGraphics(width, height, WEBGL);
+  grainShader = grainBuffer.createShader(vert, frag);
+  // shouldAnimate = true;
+  shouldAnimate = false;
 
   brushSystem = new BrushSystem();
 
@@ -380,8 +390,89 @@ function draw() {
 
   ellipse(point[0], point[1], 10);
   pop();
+
+  // shader
+  applyGrain();
 }
 
 function mousePressed() {
   // console.log("frameCount; " + frameCount);
 }
+
+// shader
+function applyGrain() {
+  grainBuffer.clear();
+  grainBuffer.reset();
+  grainBuffer.push();
+  grainBuffer.shader(grainShader);
+  grainShader.setUniform('source', canvas);
+  if (shouldAnimate) {
+    //grainShader.setUniform('noiseSeed', random());
+    grainShader.setUniform('noiseSeed', frameCount / 100);
+  }
+  grainShader.setUniform('noiseAmount', 0.02);  // value here!!
+  grainBuffer.rectMode(CENTER);
+  grainBuffer.noStroke();
+  grainBuffer.rect(0, 0, width, height);
+  grainBuffer.pop();
+
+  clear();
+  push();
+  translate(-width / 2, -height / 2)  // ADDED THIS LINE
+  image(grainBuffer, 0, 0);
+  pop();
+}
+
+// shader
+const vert = `
+// Determines how much precision the GPU uses when calculating floats
+precision highp float;
+
+// Get the position attribute of the geometry
+attribute vec3 aPosition;
+
+// Get the texture coordinate attribute from the geometry
+attribute vec2 aTexCoord;
+
+// The view matrix defines attributes about the camera, such as focal length and camera position
+// Multiplying uModelViewMatrix * vec4(aPosition, 1.0) would move the object into its world position in front of the camera
+uniform mat4 uModelViewMatrix;
+
+// uProjectionMatrix is used to convert the 3d world coordinates into screen coordinates
+uniform mat4 uProjectionMatrix;
+
+varying vec2 vVertTexCoord;
+
+void main(void) {
+  vec4 positionVec4 = vec4(aPosition, 1.0);
+  gl_Position = uProjectionMatrix * uModelViewMatrix * positionVec4;
+  vVertTexCoord = aTexCoord;
+}
+`
+
+// shader
+const frag = `
+precision highp float;
+varying vec2 vVertTexCoord;
+
+uniform sampler2D source;
+uniform float noiseSeed;
+uniform float noiseAmount;
+
+// Noise functions
+// https://github.com/patriciogonzalezvivo/lygia/blob/main/generative/random.glsl
+float rand(vec2 n) { 
+    return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
+}
+
+void main() {
+    // GorillaSun's grain algorithm
+    vec4 inColor = texture2D(source, vVertTexCoord);
+    gl_FragColor = clamp(inColor + vec4(
+        mix(-noiseAmount, noiseAmount, fract(noiseSeed + rand(vVertTexCoord * 1234.5678))),
+        mix(-noiseAmount, noiseAmount, fract(noiseSeed + rand(vVertTexCoord * 876.54321))),
+        mix(-noiseAmount, noiseAmount, fract(noiseSeed + rand(vVertTexCoord * 3214.5678))),
+        0.
+    ), 0., 1.);
+}
+`
