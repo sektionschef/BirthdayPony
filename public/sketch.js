@@ -150,10 +150,7 @@ function setup() {
   mastaBrush2 = new Brush(B1, B2, color("#f55442"));
   brushSystem.add(mastaBrush2);
 
-  ALine = getSteep(A1, A2);
-  BLine = getSteep(B1, B2);
-
-  AB = getIntersectionPoint(ALine, BLine);
+  AB = getIntersectionPoint(A1, A2, B1, B2);
 
   // GRID WITH LINES
   // for (var i = 0; i < 150; i += 5) {

@@ -1,10 +1,9 @@
 class DrawDots {
     constructor(startLeft = true) {
-        // z value is missing - with light
         this.margin = 0.05;
         this.dotCount = 5;
-        this.dots = []
 
+        this.dots = []
         this.startLeft = startLeft
 
 
@@ -12,20 +11,16 @@ class DrawDots {
         this.randomPoolXstopLeft = Math.round(-DOMINANTSIDE * this.margin);
         this.randomPoolXstartRight = Math.round(width + DOMINANTSIDE * this.margin);
         this.randomPoolXstopRight = Math.round(width + DOMINANTSIDE * this.margin * 5);
-        // this.randomPoolYstart = Math.round((DOMINANTSIDE * this.margin));
         this.randomPoolYstart = Math.round((-DOMINANTSIDE * this.margin));
-        // this.randomPoolYstop = Math.round(height - DOMINANTSIDE * this.margin);
         this.randomPoolYstop = Math.round(height + DOMINANTSIDE * this.margin);
         this.Ystep = (this.randomPoolYstop - this.randomPoolYstart) / this.dotCount;
+        // console.log("Ystep: " + this.Ystep);
 
         var dotX;
         var dotY;
         var dotZ;
 
-        console.log(this.startLeft);
-
         for (var i = 0; i < this.dotCount; i++) {
-
             if (i % 2 == 0 || i == 0) {
                 if (this.startLeft) {
                     dotX = Math.round(getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft));

@@ -328,7 +328,16 @@ function getSteep(A1, A2) {
     return [k, d];
 }
 
-function getIntersectionPoint([Ak, Ad], [Bk, Bd]) {
+// get the intersection point with two lines defined by two points. the steep k and d are calculated. then where the two intersect.
+function getIntersectionPoint(A1, A2, B1, B2) {
+
+    ALine = getSteep(A1, A2);
+    BLine = getSteep(B1, B2);
+
+    Ak = ALine[0];
+    Ad = ALine[1];
+    Bk = BLine[0];
+    Bd = BLine[1];
 
     var x = Math.round((Bd - Ad) / (Ak - Bk));
     var y = Math.round(Ak * x + Ad);
