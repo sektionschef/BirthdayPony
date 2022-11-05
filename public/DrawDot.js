@@ -1,30 +1,62 @@
 class DrawDots {
-    constructor() {
+    constructor(startLeft = true) {
         // z value is missing - with light
         this.margin = 0.05;
         this.dotCount = 7;
         this.dots = []
 
-        this.randomPoolXstart = Math.round(DOMINANTSIDE * this.margin);
-        this.randomPoolXstop = Math.round(width - DOMINANTSIDE * this.margin);
-        this.randomPoolYstart = Math.round(DOMINANTSIDE * this.margin);
-        this.randomPoolYstop = Math.round(height - DOMINANTSIDE * this.margin);
+        this.startLeft = startLeft
 
-        var dotX;
+        // this.randomPoolXstart = Math.round(DOMINANTSIDE * this.margin);
+        // this.randomPoolXstop = Math.round(width - DOMINANTSIDE * this.margin);
+        // this.randomPoolYstart = Math.round(DOMINANTSIDE * this.margin);
+        // this.randomPoolYstop = Math.round(height - DOMINANTSIDE * this.margin);
+
+        this.randomPoolXstartLeft = Math.round(-DOMINANTSIDE * this.margin * 2);
+        this.randomPoolXstopLeft = Math.round(-DOMINANTSIDE * this.margin);
+        this.randomPoolXstartRight = Math.round(width + DOMINANTSIDE * this.margin);
+        this.randomPoolXstopRight = Math.round(width + DOMINANTSIDE * this.margin * 2);
+        this.randomPoolYstart = Math.round((DOMINANTSIDE * this.margin));
+        this.randomPoolYstop = Math.round(height - DOMINANTSIDE * this.margin);
+        this.Ystep = (this.randomPoolYstop - this.randomPoolYstart) / this.dotCount;
+
+        var dotXLeft;
+        var dotXRight;
         var dotY;
         var dotZ;
 
+        console.log(this.startLeft);
+
         for (var i = 0; i < this.dotCount; i++) {
 
-            dotX = Math.round(getRandomFromInterval(this.randomPoolXstart, this.randomPoolXstop));
-            dotY = Math.round(getRandomFromInterval(this.randomPoolYstart, this.randomPoolYstop));
+            if (i % 2 == 0 || i == 0) {
+                if (this.startLeft) {
+                    dotXLeft = Math.round(getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft));
+                } else {
+                    dotXRight = Math.round(getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight));
+                }
+            } else {
+                if (this.startLeft) {
+                    dotXRight = Math.round(getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight));
+                } else {
+                    dotXLeft = Math.round(getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft));
+                }
+            }
+            dotY = Math.round(getRandomFromInterval(this.randomPoolYstart + this.Ystep * i, this.randomPoolYstart + this.Ystep * (i + 1)));
             dotZ = 0;
 
-            this.dots.push(createVector(dotX, dotY, dotZ));
+            if (i % 2 == 0 || i == 0) {
+                this.dots.push(createVector(dotXLeft, dotY, dotZ));
+            } else {
+                this.dots.push(createVector(dotXRight, dotY, dotZ));
+            }
+
         }
 
-        this.dots.sort(function (a, b) { return a.y - b.y });
-        console.log(this.dots);
+        // sort by Y position
+        // dotY.sort(function (a, b) { return a.y - b.y });
+
+        // console.log(this.dots[2].y);
 
         this.addBrushsystem(brushSystem);
     }
@@ -86,7 +118,7 @@ class DrawDots {
                 nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
                 nextPointZ = Math.round(this.dots[i + 1].z);
 
-                if (MODE > 1) {
+                if (MODE > 0) {
                     push();
                     translate(-width / 2, -height / 2);
 

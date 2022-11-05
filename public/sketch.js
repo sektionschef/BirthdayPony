@@ -125,7 +125,7 @@ function setup() {
   brushSystem = new BrushSystem();
 
   dots1 = new DrawDots();
-  dots2 = new DrawDots();
+  dots2 = new DrawDots(startLeft = false);
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
@@ -188,6 +188,19 @@ function setup() {
 
   // setCamera(cam1);
 
+
+  PolA = createVector(DOMINANTSIDE * 0.2, DOMINANTSIDE * 0.3);
+  PolB = createVector(DOMINANTSIDE * 0.6, DOMINANTSIDE * 0.2);
+  PolC = createVector(DOMINANTSIDE * 0.5, DOMINANTSIDE * 0.9);
+  PolD = createVector(DOMINANTSIDE * 0.2, DOMINANTSIDE * 0.7);
+
+
+  point = [400, 300];
+  PolyProto = [[PolA.x, PolA.y],
+  [PolB.x, PolB.y],
+  [PolC.x, PolC.y],
+  [PolD.x, PolD.y]]
+
   paintbro = new paintBro({
     buffer: paintBroBuffer,
     posX: 0,
@@ -247,6 +260,9 @@ function setup() {
 
 
 function draw() {
+
+  orbitControl();
+  // blendMode(SUBTRACT);
 
   smooth();
 
@@ -358,11 +374,6 @@ function draw() {
     // console.warn(Math.round(fxrand() * 1000) / 1000);
   }
 
-  var PolA = createVector(DOMINANTSIDE * 0.2, DOMINANTSIDE * 0.3);
-  var PolB = createVector(DOMINANTSIDE * 0.6, DOMINANTSIDE * 0.2);
-  var PolC = createVector(DOMINANTSIDE * 0.5, DOMINANTSIDE * 0.9);
-  var PolD = createVector(DOMINANTSIDE * 0.2, DOMINANTSIDE * 0.7);
-
   push();
   translate(-width / 2, -height / 2);
   noFill();
@@ -372,13 +383,6 @@ function draw() {
   vertex(PolC.x, PolC.y);
   vertex(PolD.x, PolD.y);
   endShape(CLOSE);
-
-  var point = [400, 300];
-  var vs = [[PolA.x, PolA.y],
-  [PolB.x, PolB.y],
-  [PolC.x, PolC.y],
-  [PolD.x, PolD.y]]
-  // console.log(insidePolygon(point, vs));
 
   ellipse(point[0], point[1], 10);
   pop();

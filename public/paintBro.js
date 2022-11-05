@@ -55,7 +55,9 @@ class paintBro {
 
         for (var e = 0; e < this.elements.length; e++) {
             // if ((fxrand() < 0.9) && (e > this.shapeNumber / 2)) {
-            if (this.elements[e].posXRe > 230 && this.elements[e].posXRe < 330 && this.elements[e].posYRe > 550 && this.elements[e].posYRe < 750) {
+            // console.log(insidePolygon(point, PolyProto));
+            // if (this.elements[e].posXRe > 230 && this.elements[e].posXRe < 330 && this.elements[e].posYRe > 550 && this.elements[e].posYRe < 750) {
+            if (insidePolygon([this.elements[e].posXRe, this.elements[e].posYRe], PolyProto)) {
                 if ((fxrand() < 0.5)) {
                     this.buffer.fill(color("#f5544215"));
                 } else {
