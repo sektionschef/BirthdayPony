@@ -18,6 +18,8 @@ class paintBro {
         this.strokeOpacity = data.strokeOpacity;
         this.numberQuantisizer = data.numberQuantisizer;
 
+        var currentPolygon;
+
         this.area = Math.round(Math.round(this.buffer.width / DOMINANTSIDE * 100) * Math.round(this.buffer.height / DOMINANTSIDE * 100)) / 100;
         // console.log("area: " + this.area);
         this.shapeNumber = Math.round(this.area * this.numberQuantisizer);  // relative to size
@@ -28,19 +30,53 @@ class paintBro {
         this.secondaryFillColor = color(red(this.secondaryFillColor), green(this.secondaryFillColor), blue(this.secondaryFillColor), this.fillColorOpacity);
         this.strokeColor = color(red(this.strokeColor), green(this.strokeColor), blue(this.strokeColor), this.strokeOpacity);
 
+        var posXRe;
+        var posYRe;
+        var fillColor_;
+        var fillColor;
+
         for (var i = 0; i < this.shapeNumber; i++) {
+
+            fillColor_ = distortColorNew(this.fillColor, this.fillColorNoise);
+            posXRe = getRandomFromInterval(0, this.buffer.width);
+            posYRe = getRandomFromInterval(0, this.buffer.height);
+
+            for (var p = 0; p < dotSystem.polygons.length; p++) {
+
+                currentPolygon = [
+                    [dotSystem.polygons[p][0].x, dotSystem.polygons[p][0].y,],
+                    [dotSystem.polygons[p][1].x, dotSystem.polygons[p][1].y,],
+                    [dotSystem.polygons[p][2].x, dotSystem.polygons[p][2].y,],
+                    [dotSystem.polygons[p][3].x, dotSystem.polygons[p][3].y,],
+                ]
+
+                if (insidePolygon([posXRe, posYRe], currentPolygon)) {
+                    if ((fxrand() < 0.5)) {
+                        fillColor = color("#f5544215");
+                    } else {
+                        fillColor = color("#db443318");
+                    }
+                    break;  // if in one polygon is enough
+                } else {
+                    if ((fxrand() < 0.5)) {
+                        fillColor = fillColor_;
+                    } else {
+                        fillColor = this.secondaryFillColor;
+                    }
+                }
+            }
 
             this.elements.push({
                 strokeColor: this.strokeColor,
-                fillColor: distortColorNew(this.fillColor, this.fillColorNoise),
+                fillColor: fillColor,
                 // widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
                 // heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
                 widthShape: map(i, 0, this.shapeNumber, this.elementSizeMax, this.elementSizeMin),
                 heightShape: map(i, 0, this.shapeNumber, this.elementSizeMax, this.elementSizeMin),
                 strokeSize: this.strokeWeight,
                 strokeColor: distortColorNew(this.strokeColor, this.strokeColorNoise),
-                posXRe: getRandomFromInterval(0, this.buffer.width),
-                posYRe: getRandomFromInterval(0, this.buffer.height),
+                posXRe: posXRe,
+                posYRe: posYRe,
             })
         }
     }
@@ -49,7 +85,6 @@ class paintBro {
 
         let angle;
         let distort;
-        var currentPolygon;
 
         // this.buffer.translate(-width / 2, -height / 2);
         // this.buffer.push();
@@ -61,29 +96,7 @@ class paintBro {
             // static one
             // if (this.elements[e].posXRe > 230 && this.elements[e].posXRe < 330 && this.elements[e].posYRe > 550 && this.elements[e].posYRe < 750) {
 
-            for (var p = 0; p < dotSystem.polygons.length; p++) {
-
-                currentPolygon = [
-                    [dotSystem.polygons[p][0].x, dotSystem.polygons[p][0].y,],
-                    [dotSystem.polygons[p][1].x, dotSystem.polygons[p][1].y,],
-                    [dotSystem.polygons[p][2].x, dotSystem.polygons[p][2].y,],
-                    [dotSystem.polygons[p][3].x, dotSystem.polygons[p][3].y,],
-                ]
-
-                if (insidePolygon([this.elements[e].posXRe, this.elements[e].posYRe], currentPolygon)) {
-                    if ((fxrand() < 0.5)) {
-                        this.buffer.fill(color("#f5544215"));
-                    } else {
-                        this.buffer.fill(color("#db443318"));
-                    }
-                } else {
-                    if ((fxrand() < 0.5)) {
-                        this.buffer.fill(this.elements[e].fillColor);
-                    } else {
-                        this.buffer.fill(this.secondaryFillColor);
-                    }
-                }
-            }
+            this.buffer.fill(this.elements[e].fillColor);
             this.buffer.rectMode(CENTER);
             this.buffer.ellipseMode(CENTER);
             // this.buffer.translate((this.posX), (this.posY));
