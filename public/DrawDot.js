@@ -2,26 +2,23 @@ class DrawDots {
     constructor(startLeft = true) {
         // z value is missing - with light
         this.margin = 0.05;
-        this.dotCount = 7;
+        this.dotCount = 5;
         this.dots = []
 
         this.startLeft = startLeft
 
-        // this.randomPoolXstart = Math.round(DOMINANTSIDE * this.margin);
-        // this.randomPoolXstop = Math.round(width - DOMINANTSIDE * this.margin);
-        // this.randomPoolYstart = Math.round(DOMINANTSIDE * this.margin);
-        // this.randomPoolYstop = Math.round(height - DOMINANTSIDE * this.margin);
 
-        this.randomPoolXstartLeft = Math.round(-DOMINANTSIDE * this.margin * 2);
+        this.randomPoolXstartLeft = Math.round(-DOMINANTSIDE * this.margin * 5);
         this.randomPoolXstopLeft = Math.round(-DOMINANTSIDE * this.margin);
         this.randomPoolXstartRight = Math.round(width + DOMINANTSIDE * this.margin);
-        this.randomPoolXstopRight = Math.round(width + DOMINANTSIDE * this.margin * 2);
-        this.randomPoolYstart = Math.round((DOMINANTSIDE * this.margin));
-        this.randomPoolYstop = Math.round(height - DOMINANTSIDE * this.margin);
+        this.randomPoolXstopRight = Math.round(width + DOMINANTSIDE * this.margin * 5);
+        // this.randomPoolYstart = Math.round((DOMINANTSIDE * this.margin));
+        this.randomPoolYstart = Math.round((-DOMINANTSIDE * this.margin));
+        // this.randomPoolYstop = Math.round(height - DOMINANTSIDE * this.margin);
+        this.randomPoolYstop = Math.round(height + DOMINANTSIDE * this.margin);
         this.Ystep = (this.randomPoolYstop - this.randomPoolYstart) / this.dotCount;
 
-        var dotXLeft;
-        var dotXRight;
+        var dotX;
         var dotY;
         var dotZ;
 
@@ -31,26 +28,21 @@ class DrawDots {
 
             if (i % 2 == 0 || i == 0) {
                 if (this.startLeft) {
-                    dotXLeft = Math.round(getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft));
+                    dotX = Math.round(getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft));
                 } else {
-                    dotXRight = Math.round(getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight));
+                    dotX = Math.round(getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight));
                 }
             } else {
                 if (this.startLeft) {
-                    dotXRight = Math.round(getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight));
+                    dotX = Math.round(getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight));
                 } else {
-                    dotXLeft = Math.round(getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft));
+                    dotX = Math.round(getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft));
                 }
             }
             dotY = Math.round(getRandomFromInterval(this.randomPoolYstart + this.Ystep * i, this.randomPoolYstart + this.Ystep * (i + 1)));
             dotZ = 0;
 
-            if (i % 2 == 0 || i == 0) {
-                this.dots.push(createVector(dotXLeft, dotY, dotZ));
-            } else {
-                this.dots.push(createVector(dotXRight, dotY, dotZ));
-            }
-
+            this.dots.push(createVector(dotX, dotY, dotZ));
         }
 
         // sort by Y position
@@ -122,9 +114,18 @@ class DrawDots {
                     push();
                     translate(-width / 2, -height / 2);
 
+                    if (this.startLeft) {
+                        stroke("blue");
+                    } else {
+                        stroke("red");
+                    }
 
                     line(currentPointX, currentPointY, currentPointZ, nextPointX, nextPointY, nextPointZ)
-                    fill("blue");
+                    if (this.startLeft) {
+                        fill("blue");
+                    } else {
+                        fill("red");
+                    }
                     noStroke();
                     ellipse(currentPointX, currentPointY, 10)
                     pop();
