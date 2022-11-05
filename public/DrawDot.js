@@ -142,6 +142,7 @@ class drawDotsSystem {
         this.dots2 = new DrawDots(false);
 
         this.getIntersections();
+        this.createPolygons();
     }
 
     getIntersections() {
@@ -164,9 +165,24 @@ class drawDotsSystem {
             this.intersectionPoints.push(getIntersectionPoint(A1, A2, B1, B2));
         }
 
-        console.log(this.intersectionPoints);
+        // console.log(this.intersectionPoints);
+    }
 
+    createPolygons() {
+        this.polygons = [];
 
+        // skip first and last
+        for (var i = 1; i < (this.poinCount - 1); i++) {
+            this.polygons.push(
+                [
+                    this.intersectionPoints[i],
+                    this.dots1.dots[i],
+                    this.intersectionPoints[i + 1],
+                    this.dots2.dots[i],
+                ]
+            )
+        }
+        console.log(this.polygons);
     }
 
     showIntersectionPoint() {
@@ -185,10 +201,29 @@ class drawDotsSystem {
         }
     }
 
+    showPolygons() {
+
+        for (var i = 0; i < (this.polygons.length); i++) {
+
+            push();
+            translate(-width / 2, -height / 2);
+            // noFill();
+            beginShape();
+            vertex(this.polygons[i][0].x, this.polygons[i][0].y);
+            vertex(this.polygons[i][1].x, this.polygons[i][1].y);
+            vertex(this.polygons[i][2].x, this.polygons[i][2].y);
+            vertex(this.polygons[i][3].x, this.polygons[i][3].y);
+            endShape(CLOSE);
+
+            pop();
+        }
+    }
+
     show() {
         this.dots1.show();
         this.dots2.show();
 
         this.showIntersectionPoint();
+        this.showPolygons();
     }
 }
