@@ -172,17 +172,17 @@ class drawDotsSystem {
         this.polygons = [];
 
         // skip first and last
-        for (var i = 1; i < (this.poinCount - 1); i++) {
+        for (var i = 1; i < (this.poinCount); i++) {
             this.polygons.push(
                 [
-                    this.intersectionPoints[i],
+                    this.intersectionPoints[i - 1],
                     this.dots1.dots[i],
-                    this.intersectionPoints[i + 1],
+                    this.intersectionPoints[i],
                     this.dots2.dots[i],
                 ]
             )
         }
-        console.log(this.polygons);
+        // console.log(this.polygons);
     }
 
     showIntersectionPoint() {
