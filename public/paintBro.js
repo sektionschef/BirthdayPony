@@ -135,11 +135,7 @@ class paintBro {
             }
 
             if (sunPolygonSwitch) {
-                if ((fxrand() < 0.5)) {
-                    fillColor = color("#f542ce15");
-                } else {
-                    fillColor = color("#db33b718");
-                }
+                fillColor = highlightColor(fillColor);
             }
 
             this.elements.push({

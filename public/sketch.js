@@ -216,7 +216,7 @@ function setup() {
     createVector(width - 0.05 * DOMINANTSIDE, height - 0.05 * DOMINANTSIDE),
   ]
 
-  console.log(sunPolygon);
+  // console.log(sunPolygon);
 
   paintbro = new paintBro({
     buffer: paintBroBuffer,
@@ -326,10 +326,14 @@ function draw() {
   // pop();
 
   // show center
-  // push();
-  // translate(0, 0, 0);
-  // ellipse(0, 0, 5);
-  // pop();
+  push();
+  translate(0, 0, 0);
+  let stan = color(122, 33, 198);
+  let stan_new = highlightColor(stan);
+  fill(stan_new);
+  noStroke();
+  ellipse(0, 0, 55);
+  pop();
 
   // brush examples
   // brushX.update();
@@ -461,3 +465,22 @@ void main() {
     ), 0., 1.);
 }
 `
+
+function highlightColor(colorCode) {
+  var gain = 20;
+
+  var hsbHighlight;
+  var rgbHighlight;
+
+  var newBrightness = constrain(brightness(colorCode) + gain * 2, 0, 100);
+  var newSaturation = constrain(saturation(colorCode) - gain, 0, 100);
+
+  colorMode(HSB, 360, 100, 100, 1);
+  hsbHighlight = color(hue(colorCode), newSaturation, newBrightness);
+
+  colorMode(RGB, 255, 255, 255, 255);
+  rgbHighlight = color(red(hsbHighlight), green(hsbHighlight), blue(hsbHighlight), alpha(colorCode));
+
+  // return colorCode;
+  return rgbHighlight;
+}
