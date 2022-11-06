@@ -21,6 +21,7 @@ class paintBro {
         var posY;
         var fillColor_;
         var fillColor;
+        var insidePolygonSwitch;
 
         this.area = Math.round(Math.round(this.buffer.width / DOMINANTSIDE * 100) * Math.round(this.buffer.height / DOMINANTSIDE * 100)) / 100;
         // console.log("area: " + this.area);
@@ -39,6 +40,8 @@ class paintBro {
             posY = Math.round(getRandomFromInterval(0, 1) * this.buffer.height);
             // console.warn(fxrand());
 
+            insidePolygonSwitch = false;
+
             for (var p = 0; p < dotSystem.polygons.length; p++) {
 
                 currentPolygon = [
@@ -48,19 +51,21 @@ class paintBro {
                     [dotSystem.polygons[p][3].x, dotSystem.polygons[p][3].y,],
                 ]
                 // console.warn(fxrand());
-                if (insidePolygon([posX, posY], currentPolygon)) {
-                    if ((fxrand() < 0.5)) {
-                        fillColor = color("#f5544215");
-                    } else {
-                        fillColor = color("#db443318");
-                    }
-                    // break;  // if in one polygon is enough
+                if (insidePolygon([posX, posY], currentPolygon) && insidePolygonSwitch == false) {
+                    insidePolygonSwitch = true;
+                }
+            }
+            if (insidePolygonSwitch) {
+                if ((fxrand() < 0.5)) {
+                    fillColor = color("#f5544215");
                 } else {
-                    if ((fxrand() < 0.5)) {
-                        fillColor = fillColor_;
-                    } else {
-                        fillColor = this.secondaryFillColor;
-                    }
+                    fillColor = color("#db443318");
+                }
+            } else {
+                if ((fxrand() < 0.5)) {
+                    fillColor = fillColor_;
+                } else {
+                    fillColor = this.secondaryFillColor;
                 }
             }
 
