@@ -195,6 +195,29 @@ function setup() {
 
   // hatchesBug = new Hatches("y", createVector(717, 50), createVector(898, 898), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
 
+  // sunPolygon = [
+  //   [-0.01 * DOMINANTSIDE, 0.01 * DOMINANTSIDE],
+  //   [0.01 * DOMINANTSIDE, -0.01 * DOMINANTSIDE],
+  //   [width + 0.01 * DOMINANTSIDE, height - 0.01 * DOMINANTSIDE],
+  //   [width - 0.01 * DOMINANTSIDE, height + 0.01 * DOMINANTSIDE],
+  // ]
+
+  // sunPolygon = [
+  //   createVector(-0.05 * DOMINANTSIDE, 0.05 * DOMINANTSIDE),
+  //   createVector(0.05 * DOMINANTSIDE, -0.05 * DOMINANTSIDE),
+  //   createVector(width + 0.05 * DOMINANTSIDE, height - 0.05 * DOMINANTSIDE),
+  //   createVector(width - 0.05 * DOMINANTSIDE, height + 0.05 * DOMINANTSIDE),
+  // ]
+
+  sunPolygon = [
+    createVector(0.19 * DOMINANTSIDE, 0.05 * DOMINANTSIDE),
+    createVector(0.03 * DOMINANTSIDE, 0.05 * DOMINANTSIDE),
+    createVector(width - 0.19 * DOMINANTSIDE, height - 0.05 * DOMINANTSIDE),
+    createVector(width - 0.05 * DOMINANTSIDE, height - 0.05 * DOMINANTSIDE),
+  ]
+
+  console.log(sunPolygon);
+
   paintbro = new paintBro({
     buffer: paintBroBuffer,
     elementSizeMin: 0.01 * DOMINANTSIDE, //width * 0.01,
@@ -320,6 +343,20 @@ function draw() {
 
   // brushBug.update();
   // brushBug.display();
+
+
+  push();
+  translate(-width / 2, -height / 2);
+  noFill();
+  beginShape();
+  vertex(sunPolygon[0].x, sunPolygon[0].y);
+  vertex(sunPolygon[1].x, sunPolygon[1].y);
+  vertex(sunPolygon[2].x, sunPolygon[2].y);
+  vertex(sunPolygon[3].x, sunPolygon[3].y);
+  endShape(CLOSE);
+
+  pop();
+
 
   if (MODE > 1) {
     dotSystem.show();

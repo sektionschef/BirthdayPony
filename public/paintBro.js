@@ -21,7 +21,10 @@ class paintBro {
         var posY;
         var fillColor_;
         var fillColor;
-        var insidePolygonSwitch;
+        var insidePolygonSwitchA;
+        var insidePolygonSwitchB;
+        var insidePolygonSwitchC;
+        var sunPolygonSwitch;
 
         this.area = Math.round(Math.round(this.buffer.width / DOMINANTSIDE * 100) * Math.round(this.buffer.height / DOMINANTSIDE * 100)) / 100;
         // console.log("area: " + this.area);
@@ -40,32 +43,102 @@ class paintBro {
             posY = Math.round(getRandomFromInterval(0, 1) * this.buffer.height);
             // console.warn(fxrand());
 
-            insidePolygonSwitch = false;
+            insidePolygonSwitchA = false;
+            insidePolygonSwitchB = false;
+            insidePolygonSwitchC = false;
+            sunPolygonSwitch = false;
 
-            for (var p = 0; p < dotSystem.polygons.length; p++) {
+            // default case - no Level
+            if ((fxrand() < 0.5)) {
+                fillColor = fillColor_;
+            } else {
+                fillColor = this.secondaryFillColor;
+            }
+
+            // C Level
+            for (var p = 0; p < dotSystem.polygonsC.length; p++) {
 
                 currentPolygon = [
-                    [dotSystem.polygons[p][0].x, dotSystem.polygons[p][0].y,],
-                    [dotSystem.polygons[p][1].x, dotSystem.polygons[p][1].y,],
-                    [dotSystem.polygons[p][2].x, dotSystem.polygons[p][2].y,],
-                    [dotSystem.polygons[p][3].x, dotSystem.polygons[p][3].y,],
+                    [dotSystem.polygonsC[p][0].x, dotSystem.polygonsC[p][0].y,],
+                    [dotSystem.polygonsC[p][1].x, dotSystem.polygonsC[p][1].y,],
+                    [dotSystem.polygonsC[p][2].x, dotSystem.polygonsC[p][2].y,],
+                    [dotSystem.polygonsC[p][3].x, dotSystem.polygonsC[p][3].y,],
                 ]
                 // console.warn(fxrand());
-                if (insidePolygon([posX, posY], currentPolygon) && insidePolygonSwitch == false) {
-                    insidePolygonSwitch = true;
+                if (insidePolygon([posX, posY], currentPolygon) && insidePolygonSwitchC == false) {
+                    insidePolygonSwitchC = true;
                 }
             }
-            if (insidePolygonSwitch) {
+            if (insidePolygonSwitchC) {
+                if ((fxrand() < 0.5)) {
+                    fillColor = color("#426cf515");
+                } else {
+                    fillColor = color("#3e33db18");
+                }
+            }
+
+            // B Level
+            for (var p = 0; p < dotSystem.polygonsB.length; p++) {
+
+                currentPolygon = [
+                    [dotSystem.polygonsB[p][0].x, dotSystem.polygonsB[p][0].y,],
+                    [dotSystem.polygonsB[p][1].x, dotSystem.polygonsB[p][1].y,],
+                    [dotSystem.polygonsB[p][2].x, dotSystem.polygonsB[p][2].y,],
+                    [dotSystem.polygonsB[p][3].x, dotSystem.polygonsB[p][3].y,],
+                ]
+                // console.warn(fxrand());
+                if (insidePolygon([posX, posY], currentPolygon) && insidePolygonSwitchB == false) {
+                    insidePolygonSwitchB = true;
+                }
+            }
+            if (insidePolygonSwitchB) {
+                if ((fxrand() < 0.5)) {
+                    fillColor = color("#e3f54215");
+                } else {
+                    fillColor = color("#92db3318");
+                }
+            }
+
+            // A Level
+            for (var p = 0; p < dotSystem.polygonsA.length; p++) {
+
+                currentPolygon = [
+                    [dotSystem.polygonsA[p][0].x, dotSystem.polygonsA[p][0].y,],
+                    [dotSystem.polygonsA[p][1].x, dotSystem.polygonsA[p][1].y,],
+                    [dotSystem.polygonsA[p][2].x, dotSystem.polygonsA[p][2].y,],
+                    [dotSystem.polygonsA[p][3].x, dotSystem.polygonsA[p][3].y,],
+                ]
+                // console.warn(fxrand());
+                if (insidePolygon([posX, posY], currentPolygon) && insidePolygonSwitchA == false) {
+                    insidePolygonSwitchA = true;
+                }
+            }
+            if (insidePolygonSwitchA) {
                 if ((fxrand() < 0.5)) {
                     fillColor = color("#f5544215");
                 } else {
                     fillColor = color("#db443318");
                 }
-            } else {
+            }
+
+            // S Level
+            currentPolygon = [
+                [sunPolygon[0].x, sunPolygon[0].y,],
+                [sunPolygon[1].x, sunPolygon[1].y,],
+                [sunPolygon[2].x, sunPolygon[2].y,],
+                [sunPolygon[3].x, sunPolygon[3].y,],
+            ]
+
+            // console.log(currentPolygon);
+            if (insidePolygon([posX, posY], currentPolygon)) {
+                sunPolygonSwitch = true;
+            }
+
+            if (sunPolygonSwitch) {
                 if ((fxrand() < 0.5)) {
-                    fillColor = fillColor_;
+                    fillColor = color("#f542ce15");
                 } else {
-                    fillColor = this.secondaryFillColor;
+                    fillColor = color("#db33b718");
                 }
             }
 

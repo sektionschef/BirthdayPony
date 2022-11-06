@@ -115,20 +115,29 @@ class DrawDots {
 }
 
 
-
-
-
-
-
-
 class drawDotsSystem {
 
     constructor() {
-        this.dots1 = new DrawDots(3);
-        this.dots2 = new DrawDots(3, false);
+        // A Level
+        this.dotsA1 = new DrawDots(3);
+        this.dotsA2 = new DrawDots(3, false);
 
-        this.intersectionPoints = this.getIntersections(this.dots1, this.dots2);
-        this.polygons = this.createPolygons(this.dots1, this.dots2);
+        this.intersectionPointsA = this.getIntersections(this.dotsA1, this.dotsA2);
+        this.polygonsA = this.createPolygons(this.dotsA1, this.dotsA2, this.intersectionPointsA);
+
+        // B Level
+        this.dotsB1 = new DrawDots(4);
+        this.dotsB2 = new DrawDots(4, false);
+
+        this.intersectionPointsB = this.getIntersections(this.dotsB1, this.dotsB2);
+        this.polygonsB = this.createPolygons(this.dotsB1, this.dotsB2, this.intersectionPointsB);
+
+        // C Level
+        this.dotsC1 = new DrawDots(5);
+        this.dotsC2 = new DrawDots(5, false);
+
+        this.intersectionPointsC = this.getIntersections(this.dotsC1, this.dotsC2);
+        this.polygonsC = this.createPolygons(this.dotsC1, this.dotsC2, this.intersectionPointsC);
     }
 
     getIntersections(dotsA, dotsB) {
@@ -155,7 +164,7 @@ class drawDotsSystem {
         return intersectionPoints;
     }
 
-    createPolygons(dotsA, dotsB) {
+    createPolygons(dotsA, dotsB, intersectionPoints) {
         var pointCount = dotsA.dotCount - 1;
         var polygons = [];
 
@@ -163,9 +172,9 @@ class drawDotsSystem {
         for (var i = 1; i < (pointCount); i++) {
             polygons.push(
                 [
-                    this.intersectionPoints[i - 1],
+                    intersectionPoints[i - 1],
                     dotsA.dots[i],
-                    this.intersectionPoints[i],
+                    intersectionPoints[i],
                     dotsB.dots[i],
                 ]
             )
@@ -174,15 +183,15 @@ class drawDotsSystem {
         return polygons;
     }
 
-    showIntersectionPoint() {
+    showIntersectionPoint(intersectionPoints) {
 
         // console.log(this.I1.x);
         // console.log(this.I1.y);
 
-        for (var i = 0; i < (this.intersectionPoints.length); i++) {
+        for (var i = 0; i < (intersectionPoints.length); i++) {
             push();
             translate(-width / 2, -height / 2);
-            translate(this.intersectionPoints[i].x, this.intersectionPoints[i].y);
+            translate(intersectionPoints[i].x, intersectionPoints[i].y);
             fill("green");
             noStroke();
             ellipse(0, 0, 10)
@@ -190,18 +199,18 @@ class drawDotsSystem {
         }
     }
 
-    showPolygons() {
+    showPolygons(polygons) {
 
-        for (var i = 0; i < (this.polygons.length); i++) {
+        for (var i = 0; i < (polygons.length); i++) {
 
             push();
             translate(-width / 2, -height / 2);
             noFill();
             beginShape();
-            vertex(this.polygons[i][0].x, this.polygons[i][0].y);
-            vertex(this.polygons[i][1].x, this.polygons[i][1].y);
-            vertex(this.polygons[i][2].x, this.polygons[i][2].y);
-            vertex(this.polygons[i][3].x, this.polygons[i][3].y);
+            vertex(polygons[i][0].x, polygons[i][0].y);
+            vertex(polygons[i][1].x, polygons[i][1].y);
+            vertex(polygons[i][2].x, polygons[i][2].y);
+            vertex(polygons[i][3].x, polygons[i][3].y);
             endShape(CLOSE);
 
             pop();
@@ -209,10 +218,21 @@ class drawDotsSystem {
     }
 
     show() {
-        this.dots1.show();
-        this.dots2.show();
+        this.dotsA1.show();
+        this.dotsA2.show();
 
-        this.showIntersectionPoint();
-        this.showPolygons();
+        this.dotsB1.show();
+        this.dotsB2.show();
+
+        this.dotsC1.show();
+        this.dotsC2.show();
+
+        this.showIntersectionPoint(this.intersectionPointsA);
+        this.showIntersectionPoint(this.intersectionPointsB);
+        this.showIntersectionPoint(this.intersectionPointsC);
+
+        this.showPolygons(this.polygonsA);
+        this.showPolygons(this.polygonsB);
+        this.showPolygons(this.polygonsC);
     }
 }
