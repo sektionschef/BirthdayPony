@@ -2,10 +2,10 @@ class Brush {
     constructor(start, end, colorObject) {
         // this.buffer = buffer;
         this.fullspeed = 3; // BRUSHFULLSPEED // 2-5;
-        this.radiusMin = 1; // BRUSHSIZEMIN; // 1;
-        this.radiusMax = 2; //BRUSHSIZEMAX; // 2;
-        this.brushShape = "Ellipse";
-        // this.brushShape = "Line";
+        this.radiusMin = 0.003 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
+        this.radiusMax = 0.004 * DOMINANTSIDE; //BRUSHSIZEMAX; // 2;
+        // this.brushShape = "Ellipse";
+        this.brushShape = "Line";
         // this.brushShape = "Triangle"; //BRUSHSHAPE;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise

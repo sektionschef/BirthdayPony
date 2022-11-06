@@ -129,8 +129,8 @@ function setup() {
   // shaders can only be used in WEBGL mode
   grainBuffer = createGraphics(width, height, WEBGL);
   grainShader = grainBuffer.createShader(vert, frag);
-  // shouldAnimate = true;
-  shouldAnimate = false;
+  shouldAnimate = true;
+  // shouldAnimate = false;
 
   brushSystem = new BrushSystem();
 
@@ -149,17 +149,16 @@ function setup() {
   // DISTANCE_BETWEEN_LINES = Math.round(DISTANCE_BETWEEN_LINES / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
   // HATCHOFFSET = Math.round(HATCHOFFSET / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
 
-  A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
-  A2 = createVector(0.6 * DOMINANTSIDE, width / 2, 0);
-  B1 = createVector(0.2 * DOMINANTSIDE, height / 2 - 100, 0);
-  B2 = createVector(0.6 * DOMINANTSIDE, width / 2 + 100, 0);
+  // BRUSH example
+  // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
+  // A2 = createVector(0.6 * DOMINANTSIDE, width / 2, 0);
+  // B1 = createVector(0.2 * DOMINANTSIDE, height / 2 - 100, 0);
+  // B2 = createVector(0.6 * DOMINANTSIDE, width / 2 + 100, 0);
 
-  mastaBrush = new Brush(A1, A2, color("#f55442"));
-  brushSystem.add(mastaBrush);
-  mastaBrush2 = new Brush(B1, B2, color("#f55442"));
-  brushSystem.add(mastaBrush2);
-
-  AB = getIntersectionPoint(A1, A2, B1, B2);
+  // mastaBrush = new Brush(A1, A2, color("#f55442"));
+  // brushSystem.add(mastaBrush);
+  // mastaBrush2 = new Brush(B1, B2, color("#f55442"));
+  // brushSystem.add(mastaBrush2);
 
   // GRID WITH LINES
   // for (var i = 0; i < 150; i += 5) {
@@ -193,19 +192,6 @@ function setup() {
   // cam1.setPosition(1200, 200, 500);
 
   // setCamera(cam1);
-
-
-  PolA = createVector(DOMINANTSIDE * 0.2, DOMINANTSIDE * 0.3);
-  PolB = createVector(DOMINANTSIDE * 0.6, DOMINANTSIDE * 0.2);
-  PolC = createVector(DOMINANTSIDE * 0.5, DOMINANTSIDE * 0.9);
-  PolD = createVector(DOMINANTSIDE * 0.2, DOMINANTSIDE * 0.7);
-
-
-  point = [400, 300];
-  PolyProto = [[PolA.x, PolA.y],
-  [PolB.x, PolB.y],
-  [PolC.x, PolC.y],
-  [PolD.x, PolD.y]]
 
   paintbro = new paintBro({
     buffer: paintBroBuffer,
@@ -326,10 +312,6 @@ function draw() {
   // pop();
 
 
-  // BRUSHES
-  // mastaBrush.update();
-  // mastaBrush.show();
-  brushSystem.show();
 
   // PAINT
   push();
@@ -337,6 +319,8 @@ function draw() {
   image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
   pop();
 
+  // BRUSHES
+  brushSystem.show();
 
   // TEX
   // push();
@@ -365,7 +349,9 @@ function draw() {
   // brushBug.update();
   // brushBug.display();
 
-  dotSystem.show();
+  if (MODE > 1) {
+    dotSystem.show();
+  }
 
   if (frameCount > 5000) {
     ALLDONE = true;
@@ -377,19 +363,6 @@ function draw() {
     fxpreview();
     // console.warn(Math.round(fxrand() * 1000) / 1000);
   }
-
-  push();
-  translate(-width / 2, -height / 2);
-  noFill();
-  beginShape();
-  vertex(PolA.x, PolA.y);
-  vertex(PolB.x, PolB.y);
-  vertex(PolC.x, PolC.y);
-  vertex(PolD.x, PolD.y);
-  endShape(CLOSE);
-
-  ellipse(point[0], point[1], 10);
-  pop();
 
   // shader
   applyGrain();
@@ -410,7 +383,7 @@ function applyGrain() {
     //grainShader.setUniform('noiseSeed', random());
     grainShader.setUniform('noiseSeed', frameCount / 100);
   }
-  grainShader.setUniform('noiseAmount', 0.02);  // value here!!
+  grainShader.setUniform('noiseAmount', 0.03);  // value here!!
   grainBuffer.rectMode(CENTER);
   grainBuffer.noStroke();
   grainBuffer.rect(0, 0, width, height);

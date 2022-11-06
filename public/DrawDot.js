@@ -68,6 +68,7 @@ class DrawDots {
             nextPointZ = Math.round(this.dots[i + 1].z);
 
             // system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("#f55442")))
+            system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("#222222")))
         }
 
     }
