@@ -82,15 +82,13 @@ class paintBro {
                 posY: posY,
             })
         }
-        console.warn(fxrand());
     }
 
     show() {
 
         let angle;
         let distort;
-        let step = Math.round(0.002 * DOMINANTSIDE * 100) / 100;
-        console.log(step);
+        let step = Math.round(0.002 * DOMINANTSIDE * 100) / 100;  // movement of element
 
         for (var e = 0; e < this.elements.length; e++) {
             // if ((fxrand() < 0.9) && (e > this.shapeNumber / 2)) {

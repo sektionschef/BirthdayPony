@@ -1,7 +1,7 @@
 class DrawDots {
-    constructor(startLeft = true) {
+    constructor(dotCount, startLeft = true) {
         this.margin = 0.05;
-        this.dotCount = 5;
+        this.dotCount = dotCount; // 3;
 
         this.dots = []
         this.startLeft = startLeft
@@ -124,51 +124,54 @@ class DrawDots {
 class drawDotsSystem {
 
     constructor() {
-        this.dots1 = new DrawDots();
-        this.dots2 = new DrawDots(false);
+        this.dots1 = new DrawDots(3);
+        this.dots2 = new DrawDots(3, false);
 
-        this.getIntersections();
-        this.createPolygons();
+        this.intersectionPoints = this.getIntersections(this.dots1, this.dots2);
+        this.polygons = this.createPolygons(this.dots1, this.dots2);
     }
 
-    getIntersections() {
+    getIntersections(dotsA, dotsB) {
 
-        this.intersectionPoints = [];
-        this.poinCount = this.dots1.dotCount - 1;
+        var intersectionPoints = [];
+        var pointCount = dotsA.dotCount - 1;
 
         var A1;
         var A2;
         var B1;
         var B2;
 
-        for (var i = 0; i < (this.poinCount); i++) {
+        for (var i = 0; i < pointCount; i++) {
 
-            A1 = this.dots1.dots[i];
-            A2 = this.dots1.dots[i + 1];
-            B1 = this.dots2.dots[i];
-            B2 = this.dots2.dots[i + 1];
+            A1 = dotsA.dots[i];
+            A2 = dotsA.dots[i + 1];
+            B1 = dotsB.dots[i];
+            B2 = dotsB.dots[i + 1];
 
-            this.intersectionPoints.push(getIntersectionPoint(A1, A2, B1, B2));
+            intersectionPoints.push(getIntersectionPoint(A1, A2, B1, B2));
         }
 
         // console.log(this.intersectionPoints);
+        return intersectionPoints;
     }
 
-    createPolygons() {
-        this.polygons = [];
+    createPolygons(dotsA, dotsB) {
+        var pointCount = dotsA.dotCount - 1;
+        var polygons = [];
 
         // skip first and last
-        for (var i = 1; i < (this.poinCount); i++) {
-            this.polygons.push(
+        for (var i = 1; i < (pointCount); i++) {
+            polygons.push(
                 [
                     this.intersectionPoints[i - 1],
-                    this.dots1.dots[i],
+                    dotsA.dots[i],
                     this.intersectionPoints[i],
-                    this.dots2.dots[i],
+                    dotsB.dots[i],
                 ]
             )
         }
         // console.log(this.polygons);
+        return polygons;
     }
 
     showIntersectionPoint() {
