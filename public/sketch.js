@@ -29,6 +29,8 @@ let YEAR = "2022";
 let PRICE = "ꜩ 3";
 let EDITIONS = "100 editions";
 
+let GRAINAMOUNT = 0.03;
+
 // let NUMBER_OF_GRIDS = getRandomFromList([2, 3]);
 // let BRUSHSIZEMIN = getRandomFromList([0.3, 0.4, 0.5, 0.6, 0.7]);  // 0.5
 // let BRUSHSIZEMAX = getRandomFromList([1, 1.25, 1.5, 1.75, 2, 2.25, 2.5]);  // 1.5
@@ -104,11 +106,12 @@ function preload() {
 
 function setup() {
 
-  setAttributes('alpha', true);
+
 
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
 
+  // setAttributes('alpha', true);
   // setAttributes('antialias', true);
 
   scaleDynamically();
@@ -123,10 +126,20 @@ function setup() {
     canvas.parent("canvasHolderPlain");
   }
 
+  // camM = createCamera();
+  cam1 = createCamera();
+  // cam1.perspective();
+  // cam1.ortho();
+
+  // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
+  // cam1.lookAt(-100, 0, 0);
+  // cam1.setPosition(1200, 200, 500);
+
+  // setCamera(cam1);
+
   paintBroBuffer = createGraphics(width, height, "WEBGL");
 
   // shader
-  // shaders can only be used in WEBGL mode
   grainBuffer = createGraphics(width, height, WEBGL);
   grainShader = grainBuffer.createShader(vert, frag);
   shouldAnimate = true;
@@ -182,23 +195,8 @@ function setup() {
 
   // hatchesBug = new Hatches("y", createVector(717, 50), createVector(898, 898), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
 
-  // camM = createCamera();
-  cam1 = createCamera();
-  // cam1.perspective();
-  // cam1.ortho();
-
-  // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
-  // cam1.lookAt(-100, 0, 0);
-  // cam1.setPosition(1200, 200, 500);
-
-  // setCamera(cam1);
-
   paintbro = new paintBro({
     buffer: paintBroBuffer,
-    posX: 0,
-    posY: 0,
-    // elementSizeMin: 0.05 * DOMINANTSIDE, //width * 0.01,
-    // elementSizeMax: 0.09 * DOMINANTSIDE, //width * 0.05,
     elementSizeMin: 0.01 * DOMINANTSIDE, //width * 0.01,
     elementSizeMax: 0.09 * DOMINANTSIDE, //width * 0.05,
     // fillColor: color(PALETTE.background),
@@ -253,13 +251,10 @@ function setup() {
 
 function draw() {
 
-  orbitControl();
-  // blendMode(SUBTRACT);
-
   smooth();
 
-  // pixelDensity(CURRENTPIXELDENS);
-
+  orbitControl();
+  // cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   // if (MODE == 5) {
   //   camera(0, 800, 0, 0, 0, 0, 0, 0, 1); // debug - on top view
@@ -282,35 +277,14 @@ function draw() {
     pixelDensity(CURRENTPIXELDENS);
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
-
-    // background(color("purple"));
   }
   // background(color(PALETTE.background));
   background(color(PALETTE.primaries[0]));
-
 
   // hatchesHigh.show();
   // hatchesLong.show();
 
   // hatchesBug.show();
-
-  // PAINT
-  // drawingContext.filter = `blur(${70}px)`;
-  // fill("black");
-  // // drawingContext.filter = 'blur(60px)';
-  // fill(200);
-  // drawingContext.shadowOffsetX = 5;
-  // drawingContext.shadowOffsetY = -5;
-  // drawingContext.shadowBlur = 10;
-  // drawingContext.shadowColor = 'black';
-  // ellipse(0, 0, 50, 50);
-
-  // trying to blut
-  // push();
-  // translate(-width / 2, -height / 2);
-  // image(buffer, 0, 0, buffer.width, buffer.height);
-  // pop();
-
 
 
   // PAINT
@@ -327,8 +301,6 @@ function draw() {
   // translate(-width / 2, -height / 2);
   // image(texMex.buffer, texMex.posX, texMex.posY, texMex.buffer.width, texMex.buffer.height);
   // pop();
-
-  // cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
 
   // show center
   // push();
@@ -353,7 +325,7 @@ function draw() {
     dotSystem.show();
   }
 
-  if (frameCount > 5000) {
+  if (frameCount > 800) {
     ALLDONE = true;
   }
 
@@ -361,11 +333,14 @@ function draw() {
     console.log("All done");
     noLoop();
     fxpreview();
-    // console.warn(Math.round(fxrand() * 1000) / 1000);
+    console.warn(Math.round(fxrand() * 1000) / 1000);
   }
 
   // shader
-  applyGrain();
+  // applyGrain();
+
+  // console.warn(Math.round(fxrand() * 100) / 100);
+  // noLoop();
 }
 
 function mousePressed() {
@@ -383,7 +358,7 @@ function applyGrain() {
     //grainShader.setUniform('noiseSeed', random());
     grainShader.setUniform('noiseSeed', frameCount / 100);
   }
-  grainShader.setUniform('noiseAmount', 0.03);  // value here!!
+  grainShader.setUniform('noiseAmount', GRAINAMOUNT);  // value here!!
   grainBuffer.rectMode(CENTER);
   grainBuffer.noStroke();
   grainBuffer.rect(0, 0, width, height);

@@ -3,10 +3,8 @@ class paintBro {
     constructor(data) {
 
         this.buffer = data.buffer;
-        this.posX = data.posX;
-        this.posY = data.posY;
-        this.elementSizeMin = data.elementSizeMin;
-        this.elementSizeMax = data.elementSizeMax;
+        this.elementSizeMin = Math.round(data.elementSizeMin);
+        this.elementSizeMax = Math.round(data.elementSizeMax);
         this.fillColor = data.fillColor;
         this.secondaryFillColor = data.secondaryFillColor;
         this.fillColorNoise = data.fillColorNoise;
@@ -19,6 +17,10 @@ class paintBro {
         this.numberQuantisizer = data.numberQuantisizer;
 
         var currentPolygon;
+        var posX;
+        var posY;
+        var fillColor_;
+        var fillColor;
 
         this.area = Math.round(Math.round(this.buffer.width / DOMINANTSIDE * 100) * Math.round(this.buffer.height / DOMINANTSIDE * 100)) / 100;
         // console.log("area: " + this.area);
@@ -30,16 +32,12 @@ class paintBro {
         this.secondaryFillColor = color(red(this.secondaryFillColor), green(this.secondaryFillColor), blue(this.secondaryFillColor), this.fillColorOpacity);
         this.strokeColor = color(red(this.strokeColor), green(this.strokeColor), blue(this.strokeColor), this.strokeOpacity);
 
-        var posXRe;
-        var posYRe;
-        var fillColor_;
-        var fillColor;
-
         for (var i = 0; i < this.shapeNumber; i++) {
 
             fillColor_ = distortColorNew(this.fillColor, this.fillColorNoise);
-            posXRe = getRandomFromInterval(0, this.buffer.width);
-            posYRe = getRandomFromInterval(0, this.buffer.height);
+            posX = Math.round(getRandomFromInterval(0, 1) * this.buffer.width);
+            posY = Math.round(getRandomFromInterval(0, 1) * this.buffer.height);
+            // console.warn(fxrand());
 
             for (var p = 0; p < dotSystem.polygons.length; p++) {
 
@@ -49,14 +47,14 @@ class paintBro {
                     [dotSystem.polygons[p][2].x, dotSystem.polygons[p][2].y,],
                     [dotSystem.polygons[p][3].x, dotSystem.polygons[p][3].y,],
                 ]
-
-                if (insidePolygon([posXRe, posYRe], currentPolygon)) {
+                // console.warn(fxrand());
+                if (insidePolygon([posX, posY], currentPolygon)) {
                     if ((fxrand() < 0.5)) {
                         fillColor = color("#f5544215");
                     } else {
                         fillColor = color("#db443318");
                     }
-                    break;  // if in one polygon is enough
+                    // break;  // if in one polygon is enough
                 } else {
                     if ((fxrand() < 0.5)) {
                         fillColor = fillColor_;
@@ -71,30 +69,30 @@ class paintBro {
                 fillColor: fillColor,
                 // widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
                 // heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
-                widthShape: map(i, 0, this.shapeNumber, this.elementSizeMax, this.elementSizeMin),
-                heightShape: map(i, 0, this.shapeNumber, this.elementSizeMax, this.elementSizeMin),
+                widthShape: Math.round(map(i, 0, this.shapeNumber, this.elementSizeMax, this.elementSizeMin)),  // STATIC
+                heightShape: Math.round(map(i, 0, this.shapeNumber, this.elementSizeMax, this.elementSizeMin)),  // STATIC
                 strokeSize: this.strokeWeight,
                 strokeColor: distortColorNew(this.strokeColor, this.strokeColorNoise),
-                posXRe: posXRe,
-                posYRe: posYRe,
+                posX: posX,
+                posY: posY,
             })
         }
+        console.warn(fxrand());
     }
 
     show() {
 
         let angle;
         let distort;
-
-        // this.buffer.translate(-width / 2, -height / 2);
-        // this.buffer.push();
+        let step = Math.round(0.002 * DOMINANTSIDE * 100) / 100;
+        console.log(step);
 
         for (var e = 0; e < this.elements.length; e++) {
             // if ((fxrand() < 0.9) && (e > this.shapeNumber / 2)) {
             // console.log(insidePolygon(point, PolyProto));
 
             // static one
-            // if (this.elements[e].posXRe > 230 && this.elements[e].posXRe < 330 && this.elements[e].posYRe > 550 && this.elements[e].posYRe < 750) {
+            // if (this.elements[e].posX > 230 && this.elements[e].posX < 330 && this.elements[e].posY > 550 && this.elements[e].posY < 750) {
 
             this.buffer.fill(this.elements[e].fillColor);
             this.buffer.rectMode(CENTER);
@@ -116,7 +114,6 @@ class paintBro {
                 this.orientation = getRandomFromList(["horizontal"])
             }
 
-
             for (var i = 0; i < 60; i++) {
                 // for (var i = 0; i < 60; i += 5) {
                 this.buffer.push();
@@ -124,12 +121,12 @@ class paintBro {
                 // angle = getRandomFromInterval(PI, 2 * PI);
                 angle = getRandomFromInterval(0, 2 * PI);
                 // angle = getRandomFromList([PI / 2, PI / 3, PI / 4, PI / 5])
-                distort = getRandomFromInterval(-10, 10);
+                distort = Math.round(getRandomFromInterval(-0.01, 0.01) * DOMINANTSIDE);
 
                 if (this.orientation == "horizontal") {  // X movement
-                    this.buffer.translate(this.elements[e].posXRe + i + distort, this.elements[e].posYRe + distort)
+                    this.buffer.translate(this.elements[e].posX + i * step + distort, this.elements[e].posY + distort)
                 } else {  // Y movement
-                    this.buffer.translate(this.elements[e].posXRe + distort, this.elements[e].posYRe + i + distort)
+                    this.buffer.translate(this.elements[e].posX + distort, this.elements[e].posY + i * step + distort)
                 }
                 this.buffer.rotate(angle);
                 this.buffer.rect(0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
@@ -137,18 +134,13 @@ class paintBro {
                 //     }
                 //     for (var i = 0; i < 60; i++) {
                 //         this.buffer.push();
-                //         this.buffer.translate(element.posXRe, element.posYRe + i);
+                //         this.buffer.translate(element.posX, element.posY + i);
                 //         this.buffer.rotate(angle);
                 //         this.buffer.rect(0, 0, element.widthShape, element.heightShape);
                 //         // this.buffer.ellipse(0, 0, element.widthShape / 2, element.heightShape / 2);
                 //         this.buffer.pop();
                 //     }
             }
-
         }
-        // this.buffer.pop();
-
-
-        return this.buffer;
     }
 }
