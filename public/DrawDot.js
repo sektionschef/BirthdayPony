@@ -6,13 +6,12 @@ class DrawDots {
         this.dots = []
         this.startLeft = startLeft
 
-
-        this.randomPoolXstartLeft = Math.round(-DOMINANTSIDE * this.margin * 5);
-        this.randomPoolXstopLeft = Math.round(-DOMINANTSIDE * this.margin);
-        this.randomPoolXstartRight = Math.round(width + DOMINANTSIDE * this.margin);
-        this.randomPoolXstopRight = Math.round(width + DOMINANTSIDE * this.margin * 5);
-        this.randomPoolYstart = Math.round((-DOMINANTSIDE * this.margin));
-        this.randomPoolYstop = Math.round(height + DOMINANTSIDE * this.margin);
+        this.randomPoolXstartLeft = -DOMINANTSIDE * this.margin * 5;
+        this.randomPoolXstopLeft = -DOMINANTSIDE * this.margin;
+        this.randomPoolXstartRight = width + DOMINANTSIDE * this.margin;
+        this.randomPoolXstopRight = width + DOMINANTSIDE * this.margin * 5;
+        this.randomPoolYstart = -DOMINANTSIDE * this.margin;
+        this.randomPoolYstop = height + DOMINANTSIDE * this.margin;
         this.Ystep = (this.randomPoolYstop - this.randomPoolYstart) / this.dotCount;
 
         var dotX;
@@ -22,18 +21,18 @@ class DrawDots {
         for (var i = 0; i < this.dotCount; i++) {
             if (i % 2 == 0 || i == 0) {
                 if (this.startLeft) {
-                    dotX = Math.round(getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft));
+                    dotX = getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft);
                 } else {
-                    dotX = Math.round(getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight));
+                    dotX = getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight);
                 }
             } else {
                 if (this.startLeft) {
-                    dotX = Math.round(getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight));
+                    dotX = getRandomFromInterval(this.randomPoolXstartRight, this.randomPoolXstopRight);
                 } else {
-                    dotX = Math.round(getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft));
+                    dotX = getRandomFromInterval(this.randomPoolXstartLeft, this.randomPoolXstopLeft);
                 }
             }
-            dotY = Math.round(getRandomFromInterval(this.randomPoolYstart + this.Ystep * i, this.randomPoolYstart + this.Ystep * (i + 1)));
+            dotY = getRandomFromInterval(this.randomPoolYstart + this.Ystep * i, this.randomPoolYstart + this.Ystep * (i + 1));
             dotZ = 0;
 
             this.dots.push(createVector(dotX, dotY, dotZ));
@@ -58,13 +57,13 @@ class DrawDots {
 
         for (var i = 0; i < (this.dots.length - 1); i++) {
 
-            currentPointX = Math.round(this.dots[i].x / width * DOMINANTSIDE);
-            currentPointY = Math.round(this.dots[i].y / height * DOMINANTSIDE);
-            currentPointZ = Math.round(this.dots[i].z);
+            currentPointX = this.dots[i].x / width * DOMINANTSIDE;
+            currentPointY = this.dots[i].y / height * DOMINANTSIDE;
+            currentPointZ = this.dots[i].z;
 
-            nextPointX = Math.round(this.dots[i + 1].x / width * DOMINANTSIDE);
-            nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
-            nextPointZ = Math.round(this.dots[i + 1].z);
+            nextPointX = this.dots[i + 1].x / width * DOMINANTSIDE;
+            nextPointY = this.dots[i + 1].y / height * DOMINANTSIDE;
+            nextPointZ = this.dots[i + 1].z;
 
             // system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("#f55442")))
             system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("#222222")))
@@ -84,13 +83,13 @@ class DrawDots {
 
         for (var i = 0; i < (this.dots.length - 1); i++) {
 
-            currentPointX = Math.round(this.dots[i].x / width * DOMINANTSIDE);
-            currentPointY = Math.round(this.dots[i].y / height * DOMINANTSIDE);
-            currentPointZ = Math.round(this.dots[i].z);
+            currentPointX = this.dots[i].x / width * DOMINANTSIDE;
+            currentPointY = this.dots[i].y / height * DOMINANTSIDE;
+            currentPointZ = this.dots[i].z;
 
-            nextPointX = Math.round(this.dots[i + 1].x / width * DOMINANTSIDE);
-            nextPointY = Math.round(this.dots[i + 1].y / height * DOMINANTSIDE);
-            nextPointZ = Math.round(this.dots[i + 1].z);
+            nextPointX = this.dots[i + 1].x / width * DOMINANTSIDE;
+            nextPointY = this.dots[i + 1].y / height * DOMINANTSIDE;
+            nextPointZ = this.dots[i + 1].z;
 
             push();
             translate(-width / 2, -height / 2);

@@ -51,19 +51,32 @@ let BRUSHFULLSPEEDMAX = 6;
 let CURRENTPIXELDENS = 1;
 
 const PALETTESYSTEM = {
-  "Natalie": {
+  "Borscht": {
     "background": "#ececec",
-    "primaries": [
-      "#9EC5AB",
-      "#104F55",
-    ],
-    "hatches": [
-      "#166168",
-      "#9EC5AB",
-    ],
-    "rothkoStroke": "#1b1818",
-    "dirtline": "#504f4f",
-    "dirtCircles": "#32746D",
+    "base": {
+      fillFirst: "#15707e15",
+      fillSecond: "#0f616e15",
+      strokeFirst: "#4949491c",
+      strokeSecond: "#3f3f3f1c",
+    },
+    "cLevel": {
+      fillFirst: "#426cf515",
+      fillSecond: "#3e65e415",
+      strokeFirst: "#172c7015",
+      strokeSecond: "#27345f15",
+    },
+    "bLevel": {
+      fillFirst: "#42f5a115",
+      fillSecond: "#3ee45a15",
+      strokeFirst: "#17703215",
+      strokeSecond: "#375f2715",
+    },
+    "aLevel": {
+      fillFirst: "#e042f515",
+      fillSecond: "#c33ee415",
+      strokeFirst: "#66177015",
+      strokeSecond: "#56275f15",
+    }
   },
 }
 
@@ -222,15 +235,9 @@ function setup() {
     buffer: paintBroBuffer,
     elementSizeMin: 0.01 * DOMINANTSIDE, //width * 0.01,
     elementSizeMax: 0.09 * DOMINANTSIDE, //width * 0.05,
-    // fillColor: color(PALETTE.background),
-    fillColor: color("#104F55"),
-    secondaryFillColor: color("#103f46"),
-    // fillColor: color("black"),
-    fillColorNoise: 0,
-    fillColorOpacity: 15,
     noStroke: false,
     // strokeColor: color("#16535a"),
-    strokeColor: color(50),
+    strokeColor: color(PALETTE.base.strokeFirst),
     strokeWeight: 10 * DOMINANTSIDE,// width * 0.001,
     strokeColorNoise: 3,
     strokeOpacity: 15, // 50, // 15,
@@ -244,7 +251,7 @@ function setup() {
   //   posY: 0,
   //   elementSizeMin: 0.001 * DOMINANTSIDE,
   //   elementSizeMax: 0.001 * DOMINANTSIDE,
-  //   fillColor: color(PALETTE.primaries[1]),
+  //   fillColor: color(PALETTE.base[1]),
   //   // fillColor: color(100),
   //   secondaryFillColor: color(180, 60),
   //   fillColorNoise: 5,
@@ -255,7 +262,7 @@ function setup() {
   //   strokeColorNoise: 0,
   //   strokeOpacity: 0,
   //   numberQuantisizer: 30,
-  //   // backgroundColor: color(PALETTE.primaries[0]),
+  //   // backgroundColor: color(PALETTE.base[0]),
   //   backgroundColor: color(PALETTE.background),
   // })
   // texMex.show();
@@ -296,13 +303,14 @@ function draw() {
     background(200);
   }
 
-  if (frameCount == 1) {
+  if (frameCount == 0) {
     pixelDensity(CURRENTPIXELDENS);
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
+    paintBroBuffer.background(color(PALETTE.background));
   }
   // background(color(PALETTE.background));
-  background(color(PALETTE.primaries[0]));
+  background(color(PALETTE.background));
 
   // hatchesHigh.show();
   // hatchesLong.show();
@@ -326,14 +334,14 @@ function draw() {
   // pop();
 
   // show center
-  push();
-  translate(0, 0, 0);
-  let stan = color(122, 33, 198);
-  let stan_new = highlightColor(stan);
-  fill(stan_new);
-  noStroke();
-  ellipse(0, 0, 55);
-  pop();
+  // push();
+  // translate(0, 0, 0);
+  // let stan = color(122, 33, 198);
+  // let stan_new = highlightColor(stan);
+  // fill(stan_new);
+  // noStroke();
+  // ellipse(0, 0, 55);
+  // pop();
 
   // brush examples
   // brushX.update();
