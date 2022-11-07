@@ -51,31 +51,58 @@ let BRUSHFULLSPEEDMAX = 6;
 let CURRENTPIXELDENS = 1;
 
 const PALETTESYSTEM = {
-  "Borscht": {
-    "background": "#ececec",
+  // "Borscht": {
+  //   "background": "#d3d3d3",
+  //   "base": {
+  //     fillFirst: "#5b5c5e15",
+  //     fillSecond: "#66666915",
+  //     strokeFirst: "#9997971c",
+  //     strokeSecond: "#3f3f3f1c",
+  //   },
+  //   "cLevel": {
+  //     fillFirst: "#5b5e5d15",
+  //     fillSecond: "#4e555215",
+  //     strokeFirst: "#172c7015",
+  //     strokeSecond: "#27345f15",
+  //   },
+  //   "bLevel": {
+  //     fillFirst: "#7f818015",
+  //     fillSecond: "#71797515",
+  //     strokeFirst: "#46254b13",
+  //     strokeSecond: "#282b2713",
+  //   },
+  //   "aLevel": {
+  //     fillFirst: "#e9e4eb15",
+  //     fillSecond: "#e9e4eb15",
+  //     strokeFirst: "#57295e15",
+  //     strokeSecond: "#27252715",
+  //   }
+  // },
+  "Halt die Fresse": {
+    "background": "#4d4b4b",
     "base": {
-      fillFirst: "#15707e15",
-      fillSecond: "#0f616e15",
-      strokeFirst: "#4949491c",
-      strokeSecond: "#3f3f3f1c",
+      fillFirst: "#775e7515",
+      fillSecond: "#805e7d15",
+      strokeFirst: "#97829618",
+      strokeSecond: "#61425f15",
     },
     "cLevel": {
-      fillFirst: "#426cf515",
-      fillSecond: "#3e65e415",
-      strokeFirst: "#172c7015",
-      strokeSecond: "#27345f15",
+      fillFirst: "#4d1e4915",
+      fillSecond: "#3a1b3715",
+      strokeFirst: "#74477015",
+      strokeSecond: "#2c0e2828",
     },
     "bLevel": {
-      fillFirst: "#42f5a115",
-      fillSecond: "#3ee45a15",
-      strokeFirst: "#17703215",
-      strokeSecond: "#375f2715",
+      fillFirst: "#c3b4c515",
+      fillSecond: "#bca9be15",
+      strokeFirst: "#e0d0e21f",
+      strokeSecond: "#7b6c7c27",
     },
     "aLevel": {
-      fillFirst: "#e042f515",
-      fillSecond: "#c33ee415",
-      strokeFirst: "#66177015",
-      strokeSecond: "#56275f15",
+      fillFirst: "#E9EBF815",
+      fillSecond: "#d0d3e615",
+      strokeFirst: "#887c881c",
+      strokeSecond: "#b69bb41a",
     }
   },
 }
@@ -325,7 +352,7 @@ function draw() {
   pop();
 
   // BRUSHES
-  brushSystem.show();
+  // brushSystem.show();
 
   // TEX
   // push();
@@ -357,17 +384,17 @@ function draw() {
   // brushBug.display();
 
 
-  push();
-  translate(-width / 2, -height / 2);
-  noFill();
-  beginShape();
-  vertex(sunPolygon[0].x, sunPolygon[0].y);
-  vertex(sunPolygon[1].x, sunPolygon[1].y);
-  vertex(sunPolygon[2].x, sunPolygon[2].y);
-  vertex(sunPolygon[3].x, sunPolygon[3].y);
-  endShape(CLOSE);
-
-  pop();
+  // SHOW SUNPOLYGON
+  // push();
+  // translate(-width / 2, -height / 2);
+  // noFill();
+  // beginShape();
+  // vertex(sunPolygon[0].x, sunPolygon[0].y);
+  // vertex(sunPolygon[1].x, sunPolygon[1].y);
+  // vertex(sunPolygon[2].x, sunPolygon[2].y);
+  // vertex(sunPolygon[3].x, sunPolygon[3].y);
+  // endShape(CLOSE);
+  // pop();
 
 
   if (MODE > 1) {

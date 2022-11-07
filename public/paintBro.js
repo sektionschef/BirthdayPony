@@ -167,6 +167,8 @@ class paintBro {
         let distort;
         let step = Math.round(0.002 * DOMINANTSIDE * 100) / 100;  // movement of element
 
+        paintBroBuffer.background(color(PALETTE.background));
+
         for (var e = 0; e < this.elements.length; e++) {
             // if ((fxrand() < 0.9) && (e > this.shapeNumber / 2)) {
             // console.log(insidePolygon(point, PolyProto));
