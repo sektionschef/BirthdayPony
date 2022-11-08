@@ -8,8 +8,6 @@ class paintBro {
         this.noStroke = data.noStroke;
         this.strokeColor = data.strokeColor;
         this.strokeWeight = data.strokeWeight;
-        this.strokeColorNoise = data.strokeColorNoise;
-        this.strokeOpacity = data.strokeOpacity;
         this.numberQuantisizer = data.numberQuantisizer;
 
         var currentPolygon;
@@ -181,12 +179,9 @@ class paintBro {
             this.buffer.ellipseMode(CENTER);
             // this.buffer.translate((this.posX), (this.posY));
             // this.buffer.rotate(this.elements[e].angle)
-            if (this.noStroke == true) {
-                this.buffer.noStroke();
-            } else {
-                this.buffer.strokeWeight(strokeWeight);
-                this.buffer.stroke(this.elements[e].elementStrokeColor);
-            }
+
+            this.buffer.strokeWeight(strokeWeight);
+            this.buffer.stroke(this.elements[e].elementStrokeColor);
 
             // angle = getRandomFromInterval(0, PI / 4);
 
@@ -201,8 +196,8 @@ class paintBro {
                 this.buffer.push();
 
                 // angle = getRandomFromInterval(PI, 2 * PI);
-                angle = getRandomFromInterval(0, 2 * PI);
                 // angle = getRandomFromList([PI / 2, PI / 3, PI / 4, PI / 5])
+                angle = getRandomFromInterval(0, 2 * PI);
                 distort = Math.round(getRandomFromInterval(-0.01, 0.01) * DOMINANTSIDE);
 
                 if (this.orientation == "horizontal") {  // X movement
@@ -212,16 +207,10 @@ class paintBro {
                 }
                 this.buffer.rotate(angle);
                 this.buffer.rect(0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
+
+                this.buffer.image(gan.buffer, 0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
+
                 this.buffer.pop();
-                //     }
-                //     for (var i = 0; i < 60; i++) {
-                //         this.buffer.push();
-                //         this.buffer.translate(element.posX, element.posY + i);
-                //         this.buffer.rotate(angle);
-                //         this.buffer.rect(0, 0, element.widthShape, element.heightShape);
-                //         // this.buffer.ellipse(0, 0, element.widthShape / 2, element.heightShape / 2);
-                //         this.buffer.pop();
-                //     }
             }
         }
     }

@@ -177,6 +177,10 @@ function setup() {
 
   // setCamera(cam1);
 
+  str = createGraphics(100, 100);
+  str.fill(color("blue"));
+
+
   paintBroBuffer = createGraphics(width, height, "WEBGL");
 
   // shader
@@ -258,17 +262,30 @@ function setup() {
 
   // console.log(sunPolygon);
 
+  // test structure - 
+  gan = new Gan({
+    buffer: paintBroBuffer,
+    posX: 0,
+    posY: 0,
+    elementSizeMin: 0.004 * DOMINANTSIDE,
+    elementSizeMax: 0.004 * DOMINANTSIDE,
+    fillColor: color(PALETTE.base.fillFirst),
+    // fillColor: color(100),
+    // secondaryFillColor: color(180, 60),
+    secondaryFillColor: color(PALETTE.base.fillSecond),
+    fillColorNoise: 10,
+    fillColorOpacity: 255,
+    numberQuantisizer: 1,
+    // backgroundColor: color(PALETTE.base[0]),
+  })
+  gan.show();
+
   paintbro = new paintBro({
     buffer: paintBroBuffer,
     elementSizeMin: 0.01 * DOMINANTSIDE, //width * 0.01,
     elementSizeMax: 0.09 * DOMINANTSIDE, //width * 0.05,
-    noStroke: false,
-    // strokeColor: color("#16535a"),
-    strokeColor: color(PALETTE.base.strokeFirst),
-    strokeWeight: 10 * DOMINANTSIDE,// width * 0.001,
-    strokeColorNoise: 3,
-    strokeOpacity: 15, // 50, // 15,
-    numberQuantisizer: 12,
+    strokeWeight: 5 * DOMINANTSIDE,// width * 0.001,
+    numberQuantisizer: 10,
   })
   paintbro.show();
 
@@ -278,8 +295,8 @@ function setup() {
   //   posY: 0,
   //   elementSizeMin: 0.001 * DOMINANTSIDE,
   //   elementSizeMax: 0.001 * DOMINANTSIDE,
-  //   fillColor: color(PALETTE.base[1]),
-  //   // fillColor: color(100),
+  //   // fillColor: color(PALETTE.base[1]),
+  //   fillColor: color(100),
   //   secondaryFillColor: color(180, 60),
   //   fillColorNoise: 5,
   //   fillColorOpacity: 255,
@@ -293,6 +310,7 @@ function setup() {
   //   backgroundColor: color(PALETTE.background),
   // })
   // texMex.show();
+
 
   // trying to blur
   // push();
@@ -351,6 +369,13 @@ function draw() {
   image(paintBroBuffer, 0, 0, paintBroBuffer.width, paintBroBuffer.height);
   pop();
 
+
+  // TEST GAN
+  // push();
+  // translate(-width / 2, -height / 2);
+  // image(gan.buffer, 0, 0, gan.buffer.width, gan.buffer.height);
+  // pop();
+
   // BRUSHES
   // brushSystem.show();
 
@@ -368,6 +393,20 @@ function draw() {
   // fill(stan_new);
   // noStroke();
   // ellipse(0, 0, 55);
+  // pop();
+
+
+  // show center
+
+
+
+
+  // push();
+  // translate(0, 0, 0);
+  // // fill(gradient);
+  // // fillGradient(createVector(0, 0), 40, 20, color(PALETTE.aLevel.fillFirst), color("black"));
+  // noStroke();
+  // ellipse(0, 0, 50);
   // pop();
 
   // brush examples
@@ -518,4 +557,14 @@ function highlightColor(colorCode) {
 
   // return colorCode;
   return rgbHighlight;
+}
+
+function fillGradient(pos, widthE, heightE, color1, color2) {
+
+  for (let i = pos.y; i <= pos.y + heightE; i++) {
+    let inter = map(i, pos.y, pos.y + heightE, 0, 1);
+    let c = lerpColor(color1, color2, inter);
+    stroke(c);
+    line(pos.x, i, pos.x + widthE, i);
+  }
 }
