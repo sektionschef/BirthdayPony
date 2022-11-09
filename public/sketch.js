@@ -2,6 +2,8 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
+const ALL = true;
+
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
   console.log("Noise seed: " + NOISESEED);
@@ -348,28 +350,28 @@ function draw() {
   // hatchesLong.show();
   // hatchesBug.show();
 
-  if (frameCount == 30) {
+  if (frameCount == 30 || ALL) {
     paintbro.show("base");
     console.log("base finished");
     TIMINGSTATE = "base finished";
     dotSystem.fireBrush("cLevel");
   }
 
-  if (brushSystem.check_all_complete("cLevel") && TIMINGSTATE == "base finished") {
+  if (brushSystem.check_all_complete("cLevel") && TIMINGSTATE == "base finished" || ALL) {
     paintbro.show("cLevel");
     console.log("cLevel finished");
     TIMINGSTATE = "cLevel finished"
     dotSystem.fireBrush("bLevel");
   };
 
-  if (brushSystem.check_all_complete("bLevel") && TIMINGSTATE == "cLevel finished") {
+  if (brushSystem.check_all_complete("bLevel") && TIMINGSTATE == "cLevel finished" || ALL) {
     paintbro.show("bLevel");
     console.log("bLevel finished");
     TIMINGSTATE = "bLevel finished"
     dotSystem.fireBrush("aLevel");
   };
 
-  if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "bLevel finished") {
+  if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "bLevel finished" || ALL) {
     paintbro.show("aLevel");
     console.log("aLevel finished");
     TIMINGSTATE = "aLevel finished"
