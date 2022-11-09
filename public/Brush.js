@@ -1,5 +1,5 @@
 class Brush {
-    constructor(start, end, colorObject) {
+    constructor(start, end, colorObject, category) {
         // this.buffer = buffer;
         this.fullspeed = 10; // BRUSHFULLSPEED // 2-5;
         this.radiusMin = 0.003 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
@@ -16,8 +16,10 @@ class Brush {
         this.strokeSize = 0.1; // BRUSHFIBRESIZE;  // good one
         this.strokeColorDistort = 10; // BRUSHFIBRECOLORNOISE;
 
+
         this.start = start;
         this.end = end;
+        this.category = category;
 
         this.alive = true;
         this.passedA = false;
@@ -218,7 +220,7 @@ class Brush {
     show() {
 
 
-        if (MODE >= 0) {
+        if (MODE >= 5) {
             // scalar
             push();
             translate(-width / 2, -height / 2);
@@ -287,23 +289,27 @@ class Brush {
     }
 
     drawBrush() {
-        for (var i = 0; i < this.elements.length; i++) {
-            paintBroBuffer.push();
-            // brushBuffer.translate(-width / 2, -height / 2);
-            // console.log(this.elements);
-            paintBroBuffer.strokeWeight(this.strokeSize);
-            paintBroBuffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
-            paintBroBuffer.noFill();
-            if (this.brushShape == "Line") {
-                paintBroBuffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
-            } else if (this.brushShape == "Ellipse") {
-                paintBroBuffer.ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
-            } else if (this.brushShape == "Triangle") {
-                paintBroBuffer.triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
-            } else {
-                console.warn("No brush shape specified, oida!")
+
+        if (this.alive) {
+
+            for (var i = 0; i < this.elements.length; i++) {
+                paintBroBuffer.push();
+                // brushBuffer.translate(-width / 2, -height / 2);
+                // console.log(this.elements);
+                paintBroBuffer.strokeWeight(this.strokeSize);
+                paintBroBuffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
+                paintBroBuffer.noFill();
+                if (this.brushShape == "Line") {
+                    paintBroBuffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
+                } else if (this.brushShape == "Ellipse") {
+                    paintBroBuffer.ellipse(this.elements[i].posX, this.elements[i].posY, this.elements[i].width, this.elements[i].height);
+                } else if (this.brushShape == "Triangle") {
+                    paintBroBuffer.triangle(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY, this.elements[i].posCX, this.elements[i].posCY);
+                } else {
+                    console.warn("No brush shape specified, oida!")
+                }
+                paintBroBuffer.pop();
             }
-            paintBroBuffer.pop();
         }
     }
 
@@ -324,5 +330,47 @@ class BrushSystem {
             brush.update();
             brush.show();
         }
+    }
+
+    // check_all_complete(category) {
+
+    //     // skip if not needed at all
+    //     if (this.all_lines_complete == false || this.brushes.length > 0) {
+
+    //         this.brushes_alive_status = [];
+    //         for (var brush of this.brushes) {
+
+    //             if (brush.category == category) {
+    //                 this.brushes_alive_status.push(brush.alive);
+    //                 // console.log(this.brushes_alive_status)
+    //             }
+
+    //         }
+
+    //         this.all_lines_complete = this.brushes_alive_status.every(element => element === false);
+    //     }
+
+    // }
+
+    check_all_complete(category) {
+
+        // skip if not needed at all
+        if (this.all_lines_complete == false || this.brushes.length > 0) {
+
+            this.brushes_alive_status = [];
+            for (var brush of this.brushes) {
+
+                if (brush.category == category) {
+                    this.brushes_alive_status.push(brush.alive);
+                    // console.log(this.brushes_alive_status)
+                }
+
+            }
+
+            return this.brushes_alive_status.every(element => element === false);
+        } else {
+            return false;
+        }
+
     }
 }

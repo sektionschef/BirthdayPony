@@ -30,6 +30,7 @@ let PRICE = "ꜩ 3";
 let EDITIONS = "100 editions";
 
 let GRAINAMOUNT = 0.03;
+let TIMINGSTATE = "Start";
 
 // let NUMBER_OF_GRIDS = getRandomFromList([2, 3]);
 // let BRUSHSIZEMIN = getRandomFromList([0.3, 0.4, 0.5, 0.6, 0.7]);  // 0.5
@@ -213,10 +214,10 @@ function setup() {
   // }
 
   // EXAMPLES for DEV
-  brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
-  brushXY = new Brush(createVector(400, 450), createVector(560, 600), color("black"));
-  brushY = new Brush(createVector(300, 400), createVector(300, 800), color("black"));
-  brushYX = new Brush(createVector(400, 600), createVector(560, 450), color("black"));
+  // brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
+  // brushXY = new Brush(createVector(400, 450), createVector(560, 600), color("black"));
+  // brushY = new Brush(createVector(300, 400), createVector(300, 800), color("black"));
+  // brushYX = new Brush(createVector(400, 600), createVector(560, 450), color("black"));
 
   // brushBug = new Brush(createVector(807, 50), createVector(807, 898));
 
@@ -347,21 +348,52 @@ function draw() {
   // hatchesLong.show();
   // hatchesBug.show();
 
-  // if (frameCount == 30) {
-  //   paintbro.show("base");
-  //   dotSystem.fireBrush("cLevel");
-  // }
+  if (frameCount == 30) {
+    paintbro.show("base");
+    console.log("base finished");
+    TIMINGSTATE = "base finished";
+    dotSystem.fireBrush("cLevel");
+  }
 
-  // if (frameCount == 560) {
-  //   paintbro.show("cLevel");
+  if (brushSystem.check_all_complete("cLevel") && TIMINGSTATE == "base finished") {
+    paintbro.show("cLevel");
+    console.log("cLevel finished");
+    TIMINGSTATE = "cLevel finished"
+    dotSystem.fireBrush("bLevel");
+  };
+
+  if (brushSystem.check_all_complete("bLevel") && TIMINGSTATE == "cLevel finished") {
+    paintbro.show("bLevel");
+    console.log("bLevel finished");
+    TIMINGSTATE = "bLevel finished"
+    dotSystem.fireBrush("aLevel");
+  };
+
+  if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "bLevel finished") {
+    paintbro.show("aLevel");
+    console.log("aLevel finished");
+    TIMINGSTATE = "aLevel finished"
+    ALLDONE = true;
+  };
+
+  // if (TIMINGSTATE == "base finished") {
   //   dotSystem.fireBrush("bLevel");
+  //   if (brushSystem.all_lines_complete == true) {
+  //     // console.log("Lines finished.");
+  //     TIMINGSTATE = "cLevel finished"
+  //   }
   // }
 
-  // if (frameCount == 590) {
+  // if (TIMINGSTATE == "cLevel finished") {
   //   paintbro.show("bLevel");
   //   dotSystem.fireBrush("aLevel");
+  //   if (brushSystem.all_lines_complete == true) {
+  //     // console.log("Lines finished.");
+  //     TIMINGSTATE = "bLevel finished"
+  //   }
   // }
-  // if (frameCount == 620) {
+
+  // if (TIMINGSTATE == "bLevel finished") {
   //   paintbro.show("aLevel");
   // }
 
@@ -400,28 +432,15 @@ function draw() {
   // pop();
 
 
-  // show center
-
-
-
-
-  // push();
-  // translate(0, 0, 0);
-  // // fill(gradient);
-  // // fillGradient(createVector(0, 0), 40, 20, color(PALETTE.aLevel.fillFirst), color("black"));
-  // noStroke();
-  // ellipse(0, 0, 50);
-  // pop();
-
   // brush examples
-  brushX.update();
-  brushX.show();
-  brushXY.update();
-  brushXY.show();
-  brushY.update();
-  brushY.show();
-  brushYX.update();
-  brushYX.show();
+  // brushX.update();
+  // brushX.show();
+  // brushXY.update();
+  // brushXY.show();
+  // brushY.update();
+  // brushY.show();
+  // brushYX.update();
+  // brushYX.show();
 
   // brushBug.update();
   // brushBug.show();
@@ -442,10 +461,6 @@ function draw() {
 
   if (MODE > 1) {
     dotSystem.show();
-  }
-
-  if (frameCount > 1800) {
-    ALLDONE = true;
   }
 
   if (ALLDONE == true) {

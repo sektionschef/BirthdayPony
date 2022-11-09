@@ -43,7 +43,7 @@ class DrawDots {
         // this.addBrushsystem(brushSystem);
     }
 
-    addBrushsystem(system) {
+    addBrushsystem(system, category) {
         var currentPointX;
         var currentPointY;
         var currentPointZ;
@@ -62,7 +62,12 @@ class DrawDots {
             nextPointY = this.dots[i + 1].y / height * DOMINANTSIDE;
             nextPointZ = this.dots[i + 1].z;
 
-            system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("#222222")))
+            system.add(new Brush(
+                createVector(currentPointX, currentPointY, currentPointZ),
+                createVector(nextPointX, nextPointY, nextPointZ),
+                color("#222222"),
+                category
+            ))
         }
 
     }
@@ -234,18 +239,18 @@ class drawDotsSystem {
     fireBrush(level) {
 
         if (level == "cLevel") {
-            this.dotsC1.addBrushsystem(brushSystem);
-            this.dotsC2.addBrushsystem(brushSystem);
+            this.dotsC1.addBrushsystem(brushSystem, "cLevel");
+            this.dotsC2.addBrushsystem(brushSystem, "cLevel");
         }
 
         if (level == "bLevel") {
-            this.dotsB1.addBrushsystem(brushSystem);
-            this.dotsB2.addBrushsystem(brushSystem);
+            this.dotsB1.addBrushsystem(brushSystem, "bLevel");
+            this.dotsB2.addBrushsystem(brushSystem, "bLevel");
         }
 
         if (level == "aLevel") {
-            this.dotsA1.addBrushsystem(brushSystem);
-            this.dotsA2.addBrushsystem(brushSystem);
+            this.dotsA1.addBrushsystem(brushSystem, "aLevel");
+            this.dotsA2.addBrushsystem(brushSystem, "aLevel");
         }
     }
 }
