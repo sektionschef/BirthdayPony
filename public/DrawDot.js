@@ -38,12 +38,9 @@ class DrawDots {
             this.dots.push(createVector(dotX, dotY, dotZ));
         }
 
-        // sort by Y position
-        // dotY.sort(function (a, b) { return a.y - b.y });
-
         // console.log(this.dots);
 
-        this.addBrushsystem(brushSystem);
+        // this.addBrushsystem(brushSystem);
     }
 
     addBrushsystem(system) {
@@ -65,7 +62,6 @@ class DrawDots {
             nextPointY = this.dots[i + 1].y / height * DOMINANTSIDE;
             nextPointZ = this.dots[i + 1].z;
 
-            // system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("#f55442")))
             system.add(new Brush(createVector(currentPointX, currentPointY, currentPointZ), createVector(nextPointX, nextPointY, nextPointZ), color("#222222")))
         }
 
@@ -233,5 +229,23 @@ class drawDotsSystem {
         this.showPolygons(this.polygonsA);
         this.showPolygons(this.polygonsB);
         this.showPolygons(this.polygonsC);
+    }
+
+    fireBrush(level) {
+
+        if (level == "cLevel") {
+            this.dotsC1.addBrushsystem(brushSystem);
+            this.dotsC2.addBrushsystem(brushSystem);
+        }
+
+        if (level == "bLevel") {
+            this.dotsB1.addBrushsystem(brushSystem);
+            this.dotsB2.addBrushsystem(brushSystem);
+        }
+
+        if (level == "aLevel") {
+            this.dotsA1.addBrushsystem(brushSystem);
+            this.dotsA2.addBrushsystem(brushSystem);
+        }
     }
 }

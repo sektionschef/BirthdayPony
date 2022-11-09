@@ -146,8 +146,6 @@ function preload() {
 
 function setup() {
 
-
-
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
 
@@ -177,9 +175,6 @@ function setup() {
 
   // setCamera(cam1);
 
-  str = createGraphics(100, 100);
-  str.fill(color("blue"));
-
 
   paintBroBuffer = createGraphics(width, height, "WEBGL");
 
@@ -198,13 +193,6 @@ function setup() {
     // console.log("Pixel density: " + pixelDensity())
   }
 
-  // Resolution independent features
-  // BRUSHSIZEMIN = Math.round(BRUSHSIZEMIN / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
-  // BRUSHSIZEMAX = Math.round(BRUSHSIZEMAX / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
-  // BRUSHFIBRESIZE = Math.round(BRUSHFIBRESIZE / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
-  // HATCHOFFSET = Math.round(HATCHOFFSET / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
-  // DISTANCE_BETWEEN_LINES = Math.round(DISTANCE_BETWEEN_LINES / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
-  // HATCHOFFSET = Math.round(HATCHOFFSET / RESCALINGCONSTANT * DOMINANTSIDE * 100) / 100;
 
   // BRUSH example
   // A1 = createVector(0.2 * DOMINANTSIDE, width / 2, 0);
@@ -225,10 +213,10 @@ function setup() {
   // }
 
   // EXAMPLES for DEV
-  // brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
-  // brushXY = new Brush(createVector(400, 450), createVector(560, 600));
-  // brushY = new Brush(createVector(300, 400), createVector(300, 800));
-  // brushYX = new Brush(createVector(400, 600), createVector(560, 450));
+  brushX = new Brush(createVector(150, 200), createVector(350, 200), color("black"));
+  brushXY = new Brush(createVector(400, 450), createVector(560, 600), color("black"));
+  brushY = new Brush(createVector(300, 400), createVector(300, 800), color("black"));
+  brushYX = new Brush(createVector(400, 600), createVector(560, 450), color("black"));
 
   // brushBug = new Brush(createVector(807, 50), createVector(807, 898));
 
@@ -351,29 +339,31 @@ function draw() {
     pixelDensity(CURRENTPIXELDENS);
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
-    paintBroBuffer.background(color(PALETTE.background));
+    // paintBroBuffer.background(color(PALETTE.background));
   }
   // background(color(PALETTE.background));
-  background(color(PALETTE.background));
 
   // hatchesHigh.show();
   // hatchesLong.show();
   // hatchesBug.show();
 
-  if (frameCount == 30) {
-    paintbro.show("base");
-  }
+  // if (frameCount == 30) {
+  //   paintbro.show("base");
+  //   dotSystem.fireBrush("cLevel");
+  // }
 
-  if (frameCount == 60) {
-    paintbro.show("cLevel");
-  }
+  // if (frameCount == 560) {
+  //   paintbro.show("cLevel");
+  //   dotSystem.fireBrush("bLevel");
+  // }
 
-  if (frameCount == 90) {
-    paintbro.show("bLevel");
-  }
-  if (frameCount == 120) {
-    paintbro.show("aLevel");
-  }
+  // if (frameCount == 590) {
+  //   paintbro.show("bLevel");
+  //   dotSystem.fireBrush("aLevel");
+  // }
+  // if (frameCount == 620) {
+  //   paintbro.show("aLevel");
+  // }
 
 
 
@@ -424,17 +414,17 @@ function draw() {
   // pop();
 
   // brush examples
-  // brushX.update();
-  // brushX.display();
-  // brushXY.update();
-  // brushXY.display();
-  // brushY.update();
-  // brushY.display();
-  // brushYX.update();
-  // brushYX.display();
+  brushX.update();
+  brushX.show();
+  brushXY.update();
+  brushXY.show();
+  brushY.update();
+  brushY.show();
+  brushYX.update();
+  brushYX.show();
 
   // brushBug.update();
-  // brushBug.display();
+  // brushBug.show();
 
 
   // SHOW SUNPOLYGON
@@ -454,7 +444,7 @@ function draw() {
     dotSystem.show();
   }
 
-  if (frameCount > 800) {
+  if (frameCount > 1800) {
     ALLDONE = true;
   }
 

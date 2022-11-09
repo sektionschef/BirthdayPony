@@ -365,3 +365,34 @@ function insidePolygon(point, vs) {
     return inside;
 };
 
+// draw an arrow for a vector at a given base position - from: https://p5js.org/reference/#/p5.Vector/add
+function drawArrow(base, vec, myColor) {
+    let goal = p5.Vector.sub(vec, base);
+    push();
+    stroke(myColor);
+    strokeWeight(3);
+    fill(myColor);
+    translate(base.x, base.y);
+    line(0, 0, goal.x, goal.y);
+    rotate(goal.heading());
+    let arrowSize = 7;
+    translate(goal.mag() - arrowSize, 0);
+    triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
+    pop();
+}
+
+function getAngleBetweenPoints(start, end) {
+    return atan2(end.y - start.y, end.x - start.x);
+}
+
+// find nearest point along a LINE: from https://editor.p5js.org/solub/sketches/JkjZA2ZOS
+function orthogonalProjection1(a, b, p) {
+
+    d1 = p5.Vector.sub(b, a).normalize()
+    d2 = p5.Vector.sub(p, a)
+
+    d1.mult(d2.dot(d1))
+
+    return p5.Vector.add(a, d1)
+
+}

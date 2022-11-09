@@ -1,7 +1,7 @@
 class Brush {
     constructor(start, end, colorObject) {
         // this.buffer = buffer;
-        this.fullspeed = 3; // BRUSHFULLSPEED // 2-5;
+        this.fullspeed = 10; // BRUSHFULLSPEED // 2-5;
         this.radiusMin = 0.003 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
         this.radiusMax = 0.004 * DOMINANTSIDE; //BRUSHSIZEMAX; // 2;
         // this.brushShape = "Ellipse";
@@ -10,7 +10,7 @@ class Brush {
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
         // this.amplitudeNoiseY = 3.5;  // up and down on Y axis
-        this.OkLevel = 4;  // some offset is ok.
+        this.OkLevel = 10;  // some offset is ok.
         this.fillColor = colorObject;
         this.strokeColor = colorObject;
         this.strokeSize = 0.1; // BRUSHFIBRESIZE;  // good one
@@ -47,6 +47,13 @@ class Brush {
         // this.makeSomeNoise();
 
         this.get_orientation();
+
+        // trying to get scalar projection - create a 90 degrees finish line for the brush
+        this.anglePath = atan2(this.end.y - this.start.y, this.end.x - this.start.x);
+        // console.log(this.anglePath);
+        this.endOrtho = p5.Vector.add(this.end, p5.Vector.fromAngle(this.anglePath - PI / 2, 100));
+        // console.log(this.endOrtho)
+
     }
 
     // makeSomeNoise() {
@@ -67,6 +74,7 @@ class Brush {
     // }
 
     get_orientation() {
+        // needed for hatching
 
         this.acceptanceLevel = PI / 12
 
@@ -95,9 +103,10 @@ class Brush {
     }
 
     get_status() {
+        // get the point in orthogonal line to the end point.
+        this.orthoProjectionPoint = orthogonalProjection1(this.end, this.endOrtho, this.pos);
 
-        // SOLUTION WITH TOTAL DISTANCE - achtung kein else if
-        if (this.pos.dist(this.end) <= this.OkLevel) {
+        if (this.pos.dist(this.orthoProjectionPoint) <= this.OkLevel) {
             this.alive = false;  // reaching the goal of one axis is enough (xy & yx case)
             this.acc = createVector(0, 0, 0);
             this.vel = createVector(0, 0, 0);
@@ -109,59 +118,6 @@ class Brush {
         if (this.pos.dist(this.checkpointB) <= 2) {
             this.passedB = true;
         }
-
-        // if (this.orientation == "left-right") {
-        //     if (this.pos.x > (this.end.x - this.OkLevel)) {
-        //         this.acc = createVector(0, 0, 0);
-        //         this.vel = createVector(0, 0, 0);
-        //         // console.log("stop");
-        //         this.alive = false;
-        //     }
-        //     if (this.pos.x > this.checkpointA.x) {
-        //         this.passedA = true;
-        //     }
-        //     if (this.pos.x > this.checkpointB.x) {
-        //         this.passedB = true;
-        //     }
-        // } else if (this.orientation == "top/left-bottom/right") {
-        //     if (this.pos.x > (this.end.x - this.OkLevel) && this.pos.y > (this.end.y - this.OkLevel)) {
-        //         this.acc = createVector(0, 0, 0);
-        //         this.vel = createVector(0, 0, 0);
-        //         this.alive = false;
-        //     }
-        //     if (this.pos.x > this.checkpointA.x && this.pos.y > this.checkpointA.y) {
-        //         this.passedA = true;
-        //     }
-        //     if (this.pos.x > this.checkpointB.x && this.pos.y > this.checkpointB.y) {
-        //         this.passedB = true;
-        //     }
-        // } else if (this.orientation == "top-bottom") {
-        //     if (this.pos.y > (this.end.y - this.OkLevel)) {
-        //         this.acc = createVector(0, 0, 0);
-        //         this.vel = createVector(0, 0, 0);
-        //         this.alive = false;
-        //     }
-        //     if (this.pos.y > this.checkpointA.y) {
-        //         this.passedA = true;
-        //     }
-        //     if (this.pos.y > this.checkpointB.y) {
-        //         this.passedB = true;
-        //     }
-        // } else if (this.orientation == "left/bottom-top/right") {
-        //     if (this.pos.x > (this.end.x - this.OkLevel) && this.pos.y < (this.end.y + this.OkLevel)) {
-        //         this.acc = createVector(0, 0, 0);
-        //         this.vel = createVector(0, 0, 0);
-        //         this.alive = false;
-        //     }
-        //     if (this.pos.x > this.checkpointA.x && this.pos.y < this.checkpointA.y) {
-        //         this.passedA = true;
-        //     }
-        //     if (this.pos.x > this.checkpointB.x && this.pos.y < this.checkpointB.y) {
-        //         this.passedB = true;
-        //     }
-        // } else {
-
-        // }
 
     }
 
@@ -233,6 +189,10 @@ class Brush {
             this.vel.add(this.acc);
             this.pos.add(this.vel);
 
+            if (this.acc.x < 0 || this.acc.x < 0 || this.acc.x < 0) {
+                // this.vel = createVector(0, 0, 0);
+            }
+
             // if (this.orientation == "x") {
             // this.pos.y = this.start2 + this.noisesY[Math.round(mover)];
             // } else if (this.orientation == "y") {
@@ -257,7 +217,18 @@ class Brush {
 
     show() {
 
-        if (MODE >= 5) {
+
+        if (MODE >= 0) {
+            // scalar
+            push();
+            translate(-width / 2, -height / 2);
+            // ellipse(this.endOrtho.x, this.endOrtho.y, 10);
+            drawArrow(this.end, this.endOrtho, "orange");  // not working
+            translate(this.orthoProjectionPoint.x, this.orthoProjectionPoint.y);
+            // ellipse(0, 0, 30);
+            pop();
+
+
             // start
             push();
             translate(-width / 2, -height / 2);
@@ -300,6 +271,7 @@ class Brush {
 
         // if (this.alive) {
 
+        // with moving circle
         if (MODE >= 5) {
             push();
             translate(-width / 2, -height / 2);
