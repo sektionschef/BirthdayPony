@@ -287,7 +287,6 @@ function setup() {
     strokeWeight: 5 * DOMINANTSIDE,// width * 0.001,
     numberQuantisizer: 10,
   })
-  paintbro.show();
 
   // texMex = new TexMex({
   //   buffer: paintBroBuffer,
@@ -359,8 +358,23 @@ function draw() {
 
   // hatchesHigh.show();
   // hatchesLong.show();
-
   // hatchesBug.show();
+
+  if (frameCount == 30) {
+    paintbro.show("base");
+  }
+
+  if (frameCount == 60) {
+    paintbro.show("cLevel");
+  }
+
+  if (frameCount == 90) {
+    paintbro.show("bLevel");
+  }
+  if (frameCount == 120) {
+    paintbro.show("aLevel");
+  }
+
 
 
   // PAINT
@@ -377,7 +391,7 @@ function draw() {
   // pop();
 
   // BRUSHES
-  // brushSystem.show();
+  brushSystem.show();
 
   // TEX
   // push();

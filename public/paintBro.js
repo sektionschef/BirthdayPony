@@ -19,7 +19,8 @@ class paintBro {
         var insidePolygonSwitchB;
         var insidePolygonSwitchC;
         var sunPolygonSwitch;
-        var colorNumber;
+        var colorNumber;  // which color to choose first or second
+        var elementLayer;
 
         this.elements = [];
 
@@ -38,12 +39,11 @@ class paintBro {
             posX = getRandomFromInterval(0, 1) * this.buffer.width;
             posY = getRandomFromInterval(0, 1) * this.buffer.height;
 
-
             // which colors to choose
             colorNumber = getRandomFromList(["first", "second"]);
-            // console.log(colorNumber);
 
-            // default case - no Level
+            // default case - base Level
+            elementLayer = "base";
             if (colorNumber == "first") {
                 elementFillColor = color(PALETTE.base.fillFirst); // distortColorNew(this.fillColor, this.fillColorNoise);
                 elementStrokeColor = color(PALETTE.base.strokeFirst);
@@ -64,6 +64,7 @@ class paintBro {
 
                 if (insidePolygon([posX, posY], currentPolygon)) {
                     insidePolygonSwitchC = true;
+                    elementLayer = "cLevel";
                 }
             }
 
@@ -90,6 +91,7 @@ class paintBro {
                 // console.warn(fxrand());
                 if (insidePolygon([posX, posY], currentPolygon) && insidePolygonSwitchB == false) {
                     insidePolygonSwitchB = true;
+                    elementLayer = "bLevel";
                 }
             }
             if (insidePolygonSwitchB) {
@@ -115,6 +117,7 @@ class paintBro {
                 // console.warn(fxrand());
                 if (insidePolygon([posX, posY], currentPolygon) && insidePolygonSwitchA == false) {
                     insidePolygonSwitchA = true;
+                    elementLayer = "aLevel";
                 }
             }
             if (insidePolygonSwitchA) {
@@ -146,6 +149,7 @@ class paintBro {
             // }
 
             this.elements.push({
+                elementLayer: elementLayer,
                 elementFillColor: elementFillColor,
                 // widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
                 // heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
@@ -159,58 +163,59 @@ class paintBro {
         }
     }
 
-    show() {
+    show(layer) {
 
         let angle;
         let distort;
         let step = Math.round(0.002 * DOMINANTSIDE * 100) / 100;  // movement of element
 
-        paintBroBuffer.background(color(PALETTE.background));
+        if (layer == "base") {
+            paintBroBuffer.background(color(PALETTE.background));
+        }
 
         for (var e = 0; e < this.elements.length; e++) {
-            // if ((fxrand() < 0.9) && (e > this.shapeNumber / 2)) {
-            // console.log(insidePolygon(point, PolyProto));
 
-            // static one
-            // if (this.elements[e].posX > 230 && this.elements[e].posX < 330 && this.elements[e].posY > 550 && this.elements[e].posY < 750) {
+            // draw only specific layer
+            if ((this.elements[e].elementLayer == layer)) {
 
-            this.buffer.fill(this.elements[e].elementFillColor);
-            this.buffer.rectMode(CENTER);
-            this.buffer.ellipseMode(CENTER);
-            // this.buffer.translate((this.posX), (this.posY));
-            // this.buffer.rotate(this.elements[e].angle)
+                this.buffer.fill(this.elements[e].elementFillColor);
+                this.buffer.rectMode(CENTER);
+                this.buffer.ellipseMode(CENTER);
+                // this.buffer.translate((this.posX), (this.posY));
+                // this.buffer.rotate(this.elements[e].angle)
 
-            this.buffer.strokeWeight(strokeWeight);
-            this.buffer.stroke(this.elements[e].elementStrokeColor);
+                this.buffer.strokeWeight(strokeWeight);
+                this.buffer.stroke(this.elements[e].elementStrokeColor);
 
-            // angle = getRandomFromInterval(0, PI / 4);
+                // angle = getRandomFromInterval(0, PI / 4);
 
-            if (fxrand() < 0.25) {
-                this.orientation = getRandomFromList(["vertical"])
-            } else {
-                this.orientation = getRandomFromList(["horizontal"])
-            }
-
-            for (var i = 0; i < 60; i++) {
-                // for (var i = 0; i < 60; i += 5) {
-                this.buffer.push();
-
-                // angle = getRandomFromInterval(PI, 2 * PI);
-                // angle = getRandomFromList([PI / 2, PI / 3, PI / 4, PI / 5])
-                angle = getRandomFromInterval(0, 2 * PI);
-                distort = Math.round(getRandomFromInterval(-0.01, 0.01) * DOMINANTSIDE);
-
-                if (this.orientation == "horizontal") {  // X movement
-                    this.buffer.translate(this.elements[e].posX + i * step + distort, this.elements[e].posY + distort)
-                } else {  // Y movement
-                    this.buffer.translate(this.elements[e].posX + distort, this.elements[e].posY + i * step + distort)
+                if (fxrand() < 0.25) {
+                    this.orientation = getRandomFromList(["vertical"])
+                } else {
+                    this.orientation = getRandomFromList(["horizontal"])
                 }
-                this.buffer.rotate(angle);
-                this.buffer.rect(0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
 
-                // this.buffer.image(gan.buffer, 0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
+                for (var i = 0; i < 60; i++) {
+                    // for (var i = 0; i < 60; i += 5) {
+                    this.buffer.push();
 
-                this.buffer.pop();
+                    // angle = getRandomFromInterval(PI, 2 * PI);
+                    // angle = getRandomFromList([PI / 2, PI / 3, PI / 4, PI / 5])
+                    angle = getRandomFromInterval(0, 2 * PI);
+                    distort = Math.round(getRandomFromInterval(-0.01, 0.01) * DOMINANTSIDE);
+
+                    if (this.orientation == "horizontal") {  // X movement
+                        this.buffer.translate(this.elements[e].posX + i * step + distort, this.elements[e].posY + distort)
+                    } else {  // Y movement
+                        this.buffer.translate(this.elements[e].posX + distort, this.elements[e].posY + i * step + distort)
+                    }
+                    this.buffer.rotate(angle);
+                    this.buffer.rect(0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
+
+                    // this.buffer.image(gan.buffer, 0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
+
+                    this.buffer.pop();
+                }
             }
         }
     }
