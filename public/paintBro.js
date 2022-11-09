@@ -208,7 +208,7 @@ class paintBro {
                 this.buffer.rotate(angle);
                 this.buffer.rect(0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
 
-                this.buffer.image(gan.buffer, 0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
+                // this.buffer.image(gan.buffer, 0, 0, this.elements[e].widthShape, this.elements[e].heightShape);
 
                 this.buffer.pop();
             }

@@ -263,22 +263,22 @@ function setup() {
   // console.log(sunPolygon);
 
   // test structure - 
-  gan = new Gan({
-    buffer: paintBroBuffer,
-    posX: 0,
-    posY: 0,
-    elementSizeMin: 0.004 * DOMINANTSIDE,
-    elementSizeMax: 0.004 * DOMINANTSIDE,
-    fillColor: color(PALETTE.base.fillFirst),
-    // fillColor: color(100),
-    // secondaryFillColor: color(180, 60),
-    secondaryFillColor: color(PALETTE.base.fillSecond),
-    fillColorNoise: 10,
-    fillColorOpacity: 255,
-    numberQuantisizer: 1,
-    // backgroundColor: color(PALETTE.base[0]),
-  })
-  gan.show();
+  // gan = new Gan({
+  //   buffer: paintBroBuffer,
+  //   posX: 0,
+  //   posY: 0,
+  //   elementSizeMin: 0.004 * DOMINANTSIDE,
+  //   elementSizeMax: 0.004 * DOMINANTSIDE,
+  //   fillColor: color(PALETTE.base.fillFirst),
+  //   // fillColor: color(100),
+  //   // secondaryFillColor: color(180, 60),
+  //   secondaryFillColor: color(PALETTE.base.fillSecond),
+  //   fillColorNoise: 10,
+  //   fillColorOpacity: 255,
+  //   numberQuantisizer: 1,
+  //   // backgroundColor: color(PALETTE.base[0]),
+  // })
+  // gan.show();
 
   paintbro = new paintBro({
     buffer: paintBroBuffer,
