@@ -279,8 +279,8 @@ function setup() {
     strokeWeight: 0.001 * DOMINANTSIDE,// width * 0.001,
     numberQuantisizer: 10,
     brushLength: 160,
-    distortionFactor: 0.00009 * DOMINANTSIDE,
-    stepSize: 0.0001 * DOMINANTSIDE,
+    distortionFactor: 0.09 * DOMINANTSIDE,
+    stepSize: 0.001 * DOMINANTSIDE,
   })
 
   // texMex = new TexMex({
