@@ -62,7 +62,7 @@ class paintBro {
                     [dotSystem.polygonsC[p][3].x, dotSystem.polygonsC[p][3].y,],
                 ]
 
-                if (insidePolygon([posX, posY], currentPolygon)) {
+                if (pointInPolygon([posX, posY], currentPolygon)) {
                     insidePolygonSwitchC = true;
                     elementLayer = "cLevel";
                 }
@@ -89,7 +89,7 @@ class paintBro {
                     [dotSystem.polygonsB[p][3].x, dotSystem.polygonsB[p][3].y,],
                 ]
                 // console.warn(fxrand());
-                if (insidePolygon([posX, posY], currentPolygon) && insidePolygonSwitchB == false) {
+                if (pointInPolygon([posX, posY], currentPolygon) && insidePolygonSwitchB == false) {
                     insidePolygonSwitchB = true;
                     elementLayer = "bLevel";
                 }
@@ -115,7 +115,7 @@ class paintBro {
                     [dotSystem.polygonsA[p][3].x, dotSystem.polygonsA[p][3].y,],
                 ]
                 // console.warn(fxrand());
-                if (insidePolygon([posX, posY], currentPolygon) && insidePolygonSwitchA == false) {
+                if (pointInPolygon([posX, posY], currentPolygon) && insidePolygonSwitchA == false) {
                     insidePolygonSwitchA = true;
                     elementLayer = "aLevel";
                 }
@@ -140,7 +140,7 @@ class paintBro {
             // ]
 
             // // console.log(currentPolygon);
-            // if (insidePolygon([posX, posY], currentPolygon)) {
+            // if (pointInPolygon([posX, posY], currentPolygon)) {
             //     sunPolygonSwitch = true;
             // }
 

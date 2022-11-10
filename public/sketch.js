@@ -149,6 +149,7 @@ function preload() {
 
 function setup() {
 
+
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
 
@@ -350,13 +351,13 @@ function draw() {
   // hatchesLong.show();
   // hatchesBug.show();
 
-  if (frameCount == 30 || ALL) {
-    paintbro.show("base");
-    console.log("base finished");
-    TIMINGSTATE = "base finished";
-    dotSystem.fireBrush("cLevel");
-    ALLDONE = true;
-  }
+  // if (frameCount == 30 || ALL) {
+  //   paintbro.show("base");
+  //   console.log("base finished");
+  //   TIMINGSTATE = "base finished";
+  //   dotSystem.fireBrush("cLevel");
+  //   // ALLDONE = true;
+  // }
 
   // if (brushSystem.check_all_complete("cLevel") && TIMINGSTATE == "base finished" || ALL) {
   //   paintbro.show("cLevel");
@@ -376,30 +377,8 @@ function draw() {
   //   paintbro.show("aLevel");
   //   console.log("aLevel finished");
   //   TIMINGSTATE = "aLevel finished"
-  //   ALLDONE = true;
+  //   // ALLDONE = true;
   // };
-
-  // if (TIMINGSTATE == "base finished") {
-  //   dotSystem.fireBrush("bLevel");
-  //   if (brushSystem.all_lines_complete == true) {
-  //     // console.log("Lines finished.");
-  //     TIMINGSTATE = "cLevel finished"
-  //   }
-  // }
-
-  // if (TIMINGSTATE == "cLevel finished") {
-  //   paintbro.show("bLevel");
-  //   dotSystem.fireBrush("aLevel");
-  //   if (brushSystem.all_lines_complete == true) {
-  //     // console.log("Lines finished.");
-  //     TIMINGSTATE = "bLevel finished"
-  //   }
-  // }
-
-  // if (TIMINGSTATE == "bLevel finished") {
-  //   paintbro.show("aLevel");
-  // }
-
 
 
   // PAINT
@@ -450,16 +429,25 @@ function draw() {
 
 
   // SHOW SUNPOLYGON
-  // push();
-  // translate(-width / 2, -height / 2);
-  // noFill();
-  // beginShape();
-  // vertex(sunPolygon[0].x, sunPolygon[0].y);
-  // vertex(sunPolygon[1].x, sunPolygon[1].y);
-  // vertex(sunPolygon[2].x, sunPolygon[2].y);
-  // vertex(sunPolygon[3].x, sunPolygon[3].y);
-  // endShape(CLOSE);
-  // pop();
+  push();
+  translate(-width / 2, -height / 2);
+  noFill();
+  beginShape();
+  vertex(sunPolygon[0].x, sunPolygon[0].y);
+  vertex(sunPolygon[1].x, sunPolygon[1].y);
+  vertex(sunPolygon[2].x, sunPolygon[2].y);
+  vertex(sunPolygon[3].x, sunPolygon[3].y);
+  endShape(CLOSE);
+  pop();
+
+  sunPolygonList = [
+    [sunPolygon[0].x, sunPolygon[0].y],
+    [sunPolygon[1].x, sunPolygon[1].y],
+    [sunPolygon[2].x, sunPolygon[2].y],
+    [sunPolygon[3].x, sunPolygon[3].y]
+  ]
+
+  console.log(pointInPolygon(sunPolygonList, [mouseX, mouseY]));
 
 
   if (MODE > 1) {
