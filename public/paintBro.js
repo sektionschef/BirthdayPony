@@ -175,6 +175,14 @@ class paintBro {
 
         for (var e = 0; e < this.elements.length; e++) {
 
+            // console.error((e) + ": " + this.elements[e].elementLayer);  // 326
+
+            if (fxrand() < 0.25) {
+                this.orientation = "vertical";
+            } else {
+                this.orientation = "horizontal";
+            }
+
             // draw only specific layer
             if ((this.elements[e].elementLayer == layer)) {
 
@@ -189,20 +197,15 @@ class paintBro {
 
                 // angle = getRandomFromInterval(0, PI / 4);
 
-                if (fxrand() < 0.25) {
-                    this.orientation = getRandomFromList(["vertical"])
-                } else {
-                    this.orientation = getRandomFromList(["horizontal"])
-                }
+                // console.error((e) + ": " + Math.round(fxrand() * 1000) / 1000);  // 326
 
                 for (var i = 0; i < 60; i++) {
                     // for (var i = 0; i < 60; i += 5) {
+
                     this.buffer.push();
 
-                    // angle = getRandomFromInterval(PI, 2 * PI);
-                    // angle = getRandomFromList([PI / 2, PI / 3, PI / 4, PI / 5])
-                    angle = getRandomFromInterval(0, 2 * PI);
-                    distort = Math.round(getRandomFromInterval(-0.01, 0.01) * DOMINANTSIDE);
+                    angle = getP5RandomFromInterval(0, 2 * PI);
+                    distort = Math.round(getP5RandomFromInterval(-0.01, 0.01) * DOMINANTSIDE);
 
                     if (this.orientation == "horizontal") {  // X movement
                         this.buffer.translate(this.elements[e].posX + i * step + distort, this.elements[e].posY + distort)

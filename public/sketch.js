@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
-const ALL = true;
+const ALL = true; // show everything at once
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
@@ -318,7 +318,7 @@ function draw() {
 
   smooth();
 
-  orbitControl();
+  // orbitControl();
   // cam1.move(mastaBrush.vel.x, mastaBrush.vel.y, 0);
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   // if (MODE == 5) {
@@ -355,28 +355,29 @@ function draw() {
     console.log("base finished");
     TIMINGSTATE = "base finished";
     dotSystem.fireBrush("cLevel");
+    ALLDONE = true;
   }
 
-  if (brushSystem.check_all_complete("cLevel") && TIMINGSTATE == "base finished" || ALL) {
-    paintbro.show("cLevel");
-    console.log("cLevel finished");
-    TIMINGSTATE = "cLevel finished"
-    dotSystem.fireBrush("bLevel");
-  };
+  // if (brushSystem.check_all_complete("cLevel") && TIMINGSTATE == "base finished" || ALL) {
+  //   paintbro.show("cLevel");
+  //   console.log("cLevel finished");
+  //   TIMINGSTATE = "cLevel finished"
+  //   dotSystem.fireBrush("bLevel");
+  // };
 
-  if (brushSystem.check_all_complete("bLevel") && TIMINGSTATE == "cLevel finished" || ALL) {
-    paintbro.show("bLevel");
-    console.log("bLevel finished");
-    TIMINGSTATE = "bLevel finished"
-    dotSystem.fireBrush("aLevel");
-  };
+  // if (brushSystem.check_all_complete("bLevel") && TIMINGSTATE == "cLevel finished" || ALL) {
+  //   paintbro.show("bLevel");
+  //   console.log("bLevel finished");
+  //   TIMINGSTATE = "bLevel finished"
+  //   dotSystem.fireBrush("aLevel");
+  // };
 
-  if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "bLevel finished" || ALL) {
-    paintbro.show("aLevel");
-    console.log("aLevel finished");
-    TIMINGSTATE = "aLevel finished"
-    ALLDONE = true;
-  };
+  // if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "bLevel finished" || ALL) {
+  //   paintbro.show("aLevel");
+  //   console.log("aLevel finished");
+  //   TIMINGSTATE = "aLevel finished"
+  //   ALLDONE = true;
+  // };
 
   // if (TIMINGSTATE == "base finished") {
   //   dotSystem.fireBrush("bLevel");
