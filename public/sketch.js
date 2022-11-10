@@ -274,13 +274,13 @@ function setup() {
 
   paintbro = new paintBro({
     buffer: paintBroBuffer,
-    elementSizeMin: 0.02 * DOMINANTSIDE, //width * 0.01,
-    elementSizeMax: 0.05 * DOMINANTSIDE, //width * 0.05,
-    strokeWeight: 0.001 * DOMINANTSIDE,// width * 0.001,
-    numberQuantisizer: 10,
-    brushLength: 160,
-    distortionFactor: 0.09 * DOMINANTSIDE,
-    stepSize: 0.001 * DOMINANTSIDE,
+    elementSizeMin: 0.01 * DOMINANTSIDE,
+    elementSizeMax: 0.05 * DOMINANTSIDE,  // 0.08
+    strokeWeight: 0.001 * DOMINANTSIDE,
+    numberQuantisizer: 30,  // 10-30
+    brushLength: 20,  // 20- 60
+    distortionFactor: 0.00009 * DOMINANTSIDE,  // 0.00009
+    stepSize: 0.001 * DOMINANTSIDE,  // 0.001-0.005
   })
 
   // texMex = new TexMex({

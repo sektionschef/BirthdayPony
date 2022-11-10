@@ -61,14 +61,14 @@ class paintBro {
                 insidePolygonSwitchC = false;
                 sunPolygonSwitch = false;
 
-                distort = getRandomFromInterval(-this.distortionFactor, this.distortionFactor);
+                distort = getRandomFromList([-this.distortionFactor, this.distortionFactor]);
 
                 // horizontal or vertical movement
                 if (orientation == "horizontal") {
                     posBX = posX + b * step + distort * b;
-                    posBY = posY + distort;
+                    posBY = posY + distort * b;
                 } else {
-                    posBX = posX + distort;
+                    posBX = posX + distort * b;
                     posBY = posY + b * step + distort * b;
                 }
                 // console.log(posBX);
@@ -93,7 +93,7 @@ class paintBro {
                         [dotSystem.polygonsC[p][3].x, dotSystem.polygonsC[p][3].y,],
                     ]
 
-                    if (pointInPolygon(currentPolygon, [posBX, posBY])) {
+                    if (pointInPolygon(currentPolygon, [posX, posY])) {
                         insidePolygonSwitchC = true;
                         elementLayer = "cLevel";
                     }
@@ -119,7 +119,7 @@ class paintBro {
                         [dotSystem.polygonsB[p][2].x, dotSystem.polygonsB[p][2].y,],
                         [dotSystem.polygonsB[p][3].x, dotSystem.polygonsB[p][3].y,],
                     ]
-                    if (pointInPolygon(currentPolygon, [posBX, posBY])) {
+                    if (pointInPolygon(currentPolygon, [posX, posY])) {
                         insidePolygonSwitchB = true;
                         elementLayer = "bLevel";
                     }
@@ -145,7 +145,7 @@ class paintBro {
                         [dotSystem.polygonsA[p][3].x, dotSystem.polygonsA[p][3].y,],
                     ]
                     // console.warn(fxrand());
-                    if (pointInPolygon(currentPolygon, [posBX, posBY])) {
+                    if (pointInPolygon(currentPolygon, [posX, posY])) {
                         insidePolygonSwitchA = true;
                         elementLayer = "aLevel";
                     }
@@ -161,22 +161,22 @@ class paintBro {
                     }
                 }
 
-                // S Level
-                currentPolygon = [
-                    [sunPolygon[0].x, sunPolygon[0].y,],
-                    [sunPolygon[1].x, sunPolygon[1].y,],
-                    [sunPolygon[2].x, sunPolygon[2].y,],
-                    [sunPolygon[3].x, sunPolygon[3].y,],
-                ]
+                // // S Level
+                // currentPolygon = [
+                //     [sunPolygon[0].x, sunPolygon[0].y,],
+                //     [sunPolygon[1].x, sunPolygon[1].y,],
+                //     [sunPolygon[2].x, sunPolygon[2].y,],
+                //     [sunPolygon[3].x, sunPolygon[3].y,],
+                // ]
 
-                // console.log(currentPolygon);
-                if (pointInPolygon(currentPolygon, [posBX, posBY])) {
-                    sunPolygonSwitch = true;
-                }
+                // // console.log(currentPolygon);
+                // if (pointInPolygon(currentPolygon, [posBX, posBY])) {
+                //     sunPolygonSwitch = true;
+                // }
 
-                if (sunPolygonSwitch) {
-                    // elementFillColor = highlightColor(fillColor);
-                }
+                // if (sunPolygonSwitch) {
+                //     // elementFillColor = highlightColor(fillColor);
+                // }
 
                 this.elements.push({
                     elementLayer: elementLayer,
