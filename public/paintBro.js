@@ -62,7 +62,7 @@ class paintBro {
                     [dotSystem.polygonsC[p][3].x, dotSystem.polygonsC[p][3].y,],
                 ]
 
-                if (pointInPolygon([posX, posY], currentPolygon)) {
+                if (pointInPolygon(currentPolygon, [posX, posY])) {
                     insidePolygonSwitchC = true;
                     elementLayer = "cLevel";
                 }
@@ -88,8 +88,7 @@ class paintBro {
                     [dotSystem.polygonsB[p][2].x, dotSystem.polygonsB[p][2].y,],
                     [dotSystem.polygonsB[p][3].x, dotSystem.polygonsB[p][3].y,],
                 ]
-                // console.warn(fxrand());
-                if (pointInPolygon([posX, posY], currentPolygon) && insidePolygonSwitchB == false) {
+                if (pointInPolygon(currentPolygon, [posX, posY]) && insidePolygonSwitchB == false) {
                     insidePolygonSwitchB = true;
                     elementLayer = "bLevel";
                 }
@@ -115,7 +114,7 @@ class paintBro {
                     [dotSystem.polygonsA[p][3].x, dotSystem.polygonsA[p][3].y,],
                 ]
                 // console.warn(fxrand());
-                if (pointInPolygon([posX, posY], currentPolygon) && insidePolygonSwitchA == false) {
+                if (pointInPolygon(currentPolygon, [posX, posY]) && insidePolygonSwitchA == false) {
                     insidePolygonSwitchA = true;
                     elementLayer = "aLevel";
                 }
@@ -140,7 +139,7 @@ class paintBro {
             // ]
 
             // // console.log(currentPolygon);
-            // if (pointInPolygon([posX, posY], currentPolygon)) {
+            // if (pointInPolygon(currentPolygon, [posX, posY])) {
             //     sunPolygonSwitch = true;
             // }
 
@@ -197,15 +196,15 @@ class paintBro {
 
                 // angle = getRandomFromInterval(0, PI / 4);
 
-                // console.error((e) + ": " + Math.round(fxrand() * 1000) / 1000);  // 326
+                console.error((e) + ": " + Math.round(fxrand() * 1000) / 1000);  // 326
 
                 for (var i = 0; i < 60; i++) {
                     // for (var i = 0; i < 60; i += 5) {
 
                     this.buffer.push();
 
-                    angle = getP5RandomFromInterval(0, 2 * PI);
-                    distort = Math.round(getP5RandomFromInterval(-0.01, 0.01) * DOMINANTSIDE);
+                    angle = getRandomFromInterval(0, 2 * PI);
+                    distort = Math.round(getRandomFromInterval(-0.01, 0.01) * DOMINANTSIDE);
 
                     if (this.orientation == "horizontal") {  // X movement
                         this.buffer.translate(this.elements[e].posX + i * step + distort, this.elements[e].posY + distort)
