@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
-const ALL = true; // show everything at once
+const ALL = false; // show everything at once
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
@@ -108,33 +108,63 @@ const PALETTESYSTEM = {
   //     strokeSecond: "#b69bb41a",
   //   }
   // },
+  // "Boom": {
+  //   "background": "#535353",
+  //   "base": {
+  //     fillFirst: "#8a8ad61f",
+  //     fillSecond: "#7979cf25",
+  //     strokeFirst: "#7f7fda9f",
+  //     strokeSecond: "#7d7dc7a8",
+  //     grainColorFirst: "#8c8cca",  // 7d7dcc
+  //     grainColorSecond: "#8989c4",
+  //   },
+  //   "cLevel": {
+  //     fillFirst: "#5858BE15",
+  //     fillSecond: "#4c4cd415",
+  //     strokeFirst: "#3c3c7915",
+  //     strokeSecond: "#45459b15",
+  //   },
+  //   "bLevel": {
+  //     fillFirst: "#A2A2DA15",
+  //     fillSecond: "#9a9acf15",
+  //     strokeFirst: "#C6C6E915",
+  //     strokeSecond: "#C6C6E915",
+  //   },
+  //   "aLevel": {
+  //     fillFirst: "#4f4fb815",
+  //     fillSecond: "#29296d15",
+  //     strokeFirst: "#03031a15",
+  //     strokeSecond: "#6c6ce415",
+  //   }
+  // },
   "Boom": {
-    "background": "#535353",
+    "background": "#8181BB",
+    "line": "#9D9DCD",
     "base": {
-      fillFirst: "#8a8ad61f",
-      fillSecond: "#7979cf25",
+      fillFirst: "#9D9DCD15",
+      fillSecond: "#9D9DCD15",
       strokeFirst: "#7f7fda9f",
       strokeSecond: "#7d7dc7a8",
-      grainColorFirst: "#8c8cca",  // 7d7dcc
+      grainColorFirst: "#9c9cd8",  // 7d7dcc
       grainColorSecond: "#8989c4",
     },
     "cLevel": {
-      fillFirst: "#5858BE15",
-      fillSecond: "#4e4e9715",
-      strokeFirst: "#3c3c7915",
-      strokeSecond: "#45459b15",
+      fillFirst: "#4F4F8D15",
+      fillSecond: "#45458515",
+      strokeFirst: "#03031a15",
+      strokeSecond: "#01010815",
     },
     "bLevel": {
-      fillFirst: "#A2A2DA15",
-      fillSecond: "#A2A2DA15",
-      strokeFirst: "#C6C6E915",
-      strokeSecond: "#C6C6E915",
+      fillFirst: "#B9B9DF15",
+      fillSecond: "#aeaed315",
+      strokeFirst: "#5a5a6b15",
+      strokeSecond: "#4f4f6615",
     },
     "aLevel": {
-      fillFirst: "#4f4fb815",
-      fillSecond: "#29296d15",
-      strokeFirst: "#03031a15",
-      strokeSecond: "#6c6ce415",
+      fillFirst: "#6666A915",
+      fillSecond: "#59599115",
+      strokeFirst: "#2b2b5215",
+      strokeSecond: "#42428815",
     }
   },
 }
@@ -304,11 +334,11 @@ function setup() {
 
   paintbro = new paintBro({
     buffer: paintBroBuffer,
-    elementSizeMin: 0.01 * DOMINANTSIDE,
-    elementSizeMax: 0.05 * DOMINANTSIDE,  // 0.05-0.08
+    elementSizeMin: 0.02 * DOMINANTSIDE,
+    elementSizeMax: 0.04 * DOMINANTSIDE,  // 0.05-0.08
     strokeWeight: 0.001 * DOMINANTSIDE,  // 0.001-0.0001
-    numberQuantisizer: 50,  // 20-50
-    brushLength: 20,  // 20- 60
+    numberQuantisizer: 80,  // 20-50
+    brushLength: 10,  // 20- 60
     distortionFactor: 0.001 * DOMINANTSIDE,  // 0.00009
     stepSize: 0.005 * DOMINANTSIDE,  // 0.001-0.005
   })
@@ -323,7 +353,7 @@ function setup() {
     secondaryFillColor: color(PALETTE.base.grainColorSecond),
     fillColorNoise: 0,
     fillColorOpacity: 255,
-    numberQuantisizer: 30,
+    numberQuantisizer: 500,
     // backgroundColor: color(PALETTE.base[0]),
     backgroundColor: color(PALETTE.background),
   })

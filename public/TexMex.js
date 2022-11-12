@@ -16,7 +16,7 @@ class TexMex {
 
         this.area = Math.round(Math.round(this.buffer.width / DOMINANTSIDE * 100) * Math.round(this.buffer.height / DOMINANTSIDE * 100)) / 100;
         // console.log("area: " + this.area);
-        this.shapeNumber = Math.round(this.area * 10 * this.numberQuantisizer);  // relative to size
+        this.shapeNumber = Math.round(this.area * this.numberQuantisizer);  // relative to size
         // console.log("this.shapeNumber:" + this.shapeNumber); // 250 / 500 - quantisizer ist 20
 
         this.elements = [];
@@ -40,10 +40,12 @@ class TexMex {
                 // posYEl: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
                 // posXRe: getRandomFromInterval(this.margin * this.custom_width, this.custom_width - (this.margin * this.custom_width)),
                 // posYRe: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
-                posXEl: randomGaussian(this.buffer.width / 8 * 4, this.buffer.width / 2),
-                posYEl: randomGaussian(this.buffer.height / 8 * 3, this.buffer.height / 2),
-                posXRe: randomGaussian(this.buffer.width / 8 * 4, this.buffer.width / 4),
-                posYRe: randomGaussian(this.buffer.height / 8, this.buffer.height / 4),
+
+                // posXEl: randomGaussian(this.buffer.width / 8 * 4, this.buffer.width / 2),
+                // posYEl: randomGaussian(this.buffer.height / 8 * 3, this.buffer.height / 2),
+                // posXRe: randomGaussian(this.buffer.width / 8 * 4, this.buffer.width / 4),
+                // posYRe: randomGaussian(this.buffer.height / 8, this.buffer.height / 4),
+
                 posXT1: randomGaussian(this.buffer.width / 8 * 7, this.buffer.width / 6),
                 posYT1: randomGaussian(this.buffer.height / 8 * 7, this.buffer.height / 6),
             })
@@ -53,7 +55,8 @@ class TexMex {
     show() {
 
         // this.buffer.background(this.backgroundColor);
-
+        var _colorHSB;
+        var _colorRGB;
         // this.buffer.clear();
 
         for (var element of this.elements) {
@@ -64,10 +67,16 @@ class TexMex {
             this.buffer.rectMode(CENTER);
             this.buffer.ellipseMode(CENTER);
             this.buffer.noStroke();
-            this.buffer.fill(element.fillColor);
+            // this.buffer.fill(element.fillColor);
+            colorMode(HSB, 360, 100, 100, 1);
+            // _colorHSB = color(hue(element.fillColor), saturation(element.fillColor), brightness(element.fillColor));
+            _colorHSB = color(hue(element.fillColor), saturation(element.fillColor), brightness(map(element.posYT1, 0, height, 0, 100)));
+            colorMode(RGB, 255, 255, 255, 255);
+            _colorRGB = color(red(_colorHSB), green(_colorHSB), blue(_colorHSB));
+            this.buffer.fill(_colorRGB);
 
-            this.buffer.ellipse(element.posXEl, element.posYEl, element.widthShape, element.heightShape);
-            this.buffer.rect(element.posXRe, element.posYRe, element.widthShape, element.heightShape);
+            // this.buffer.ellipse(element.posXEl, element.posYEl, element.widthShape, element.heightShape);
+            // this.buffer.rect(element.posXRe, element.posYRe, element.widthShape, element.heightShape);
             this.buffer.triangle(element.posXT1, element.posYT1, element.posXT1 + element.widthShape, element.posYT1, element.posXT1, (element.posYT1 + element.heightShape));
             this.buffer.pop();
         }

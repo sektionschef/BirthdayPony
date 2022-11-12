@@ -65,7 +65,7 @@ class DrawDots {
             system.add(new Brush(
                 createVector(currentPointX, currentPointY, currentPointZ),
                 createVector(nextPointX, nextPointY, nextPointZ),
-                color("#222222"),
+                color(PALETTE.line),
                 category
             ))
         }

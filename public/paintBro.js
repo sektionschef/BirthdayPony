@@ -36,13 +36,13 @@ class paintBro {
         // console.log("area: " + this.area);
         this.shapeNumber = Math.round(this.area * this.numberQuantisizer);  // relative to size
         // console.log("this.shapeNumber:" + this.shapeNumber); // 250 / 500 - quantisizer ist 20
-        step = getRandomFromList([-this.stepSize, this.stepSize]);  // movement of element
 
-        this.buffer.background(color(PALETTE.background));
+        // this.buffer.background(color(PALETTE.background));
 
         for (var i = 0; i < this.shapeNumber; i++) {
             posX = getRandomFromInterval(0, this.buffer.width);
             posY = getRandomFromInterval(0, this.buffer.height);
+            step = getRandomFromList([-this.stepSize, this.stepSize]);  // movement of element
 
             // which colors to choose
             colorNumber = getRandomFromList(["first", "second"]);
