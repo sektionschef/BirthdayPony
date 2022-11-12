@@ -305,12 +305,12 @@ function setup() {
   paintbro = new paintBro({
     buffer: paintBroBuffer,
     elementSizeMin: 0.01 * DOMINANTSIDE,
-    elementSizeMax: 0.05 * DOMINANTSIDE,  // 0.08
+    elementSizeMax: 0.05 * DOMINANTSIDE,  // 0.05-0.08
     strokeWeight: 0.001 * DOMINANTSIDE,  // 0.001-0.0001
-    numberQuantisizer: 30,  // 10-30
+    numberQuantisizer: 50,  // 20-50
     brushLength: 20,  // 20- 60
-    distortionFactor: 0.0009 * DOMINANTSIDE,  // 0.00009
-    stepSize: 0.004 * DOMINANTSIDE,  // 0.001-0.005
+    distortionFactor: 0.001 * DOMINANTSIDE,  // 0.00009
+    stepSize: 0.005 * DOMINANTSIDE,  // 0.001-0.005
   })
 
   texMex = new TexMex({
