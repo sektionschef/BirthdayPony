@@ -1,21 +1,20 @@
 class Brush {
     constructor(start, end, colorObject, category) {
         // this.buffer = buffer;
-        this.fullspeed = 10; // BRUSHFULLSPEED // 2-5;
-        this.radiusMin = 0.003 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
-        this.radiusMax = 0.004 * DOMINANTSIDE; //BRUSHSIZEMAX; // 2;
-        // this.brushShape = "Ellipse";
-        this.brushShape = "Line";
+        this.fullspeed = 50; // BRUSHFULLSPEED // 2-5;
+        this.radiusMin = 0.002 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
+        this.radiusMax = 0.005 * DOMINANTSIDE; //BRUSHSIZEMAX; // 2;
+        this.brushShape = "Ellipse";
+        // this.brushShape = "Line";
         // this.brushShape = "Triangle"; //BRUSHSHAPE;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
         // this.amplitudeNoiseY = 3.5;  // up and down on Y axis
-        this.OkLevel = 10;  // some offset is ok.
+        this.OkLevel = 40;  // some offset is ok.
         this.fillColor = colorObject;
         this.strokeColor = colorObject;
         this.strokeSize = 0.1; // BRUSHFIBRESIZE;  // good one
         this.strokeColorDistort = 10; // BRUSHFIBRECOLORNOISE;
-
 
         this.start = start;
         this.end = end;
@@ -331,26 +330,6 @@ class BrushSystem {
             brush.show();
         }
     }
-
-    // check_all_complete(category) {
-
-    //     // skip if not needed at all
-    //     if (this.all_lines_complete == false || this.brushes.length > 0) {
-
-    //         this.brushes_alive_status = [];
-    //         for (var brush of this.brushes) {
-
-    //             if (brush.category == category) {
-    //                 this.brushes_alive_status.push(brush.alive);
-    //                 // console.log(this.brushes_alive_status)
-    //             }
-
-    //         }
-
-    //         this.all_lines_complete = this.brushes_alive_status.every(element => element === false);
-    //     }
-
-    // }
 
     check_all_complete(category) {
 

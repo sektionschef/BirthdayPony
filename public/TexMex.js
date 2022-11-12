@@ -9,13 +9,6 @@ class TexMex {
         this.elementSizeMax = data.elementSizeMax;
         this.fillColor = data.fillColor;
         this.secondaryFillColor = data.secondaryFillColor;
-        this.fillColorNoise = data.fillColorNoise;
-        this.fillColorOpacity = data.fillColorOpacity;
-        this.noStroke = data.noStroke;
-        this.strokeColor = data.strokeColor;
-        this.strokeWeight = data.strokeWeight;
-        this.strokeColorNoise = data.strokeColorNoise;
-        this.strokeOpacity = data.strokeOpacity;
         this.numberQuantisizer = data.numberQuantisizer;
         this.backgroundColor = data.backgroundColor;
 
@@ -27,29 +20,32 @@ class TexMex {
         // console.log("this.shapeNumber:" + this.shapeNumber); // 250 / 500 - quantisizer ist 20
 
         this.elements = [];
-        this.fillColor = color(red(this.fillColor), green(this.fillColor), blue(this.fillColor), this.fillColorOpacity);
-        this.strokeColor = color(red(this.strokeColor), green(this.strokeColor), blue(this.strokeColor), this.strokeOpacity);
+
+        var fillColor;
 
         for (var i = 0; i < this.shapeNumber; i++) {
 
+            if (fxrand() > 0.5) {
+                fillColor = this.fillColor;
+            } else {
+                fillColor = this.secondaryFillColor;
+            }
+
             this.elements.push({
                 // fillColor: distortColorNew(this.fillColor, this.fillColorNoise),
-                fillColor: distortColorNew(this.fillColor, randomGaussian(0, this.fillColorNoise)),
-                secondaryFillColor: this.secondaryFillColor,
+                fillColor: fillColor, // distortColorNew(this.fillColor, randomGaussian(0, this.fillColorNoise)),
                 widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
                 heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
-                strokeWeight: this.strokeWeight,
-                strokeColor: distortColorNew(this.strokeColor, this.strokeColorNoise),
                 // posXEl: getRandomFromInterval(this.margin * this.custom_width, this.custom_width - (this.margin * this.custom_width)),
                 // posYEl: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
                 // posXRe: getRandomFromInterval(this.margin * this.custom_width, this.custom_width - (this.margin * this.custom_width)),
                 // posYRe: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
-                posXEl: randomGaussian(this.buffer.width / 8, this.buffer.width / 2),
-                posYEl: randomGaussian(this.buffer.height / 8, this.buffer.height / 2),
-                posXRe: randomGaussian(this.buffer.width / 2, this.buffer.width),
-                posYRe: randomGaussian(this.buffer.height / 2, this.buffer.height),
-                posXT1: randomGaussian(this.buffer.width / 5, this.buffer.width / 2),
-                posYT1: randomGaussian(this.buffer.height / 5, this.buffer.height / 2),
+                posXEl: randomGaussian(this.buffer.width / 8 * 4, this.buffer.width / 2),
+                posYEl: randomGaussian(this.buffer.height / 8 * 3, this.buffer.height / 2),
+                posXRe: randomGaussian(this.buffer.width / 8 * 4, this.buffer.width / 4),
+                posYRe: randomGaussian(this.buffer.height / 8, this.buffer.height / 4),
+                posXT1: randomGaussian(this.buffer.width / 8 * 7, this.buffer.width / 6),
+                posYT1: randomGaussian(this.buffer.height / 8 * 7, this.buffer.height / 6),
             })
         }
     }
@@ -64,20 +60,11 @@ class TexMex {
             this.buffer.push();
             // this.buffer.translate(-width / 2, -height / 2);
             // this.buffer.translate((this.posX), (this.posY));
-            if (fxrand() > 0.3) {
-                this.buffer.fill(element.fillColor);
-            } else {
-                this.buffer.fill(element.secondaryFillColor);
-            }
-            // this.buffer.noFill();
+
             this.buffer.rectMode(CENTER);
             this.buffer.ellipseMode(CENTER);
-            if (this.noStroke == true) {
-                this.buffer.noStroke();
-            } else {
-                this.buffer.strokeWeight(element.strokeWeight);
-                this.buffer.stroke(element.strokeColor);
-            }
+            this.buffer.noStroke();
+            this.buffer.fill(element.fillColor);
 
             this.buffer.ellipse(element.posXEl, element.posYEl, element.widthShape, element.heightShape);
             this.buffer.rect(element.posXRe, element.posYRe, element.widthShape, element.heightShape);

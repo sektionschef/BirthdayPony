@@ -76,10 +76,10 @@ class paintBro {
                 // default case - base Level
                 elementLayer = "base";
                 if (colorNumber == "first") {
-                    elementFillColor = color(PALETTE.base.fillFirst); // distortColorNew(this.fillColor, this.fillColorNoise);
+                    elementFillColor = color(PALETTE.base.fillFirst);
                     elementStrokeColor = color(PALETTE.base.strokeFirst);
                 } else {
-                    elementFillColor = color(PALETTE.base.fillSecond); // distortColorNew(this.secondaryFillColor, this.fillColorNoise);
+                    elementFillColor = color(PALETTE.base.fillSecond);
                     elementStrokeColor = color(PALETTE.base.strokeSecond);
                 }
 
@@ -210,6 +210,7 @@ class paintBro {
 
                 this.buffer.push();
                 this.buffer.fill(this.elements[e].elementFillColor);
+                // console.log(this.elements[e].elementFillColor);
                 this.buffer.rectMode(CENTER);
 
                 this.buffer.strokeWeight(this.strokeWeight);

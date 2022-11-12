@@ -81,31 +81,60 @@ const PALETTESYSTEM = {
   //     strokeSecond: "#27252715",
   //   }
   // },
-  "Halt die Fresse": {
-    "background": "#4d4b4b",
+  // "Halt die Fresse": {
+  //   "background": "#4d4b4b",
+  //   "base": {
+  //     fillFirst: "#775e7515",
+  //     fillSecond: "#805e7d15",
+  //     strokeFirst: "#97829618",
+  //     strokeSecond: "#61425f15",
+  //   },
+  //   "cLevel": {
+  //     fillFirst: "#4d1e4915",
+  //     fillSecond: "#3a1b3715",
+  //     strokeFirst: "#74477015",
+  //     strokeSecond: "#2c0e2828",
+  //   },
+  //   "bLevel": {
+  //     fillFirst: "#c3b4c515",
+  //     fillSecond: "#bca9be15",
+  //     strokeFirst: "#e0d0e21f",
+  //     strokeSecond: "#7b6c7c27",
+  //   },
+  //   "aLevel": {
+  //     fillFirst: "#E9EBF815",
+  //     fillSecond: "#d0d3e615",
+  //     strokeFirst: "#887c881c",
+  //     strokeSecond: "#b69bb41a",
+  //   }
+  // },
+  "Boom": {
+    "background": "#535353",
     "base": {
-      fillFirst: "#775e7515",
-      fillSecond: "#805e7d15",
-      strokeFirst: "#97829618",
-      strokeSecond: "#61425f15",
+      fillFirst: "#8a8ad61f",
+      fillSecond: "#7979cf25",
+      strokeFirst: "#7f7fda9f",
+      strokeSecond: "#7d7dc7a8",
+      grainColorFirst: "#8c8cca",  // 7d7dcc
+      grainColorSecond: "#8989c4",
     },
     "cLevel": {
-      fillFirst: "#4d1e4915",
-      fillSecond: "#3a1b3715",
-      strokeFirst: "#74477015",
-      strokeSecond: "#2c0e2828",
+      fillFirst: "#5858BE15",
+      fillSecond: "#4e4e9715",
+      strokeFirst: "#3c3c7915",
+      strokeSecond: "#45459b15",
     },
     "bLevel": {
-      fillFirst: "#c3b4c515",
-      fillSecond: "#bca9be15",
-      strokeFirst: "#e0d0e21f",
-      strokeSecond: "#7b6c7c27",
+      fillFirst: "#A2A2DA15",
+      fillSecond: "#A2A2DA15",
+      strokeFirst: "#C6C6E915",
+      strokeSecond: "#C6C6E915",
     },
     "aLevel": {
-      fillFirst: "#E9EBF815",
-      fillSecond: "#d0d3e615",
-      strokeFirst: "#887c881c",
-      strokeSecond: "#b69bb41a",
+      fillFirst: "#4f4fb815",
+      fillSecond: "#29296d15",
+      strokeFirst: "#03031a15",
+      strokeSecond: "#6c6ce415",
     }
   },
 }
@@ -181,6 +210,7 @@ function setup() {
 
 
   paintBroBuffer = createGraphics(width, height, "WEBGL");
+  // textest = createGraphics(width, height, "WEBGL");
 
   // shader
   grainBuffer = createGraphics(width, height, WEBGL);
@@ -276,34 +306,27 @@ function setup() {
     buffer: paintBroBuffer,
     elementSizeMin: 0.01 * DOMINANTSIDE,
     elementSizeMax: 0.05 * DOMINANTSIDE,  // 0.08
-    strokeWeight: 0.001 * DOMINANTSIDE,
+    strokeWeight: 0.001 * DOMINANTSIDE,  // 0.001-0.0001
     numberQuantisizer: 30,  // 10-30
     brushLength: 20,  // 20- 60
-    distortionFactor: 0.00009 * DOMINANTSIDE,  // 0.00009
-    stepSize: 0.001 * DOMINANTSIDE,  // 0.001-0.005
+    distortionFactor: 0.0009 * DOMINANTSIDE,  // 0.00009
+    stepSize: 0.004 * DOMINANTSIDE,  // 0.001-0.005
   })
 
-  // texMex = new TexMex({
-  //   buffer: paintBroBuffer,
-  //   posX: 0,
-  //   posY: 0,
-  //   elementSizeMin: 0.001 * DOMINANTSIDE,
-  //   elementSizeMax: 0.001 * DOMINANTSIDE,
-  //   // fillColor: color(PALETTE.base[1]),
-  //   fillColor: color(100),
-  //   secondaryFillColor: color(180, 60),
-  //   fillColorNoise: 5,
-  //   fillColorOpacity: 255,
-  //   noStroke: true,
-  //   strokeColor: color(0),
-  //   strokeWeight: 0.00008 * DOMINANTSIDE,
-  //   strokeColorNoise: 0,
-  //   strokeOpacity: 0,
-  //   numberQuantisizer: 30,
-  //   // backgroundColor: color(PALETTE.base[0]),
-  //   backgroundColor: color(PALETTE.background),
-  // })
-  // texMex.show();
+  texMex = new TexMex({
+    buffer: paintBroBuffer,
+    posX: 0,
+    posY: 0,
+    elementSizeMin: 0.001 * DOMINANTSIDE,
+    elementSizeMax: 0.002 * DOMINANTSIDE,
+    fillColor: color(PALETTE.base.grainColorFirst),
+    secondaryFillColor: color(PALETTE.base.grainColorSecond),
+    fillColorNoise: 0,
+    fillColorOpacity: 255,
+    numberQuantisizer: 30,
+    // backgroundColor: color(PALETTE.base[0]),
+    backgroundColor: color(PALETTE.background),
+  })
 
 
   // trying to blur
@@ -364,10 +387,12 @@ function draw() {
 
   if (frameCount == 30 || ALL) {
     paintbro.show("base");
+    texMex.show();
     console.log("base finished");
     TIMINGSTATE = "base finished";
     dotSystem.fireBrush("aLevel");
-    // ALLDONE = true;
+    // dotSystem.fireBrush("bLevel");
+    // dotSystem.fireBrush("cLevel");
   }
 
   if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "base finished" || ALL) {
