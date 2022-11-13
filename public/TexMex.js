@@ -11,6 +11,10 @@ class TexMex {
         this.secondaryFillColor = data.secondaryFillColor;
         this.numberQuantisizer = data.numberQuantisizer;
         this.backgroundColor = data.backgroundColor;
+        this.relCenterX = data.relCenterX;
+        this.relCenterY = data.relCenterY;
+        this.SDevX = data.SDevX;
+        this.SDevY = data.SDevY;
 
         this.buffer = data.buffer;
 
@@ -22,6 +26,9 @@ class TexMex {
         this.elements = [];
 
         var fillColor;
+        var gradient;
+        var posX;
+        var posY;
 
         for (var i = 0; i < this.shapeNumber; i++) {
 
@@ -31,8 +38,13 @@ class TexMex {
                 fillColor = this.secondaryFillColor;
             }
 
+            posX = randomGaussian(this.relCenterX, this.SDevX);
+            posY = randomGaussian(this.relCenterY, this.SDevY);
+
+            gradient = constrain(map(posY, this.relCenterY - this.SDevY * 2, this.relCenterY + this.SDevY * 2, -100, 100), 0, 255);
+            fillColor = color(red(fillColor) + gradient, green(fillColor) + gradient, blue(fillColor) + gradient, alpha(fillColor));
+
             this.elements.push({
-                // fillColor: distortColorNew(this.fillColor, this.fillColorNoise),
                 fillColor: fillColor, // distortColorNew(this.fillColor, randomGaussian(0, this.fillColorNoise)),
                 widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
                 heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
@@ -46,8 +58,11 @@ class TexMex {
                 // posXRe: randomGaussian(this.buffer.width / 8 * 4, this.buffer.width / 4),
                 // posYRe: randomGaussian(this.buffer.height / 8, this.buffer.height / 4),
 
-                posXT1: randomGaussian(this.buffer.width / 8 * 7, this.buffer.width / 6),
-                posYT1: randomGaussian(this.buffer.height / 8 * 7, this.buffer.height / 6),
+                // posXT1: randomGaussian(this.buffer.width / 8 * 7, this.buffer.width / 6),
+                // posYT1: randomGaussian(this.buffer.height / 8 * 7, this.buffer.height / 6),
+
+                posX: posX,
+                posY: posY,
             })
         }
     }
@@ -67,17 +82,11 @@ class TexMex {
             this.buffer.rectMode(CENTER);
             this.buffer.ellipseMode(CENTER);
             this.buffer.noStroke();
-            // this.buffer.fill(element.fillColor);
-            colorMode(HSB, 360, 100, 100, 1);
-            // _colorHSB = color(hue(element.fillColor), saturation(element.fillColor), brightness(element.fillColor));
-            _colorHSB = color(hue(element.fillColor), saturation(element.fillColor), brightness(map(element.posYT1, 0, height, 0, 100)));
-            colorMode(RGB, 255, 255, 255, 255);
-            _colorRGB = color(red(_colorHSB), green(_colorHSB), blue(_colorHSB));
-            this.buffer.fill(_colorRGB);
+            this.buffer.fill(element.fillColor);
 
             // this.buffer.ellipse(element.posXEl, element.posYEl, element.widthShape, element.heightShape);
             // this.buffer.rect(element.posXRe, element.posYRe, element.widthShape, element.heightShape);
-            this.buffer.triangle(element.posXT1, element.posYT1, element.posXT1 + element.widthShape, element.posYT1, element.posXT1, (element.posYT1 + element.heightShape));
+            this.buffer.triangle(element.posX, element.posY, element.posX + element.widthShape, element.posY, element.posX, (element.posY + element.heightShape));
             this.buffer.pop();
         }
         return this.buffer;

@@ -355,8 +355,11 @@ function setup() {
     fillColorNoise: 0,
     fillColorOpacity: 255,
     numberQuantisizer: 1000,
-    // backgroundColor: color(PALETTE.base[0]),
     backgroundColor: color(PALETTE.background),
+    relCenterX: (width / 8 * 5),
+    relCenterY: (height / 8 * 7),
+    SDevX: (width / 7),
+    SDevY: (height / 7),
   })
 
 
@@ -422,8 +425,6 @@ function draw() {
     console.log("base finished");
     TIMINGSTATE = "base finished";
     dotSystem.fireBrush("aLevel");
-    // dotSystem.fireBrush("bLevel");
-    // dotSystem.fireBrush("cLevel");
   }
 
   if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "base finished" || ALL) {
