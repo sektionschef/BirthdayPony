@@ -427,5 +427,9 @@ function orthogonalProjection1(a, b, p) {
     d1.mult(d2.dot(d1))
 
     return p5.Vector.add(a, d1)
+}
 
+function highlightColor(colorCode, gain) {
+
+    return color(red(colorCode) + gain, green(colorCode) + gain, blue(colorCode) + gain, alpha(colorCode));
 }

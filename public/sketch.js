@@ -418,7 +418,7 @@ function draw() {
 
   if (frameCount == 30 || ALL) {
     paintbro.show("base");
-    // texMex.show();
+    texMex.show();
     console.log("base finished");
     TIMINGSTATE = "base finished";
     dotSystem.fireBrush("aLevel");
@@ -618,31 +618,4 @@ void main() {
 }
 `
 
-function highlightColor(colorCode) {
-  var gain = 20;
 
-  var hsbHighlight;
-  var rgbHighlight;
-
-  var newBrightness = constrain(brightness(colorCode) + gain * 2, 0, 100);
-  var newSaturation = constrain(saturation(colorCode) - gain, 0, 100);
-
-  colorMode(HSB, 360, 100, 100, 1);
-  hsbHighlight = color(hue(colorCode), newSaturation, newBrightness);
-
-  colorMode(RGB, 255, 255, 255, 255);
-  rgbHighlight = color(red(hsbHighlight), green(hsbHighlight), blue(hsbHighlight), alpha(colorCode));
-
-  // return colorCode;
-  return rgbHighlight;
-}
-
-function fillGradient(pos, widthE, heightE, color1, color2) {
-
-  for (let i = pos.y; i <= pos.y + heightE; i++) {
-    let inter = map(i, pos.y, pos.y + heightE, 0, 1);
-    let c = lerpColor(color1, color2, inter);
-    stroke(c);
-    line(pos.x, i, pos.x + widthE, i);
-  }
-}

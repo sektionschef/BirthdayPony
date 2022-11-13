@@ -39,25 +39,13 @@ class paintBro {
         // console.log("this.shapeNumber:" + this.shapeNumber); // 250 / 500 - quantisizer ist 20
 
         // this.buffer.background(color(PALETTE.background));
-        console.warn(Math.round(fxrand() * 1000) / 1000);
+        // console.warn(Math.round(fxrand() * 1000) / 1000);
 
         for (var i = 0; i < this.shapeNumber; i++) {
-            // if (i == 722) {
-            //     console.warn("i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
-            // }
-
-            if (i == 722) {
-                console.warn("A i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
-            }
 
             posX = getRandomFromInterval(0, this.buffer.width);
             posY = getRandomFromInterval(0, this.buffer.height);
             step = getRandomFromList([-this.stepSize, this.stepSize]);  // movement of element
-
-            if (i == 722) {
-                console.warn("b i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
-            }
-
 
             // which colors to choose
             colorNumber = getRandomFromList(["first", "second", "special"]);
@@ -74,11 +62,6 @@ class paintBro {
             } else {
                 colorNumber = "second";
             }
-
-            if (i == 722) {
-                console.warn("c i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
-            }
-
             // direction of brush stroke
             if (fxrand() < 0.25) {
                 orientation = "vertical";
@@ -86,11 +69,11 @@ class paintBro {
                 orientation = "horizontal";
             }
 
-            if (i == 722) {
-                console.warn("d i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
-            }
+            // if (i == 722) {
+            //     console.warn("d i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
+            // }
 
-            console.warn("i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
+            // console.warn("i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
 
 
             for (var b = 0; b < this.brushLength; b++) {
@@ -212,21 +195,22 @@ class paintBro {
                 }
 
                 // // S Level
-                // currentPolygon = [
-                //     [sunPolygon[0].x, sunPolygon[0].y,],
-                //     [sunPolygon[1].x, sunPolygon[1].y,],
-                //     [sunPolygon[2].x, sunPolygon[2].y,],
-                //     [sunPolygon[3].x, sunPolygon[3].y,],
-                // ]
+                currentPolygon = [
+                    [sunPolygon[0].x, sunPolygon[0].y,],
+                    [sunPolygon[1].x, sunPolygon[1].y,],
+                    [sunPolygon[2].x, sunPolygon[2].y,],
+                    [sunPolygon[3].x, sunPolygon[3].y,],
+                ]
 
-                // // console.log(currentPolygon);
-                // if (pointInPolygon(currentPolygon, [posBX, posBY])) {
-                //     sunPolygonSwitch = true;
-                // }
+                // console.log(currentPolygon);
+                if (pointInPolygon(currentPolygon, [posBX, posBY])) {
+                    sunPolygonSwitch = true;
+                }
 
-                // if (sunPolygonSwitch) {
-                //     // elementFillColor = highlightColor(fillColor);
-                // }
+                if (sunPolygonSwitch) {
+                    elementFillColor = highlightColor(elementFillColor, 40);
+                    elementStrokeColor = highlightColor(elementStrokeColor, 40);
+                }
 
                 this.elements.push({
                     elementLayer: elementLayer,
@@ -241,9 +225,6 @@ class paintBro {
                     posBY: posBY,
                     angle: getRandomFromInterval(0, 2 * PI),
                 })
-            }
-            if (i == 721) {
-                console.warn("end 721 i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
             }
         }
         // console.log(this.elements);
