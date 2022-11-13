@@ -153,18 +153,24 @@ const PALETTESYSTEM = {
       fillSecond: "#45458515",
       strokeFirst: "#03031a15",
       strokeSecond: "#01010815",
+      grainColorFirst: "#5555944f",
+      grainColorSecond: "#4f4f8067",
     },
     "bLevel": {
       fillFirst: "#B9B9DF15",
       fillSecond: "#aeaed315",
       strokeFirst: "#5a5a6b15",
       strokeSecond: "#4f4f6615",
+      grainColorFirst: "#8080af38",
+      grainColorSecond: "#b6b6da59",
     },
     "aLevel": {
       fillFirst: "#6666A915",
       fillSecond: "#59599115",
       strokeFirst: "#2b2b5215",
       strokeSecond: "#42428815",
+      grainColorFirst: "#40404b38",
+      grainColorSecond: "#1a1a2059",
     }
   },
 }
@@ -344,22 +350,70 @@ function setup() {
   })
 
 
-  texMex = new TexMex({
+  baseNoise = new TexMex({
     buffer: paintBroBuffer,
     posX: 0,
     posY: 0,
+    elementLayer: "base",
     elementSizeMin: 0.001 * DOMINANTSIDE,
     elementSizeMax: 0.002 * DOMINANTSIDE,
     fillColor: color(PALETTE.base.grainColorFirst),
     secondaryFillColor: color(PALETTE.base.grainColorSecond),
-    fillColorNoise: 0,
-    fillColorOpacity: 255,
     numberQuantisizer: 1000,
-    backgroundColor: color(PALETTE.background),
     relCenterX: (width / 8 * 5),
     relCenterY: (height / 8 * 7),
     SDevX: (width / 7),
     SDevY: (height / 7),
+  })
+
+
+  cLevelNoise = new TexMex({
+    buffer: paintBroBuffer,
+    posX: 0,
+    posY: 0,
+    elementLayer: "cLevel",
+    elementSizeMin: 0.001 * DOMINANTSIDE,
+    elementSizeMax: 0.002 * DOMINANTSIDE,
+    fillColor: color(PALETTE.cLevel.grainColorFirst),
+    secondaryFillColor: color(PALETTE.cLevel.grainColorSecond),
+    numberQuantisizer: 1000,
+    relCenterX: (width / 8 * 5),
+    relCenterY: (height / 8 * 4),
+    SDevX: (width / 3),
+    SDevY: (height / 6),
+  })
+
+
+  bLevelNoise = new TexMex({
+    buffer: paintBroBuffer,
+    posX: 0,
+    posY: 0,
+    elementLayer: "bLevel",
+    elementSizeMin: 0.001 * DOMINANTSIDE,
+    elementSizeMax: 0.002 * DOMINANTSIDE,
+    fillColor: color(PALETTE.bLevel.grainColorFirst),
+    secondaryFillColor: color(PALETTE.bLevel.grainColorSecond),
+    numberQuantisizer: 500,
+    relCenterX: (width / 8 * 2),
+    relCenterY: (height / 8 * 4),
+    SDevX: (width / 3),
+    SDevY: (height / 8),
+  })
+
+  aLevelNoise = new TexMex({
+    buffer: paintBroBuffer,
+    posX: 0,
+    posY: 0,
+    elementLayer: "aLevel",
+    elementSizeMin: 0.001 * DOMINANTSIDE,
+    elementSizeMax: 0.002 * DOMINANTSIDE,
+    fillColor: color(PALETTE.aLevel.grainColorFirst),
+    secondaryFillColor: color(PALETTE.aLevel.grainColorSecond),
+    numberQuantisizer: 1000,
+    relCenterX: (width / 8 * 5),
+    relCenterY: (height / 8 * 4),
+    SDevX: (width / 3),
+    SDevY: (height / 6),
   })
 
 
@@ -399,11 +453,11 @@ function draw() {
     background(200);
   }
 
-  if (frameCount == 0) {
+  if (frameCount == 1) {
     pixelDensity(CURRENTPIXELDENS);
     // cam1.setPosition(0, 0, 200);
     // cam1.lookAt(-100, 0, 0);
-    paintBroBuffer.background(color(PALETTE.background));
+    // paintBroBuffer.background(color(PALETTE.background));
   }
   // background(color(PALETTE.background));
 
@@ -420,8 +474,9 @@ function draw() {
 
 
   if (frameCount == 30 || ALL) {
+    paintBroBuffer.background(color(PALETTE.background));
     paintbro.show("base");
-    texMex.show();
+    baseNoise.show();
     console.log("base finished");
     TIMINGSTATE = "base finished";
     dotSystem.fireBrush("aLevel");
@@ -429,6 +484,7 @@ function draw() {
 
   if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "base finished" || ALL) {
     paintbro.show("aLevel");
+    aLevelNoise.show();
     console.log("aLevel finished");
     TIMINGSTATE = "aLevel finished"
     dotSystem.fireBrush("bLevel");
@@ -436,6 +492,7 @@ function draw() {
 
   if (brushSystem.check_all_complete("bLevel") && TIMINGSTATE == "aLevel finished" || ALL) {
     paintbro.show("bLevel");
+    bLevelNoise.show();
     console.log("bLevel finished");
     TIMINGSTATE = "bLevel finished"
     dotSystem.fireBrush("cLevel");
@@ -443,6 +500,7 @@ function draw() {
 
   if (brushSystem.check_all_complete("cLevel") && TIMINGSTATE == "bLevel finished" || ALL) {
     paintbro.show("cLevel");
+    cLevelNoise.show();
     console.log("cLevel finished");
     TIMINGSTATE = "cLevel finished"
     ALLDONE = true;

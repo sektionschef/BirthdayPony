@@ -7,10 +7,10 @@ class TexMex {
         this.posY = data.posY;
         this.elementSizeMin = data.elementSizeMin;
         this.elementSizeMax = data.elementSizeMax;
+        this.elementLayer = data.elementLayer;
         this.fillColor = data.fillColor;
         this.secondaryFillColor = data.secondaryFillColor;
         this.numberQuantisizer = data.numberQuantisizer;
-        this.backgroundColor = data.backgroundColor;
         this.relCenterX = data.relCenterX;
         this.relCenterY = data.relCenterY;
         this.SDevX = data.SDevX;
@@ -30,6 +30,11 @@ class TexMex {
         var posX;
         var posY;
 
+        var currentPolygon;
+        var insidePolygonSwitchC;
+        var insidePolygonSwitchB;
+        var insidePolygonSwitchA;
+
         for (var i = 0; i < this.shapeNumber; i++) {
 
             if (fxrand() > 0.5) {
@@ -41,26 +46,90 @@ class TexMex {
             posX = randomGaussian(this.relCenterX, this.SDevX);
             posY = randomGaussian(this.relCenterY, this.SDevY);
 
-            gradient = constrain(map(posY, this.relCenterY - this.SDevY * 2, this.relCenterY + this.SDevY * 2, -100, 100), 0, 255);
+            gradient = constrain(map(posY, this.relCenterY - this.SDevY * 2, this.relCenterY + this.SDevY * 2, -50, 50), 0, 255);
             fillColor = color(red(fillColor) + gradient, green(fillColor) + gradient, blue(fillColor) + gradient, alpha(fillColor));
+
+            insidePolygonSwitchC = false;
+            // C Level
+            if (this.elementLayer == "cLevel") {
+                for (var p = 0; p < dotSystem.polygonsC.length; p++) {
+
+                    currentPolygon = [
+                        [dotSystem.polygonsC[p][0].x, dotSystem.polygonsC[p][0].y,],
+                        [dotSystem.polygonsC[p][1].x, dotSystem.polygonsC[p][1].y,],
+                        [dotSystem.polygonsC[p][2].x, dotSystem.polygonsC[p][2].y,],
+                        [dotSystem.polygonsC[p][3].x, dotSystem.polygonsC[p][3].y,],
+                    ]
+
+                    // console.log(currentPolygon);
+
+                    if (pointInPolygon(currentPolygon, [posX, posY])) {
+                        insidePolygonSwitchC = true;
+                    }
+
+                }
+                // console.log(insidePolygonSwitchC);
+
+                if (insidePolygonSwitchC) {
+                    fillColor = fillColor;
+                } else {
+                    fillColor = color("#ff000000");  // nothing
+                }
+            }
+
+            insidePolygonSwitchB = false;
+            // B Level
+            if (this.elementLayer == "bLevel") {
+                for (var p = 0; p < dotSystem.polygonsB.length; p++) {
+
+                    currentPolygon = [
+                        [dotSystem.polygonsB[p][0].x, dotSystem.polygonsB[p][0].y,],
+                        [dotSystem.polygonsB[p][1].x, dotSystem.polygonsB[p][1].y,],
+                        [dotSystem.polygonsB[p][2].x, dotSystem.polygonsB[p][2].y,],
+                        [dotSystem.polygonsB[p][3].x, dotSystem.polygonsB[p][3].y,],
+                    ]
+
+                    if (pointInPolygon(currentPolygon, [posX, posY])) {
+                        insidePolygonSwitchB = true;
+                    }
+
+                }
+
+                if (insidePolygonSwitchB) {
+                    fillColor = fillColor;
+                } else {
+                    fillColor = color("#ff000000");  // nothing
+                }
+            }
+
+            insidePolygonSwitchA = false;
+            // B Level
+            if (this.elementLayer == "aLevel") {
+                for (var p = 0; p < dotSystem.polygonsA.length; p++) {
+
+                    currentPolygon = [
+                        [dotSystem.polygonsA[p][0].x, dotSystem.polygonsA[p][0].y,],
+                        [dotSystem.polygonsA[p][1].x, dotSystem.polygonsA[p][1].y,],
+                        [dotSystem.polygonsA[p][2].x, dotSystem.polygonsA[p][2].y,],
+                        [dotSystem.polygonsA[p][3].x, dotSystem.polygonsA[p][3].y,],
+                    ]
+
+                    if (pointInPolygon(currentPolygon, [posX, posY])) {
+                        insidePolygonSwitchA = true;
+                    }
+                }
+
+                if (insidePolygonSwitchA) {
+                    fillColor = fillColor;
+                } else {
+                    fillColor = color("#ff000000");  // nothing
+                }
+            }
 
             this.elements.push({
                 fillColor: fillColor, // distortColorNew(this.fillColor, randomGaussian(0, this.fillColorNoise)),
                 widthShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
                 heightShape: getRandomFromInterval(this.elementSizeMin, this.elementSizeMax),
-                // posXEl: getRandomFromInterval(this.margin * this.custom_width, this.custom_width - (this.margin * this.custom_width)),
-                // posYEl: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
-                // posXRe: getRandomFromInterval(this.margin * this.custom_width, this.custom_width - (this.margin * this.custom_width)),
-                // posYRe: getRandomFromInterval(this.margin * this.custom_height, this.custom_height - (this.margin * this.custom_height)),
-
-                // posXEl: randomGaussian(this.buffer.width / 8 * 4, this.buffer.width / 2),
-                // posYEl: randomGaussian(this.buffer.height / 8 * 3, this.buffer.height / 2),
-                // posXRe: randomGaussian(this.buffer.width / 8 * 4, this.buffer.width / 4),
-                // posYRe: randomGaussian(this.buffer.height / 8, this.buffer.height / 4),
-
-                // posXT1: randomGaussian(this.buffer.width / 8 * 7, this.buffer.width / 6),
-                // posYT1: randomGaussian(this.buffer.height / 8 * 7, this.buffer.height / 6),
-
                 posX: posX,
                 posY: posY,
             })
