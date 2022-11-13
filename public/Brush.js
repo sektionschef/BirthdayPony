@@ -212,6 +212,19 @@ class Brush {
             }
 
             this.savePath();
+
+            this.sunPolygon = [
+                [sunPolygon[0].x, sunPolygon[0].y,],
+                [sunPolygon[1].x, sunPolygon[1].y,],
+                [sunPolygon[2].x, sunPolygon[2].y,],
+                [sunPolygon[3].x, sunPolygon[3].y,],
+            ]
+            if (pointInPolygon(this.sunPolygon, [this.pos.x, this.pos.y])) {
+                this.strokeColorTemp = highlightColor(this.strokeColor, 80);
+            } else {
+                this.strokeColorTemp = this.strokeColor;
+            }
+
         }
 
     }
@@ -296,7 +309,8 @@ class Brush {
                 // brushBuffer.translate(-width / 2, -height / 2);
                 // console.log(this.elements);
                 paintBroBuffer.strokeWeight(this.strokeSize);
-                paintBroBuffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
+                // paintBroBuffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
+                paintBroBuffer.stroke(distortColorNew(this.strokeColorTemp, this.strokeColorDistort, false))
                 paintBroBuffer.noFill();
                 if (this.brushShape == "Line") {
                     paintBroBuffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
