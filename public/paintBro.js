@@ -29,6 +29,7 @@ class paintBro {
         var step;
         let posBX;
         let posBY;
+        let specialColor;
 
         this.elements = [];
 
@@ -38,14 +39,45 @@ class paintBro {
         // console.log("this.shapeNumber:" + this.shapeNumber); // 250 / 500 - quantisizer ist 20
 
         // this.buffer.background(color(PALETTE.background));
+        console.warn(Math.round(fxrand() * 1000) / 1000);
 
         for (var i = 0; i < this.shapeNumber; i++) {
+            // if (i == 722) {
+            //     console.warn("i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
+            // }
+
+            if (i == 722) {
+                console.warn("A i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
+            }
+
             posX = getRandomFromInterval(0, this.buffer.width);
             posY = getRandomFromInterval(0, this.buffer.height);
             step = getRandomFromList([-this.stepSize, this.stepSize]);  // movement of element
 
+            if (i == 722) {
+                console.warn("b i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
+            }
+
+
             // which colors to choose
-            colorNumber = getRandomFromList(["first", "second"]);
+            colorNumber = getRandomFromList(["first", "second", "special"]);
+            if (fxrand() < 0.2) {
+                colorNumber = "special";
+                specialColor = getRandomFromList([
+                    // color(PALETTE.base.fillFirst),
+                    color(PALETTE.aLevel.fillFirst),
+                    color(PALETTE.bLevel.fillFirst),
+                    color(PALETTE.cLevel.fillFirst),
+                ]);
+            } else if (fxrand() < 0.6) {
+                colorNumber = "first";
+            } else {
+                colorNumber = "second";
+            }
+
+            if (i == 722) {
+                console.warn("c i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
+            }
 
             // direction of brush stroke
             if (fxrand() < 0.25) {
@@ -53,6 +85,13 @@ class paintBro {
             } else {
                 orientation = "horizontal";
             }
+
+            if (i == 722) {
+                console.warn("d i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
+            }
+
+            console.warn("i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
+
 
             for (var b = 0; b < this.brushLength; b++) {
 
@@ -73,11 +112,15 @@ class paintBro {
                 }
                 // console.log(posBX);
 
+
                 // default case - base Level
                 elementLayer = "base";
                 if (colorNumber == "first") {
                     elementFillColor = color(PALETTE.base.fillFirst);
                     elementStrokeColor = color(PALETTE.base.strokeFirst);
+                } else if (colorNumber == "special") {
+                    elementFillColor = specialColor;
+                    elementStrokeColor = color("#00000000");
                 } else {
                     elementFillColor = color(PALETTE.base.fillSecond);
                     elementStrokeColor = color(PALETTE.base.strokeSecond);
@@ -103,7 +146,9 @@ class paintBro {
                     if (colorNumber == "first") {
                         elementFillColor = color(PALETTE.cLevel.fillFirst);
                         elementStrokeColor = color(PALETTE.cLevel.strokeFirst);
-
+                    } else if (colorNumber == "special") {
+                        elementFillColor = specialColor;
+                        elementStrokeColor = color(PALETTE.base.strokeFirst);
                     } else {
                         elementFillColor = color(PALETTE.cLevel.fillSecond);
                         elementStrokeColor = color(PALETTE.cLevel.strokeSecond);
@@ -128,12 +173,15 @@ class paintBro {
                     if (colorNumber == "first") {
                         elementFillColor = color(PALETTE.bLevel.fillFirst);
                         elementStrokeColor = color(PALETTE.bLevel.strokeFirst);
-
+                    } else if (colorNumber == "special") {
+                        elementFillColor = specialColor;
+                        elementStrokeColor = color(PALETTE.base.strokeFirst);
                     } else {
                         elementFillColor = color(PALETTE.bLevel.fillSecond);
                         elementStrokeColor = color(PALETTE.bLevel.strokeSecond);
                     }
                 }
+
 
                 // A Level
                 for (var p = 0; p < dotSystem.polygonsA.length; p++) {
@@ -154,7 +202,9 @@ class paintBro {
                     if (colorNumber == "first") {
                         elementFillColor = color(PALETTE.aLevel.fillFirst);
                         elementStrokeColor = color(PALETTE.aLevel.strokeFirst);
-
+                    } else if (colorNumber == "special") {
+                        elementFillColor = specialColor;
+                        elementStrokeColor = color(PALETTE.base.strokeFirst);
                     } else {
                         elementFillColor = color(PALETTE.aLevel.fillSecond);
                         elementStrokeColor = color(PALETTE.aLevel.strokeSecond);
@@ -192,7 +242,9 @@ class paintBro {
                     angle: getRandomFromInterval(0, 2 * PI),
                 })
             }
-
+            if (i == 721) {
+                console.warn("end 721 i: " + i + " - " + Math.round(fxrand() * 1000) / 1000);
+            }
         }
         // console.log(this.elements);
     }

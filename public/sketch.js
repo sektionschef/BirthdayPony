@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
-const ALL = false; // show everything at once
+const ALL = true; // show everything at once
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
@@ -139,7 +139,7 @@ const PALETTESYSTEM = {
   // },
   "Boom": {
     "background": "#8181BB",
-    "line": "#9D9DCD",
+    "line": "#17171d4f",
     "base": {
       fillFirst: "#9D9DCD15",
       fillSecond: "#9D9DCD15",
@@ -334,14 +334,15 @@ function setup() {
 
   paintbro = new paintBro({
     buffer: paintBroBuffer,
-    elementSizeMin: 0.02 * DOMINANTSIDE,
-    elementSizeMax: 0.04 * DOMINANTSIDE,  // 0.05-0.08
+    elementSizeMin: 0.01 * DOMINANTSIDE,
+    elementSizeMax: 0.03 * DOMINANTSIDE,  // 0.05-0.08
     strokeWeight: 0.001 * DOMINANTSIDE,  // 0.001-0.0001
     numberQuantisizer: 80,  // 20-50
     brushLength: 10,  // 20- 60
     distortionFactor: 0.001 * DOMINANTSIDE,  // 0.00009
     stepSize: 0.005 * DOMINANTSIDE,  // 0.001-0.005
   })
+
 
   texMex = new TexMex({
     buffer: paintBroBuffer,
@@ -353,7 +354,7 @@ function setup() {
     secondaryFillColor: color(PALETTE.base.grainColorSecond),
     fillColorNoise: 0,
     fillColorOpacity: 255,
-    numberQuantisizer: 500,
+    numberQuantisizer: 1000,
     // backgroundColor: color(PALETTE.base[0]),
     backgroundColor: color(PALETTE.background),
   })
@@ -417,7 +418,7 @@ function draw() {
 
   if (frameCount == 30 || ALL) {
     paintbro.show("base");
-    texMex.show();
+    // texMex.show();
     console.log("base finished");
     TIMINGSTATE = "base finished";
     dotSystem.fireBrush("aLevel");
