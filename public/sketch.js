@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
-const ALL = false; // show everything at once
+const ALL = true; // show everything at once
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
@@ -90,38 +90,74 @@ const PALETTESYSTEM = {
   //     grainColorSecond: "#1a1a2059",
   //   }
   // },
-  "Red": {
-    "background": "#8B0817",
+  // "Red": {
+  //   "background": "#8B0817",
+  //   "line": "#17171d4f",
+  //   "base": {
+  //     fillFirst: "#f44c4015",
+  //     fillSecond: "#f1524715",
+  //     strokeFirst: "#b12c2771",
+  //     strokeSecond: "#ac3d2e73",
+  //     grainColorFirst: "#80140d",
+  //     grainColorSecond: "#aa0303",
+  //   },
+  //   "cLevel": {
+  //     fillFirst: "#8f0c0315",
+  //     fillSecond: "#7e090115",
+  //     strokeFirst: "#770a0273",
+  //     strokeSecond: "#9e130173",
+  //     grainColorFirst: "#9455551e",
+  //     grainColorSecond: "#804f4f67",
+  //   },
+  //   "bLevel": {
+  //     fillFirst: "#f5585215",
+  //     fillSecond: "#f75d5d15",
+  //     strokeFirst: "#f77f7b73",
+  //     strokeSecond: "#d44b4b73",
+  //     grainColorFirst: "#af808038",
+  //     grainColorSecond: "#dab6b659",
+  //   },
+  //   "aLevel": {
+  //     fillFirst: "#db2d212c",
+  //     fillSecond: "#e0302327",
+  //     strokeFirst: "#be342a73",
+  //     strokeSecond: "#f31a0b73",
+  //     grainColorFirst: "#4b404038",
+  //     grainColorSecond: "#201a1a59",
+  //   }
+  // },
+  "Goose": {
+    "background": "#747474",
     "line": "#17171d4f",
     "base": {
-      fillFirst: "#F4405215",
-      fillSecond: "#F4405215",
-      strokeFirst: "#BB0B209f",
-      strokeSecond: "#BB0B20a8",
-      grainColorFirst: "#80140d",  // 7d7dcc
-      grainColorSecond: "#9c0606",
+      fillFirst: "#DEDAD415",
+      fillSecond: "#d3cdc515",
+      strokeFirst: "#DEDAD473",
+      strokeSecond: "#DEDAD473",
+      grainColorFirst: "#80140d",
+      grainColorSecond: "#aa0303",
     },
     "cLevel": {
-      fillFirst: "#BB0B2015",
-      fillSecond: "#BB0B2015",
-      strokeFirst: "#F4405215",
-      strokeSecond: "#F4405215",
-      grainColorFirst: "#9455554f",
+      fillFirst: "#a39c9215",
+      fillSecond: "#B6ADA015",
+      strokeFirst: "#afa39273",
+      strokeSecond: "#8f877b73",
+      grainColorFirst: "#9455551e",
       grainColorSecond: "#804f4f67",
     },
     "bLevel": {
-      fillFirst: "#F3394E15",
-      fillSecond: "#F3394E15",
-      strokeFirst: "#F6697915",
-      strokeSecond: "#F6697915",
+      fillFirst: "#DFE1E215",
+      fillSecond: "#c0c5c715",
+      strokeFirst: "#DFE1E273",
+      strokeSecond: "#c0c5c773",
       grainColorFirst: "#af808038",
       grainColorSecond: "#dab6b659",
     },
     "aLevel": {
-      fillFirst: "#F6697915",
-      fillSecond: "#F6697915",
-      strokeFirst: "#F3394E15",
-      strokeSecond: "#F3394E15",
+      fillFirst: "#DFE8F015",
+      fillSecond: "#c0d7ee15",
+      strokeFirst: "#adc6db73",
+      strokeSecond: "#DFE8F073",
       grainColorFirst: "#4b404038",
       grainColorSecond: "#201a1a59",
     }
@@ -429,7 +465,7 @@ function draw() {
   if (frameCount == 30 || ALL) {
     paintBroBuffer.background(color(PALETTE.background));
     paintbro.show("base");
-    baseNoise.show();
+    // baseNoise.show();
     console.log("base finished");
     TIMINGSTATE = "base finished";
     dotSystem.fireBrush("aLevel");
@@ -437,7 +473,7 @@ function draw() {
 
   if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "base finished" || ALL) {
     paintbro.show("aLevel");
-    aLevelNoise.show();
+    // aLevelNoise.show();
     console.log("aLevel finished");
     TIMINGSTATE = "aLevel finished"
     dotSystem.fireBrush("bLevel");
@@ -445,7 +481,7 @@ function draw() {
 
   if (brushSystem.check_all_complete("bLevel") && TIMINGSTATE == "aLevel finished" || ALL) {
     paintbro.show("bLevel");
-    bLevelNoise.show();
+    // bLevelNoise.show();
     console.log("bLevel finished");
     TIMINGSTATE = "bLevel finished"
     dotSystem.fireBrush("cLevel");
@@ -453,7 +489,7 @@ function draw() {
 
   if (brushSystem.check_all_complete("cLevel") && TIMINGSTATE == "bLevel finished" || ALL) {
     paintbro.show("cLevel");
-    cLevelNoise.show();
+    // cLevelNoise.show();
     console.log("cLevel finished");
     TIMINGSTATE = "cLevel finished"
     ALLDONE = true;

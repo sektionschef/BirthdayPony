@@ -1,6 +1,6 @@
 # Birthday Pony
 
-This is a tribute to fxhash. happy birthday! #fxhashturnsone.
+This is a tribute to fxhash (and the band fugazi). happy birthday! #fxhashturnsone.
 
 All proceeds of primary and secondary go to NGO "Processing foundation".
 
