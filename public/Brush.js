@@ -1,12 +1,12 @@
 class Brush {
     constructor(start, end, colorObject, category) {
         // this.buffer = buffer;
-        this.fullspeed = 2; // BRUSHFULLSPEED // 2-5;
+        this.fullspeed = 5; // BRUSHFULLSPEED // 2-5;
         this.radiusMin = 0.001 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
         this.radiusMax = 0.004 * DOMINANTSIDE; //BRUSHSIZEMAX; // 2;
         // this.brushShape = "Ellipse";
-        this.brushShape = "Line";
-        // this.brushShape = "Triangle"; //BRUSHSHAPE;
+        // this.brushShape = "Line";
+        this.brushShape = "Triangle"; //BRUSHSHAPE;
         this.distanceBoost = 4; // 4 faster, 8 slower, but thicker - where the points are
         // this.noiseYzoom = 0.007;  // zoom on noise
         // this.amplitudeNoiseY = 3.5;  // up and down on Y axis
@@ -311,7 +311,8 @@ class Brush {
                 paintBroBuffer.strokeWeight(this.strokeSize);
                 // paintBroBuffer.stroke(distortColorNew(this.strokeColor, this.strokeColorDistort, false))
                 paintBroBuffer.stroke(distortColorNew(this.strokeColorTemp, this.strokeColorDistort, false))
-                paintBroBuffer.noFill();
+                // paintBroBuffer.noFill();
+                paintBroBuffer.fill(this.strokeColorTemp);
                 if (this.brushShape == "Line") {
                     paintBroBuffer.line(this.elements[i].posX, this.elements[i].posY, this.elements[i].posBX, this.elements[i].posBY);
                 } else if (this.brushShape == "Ellipse") {

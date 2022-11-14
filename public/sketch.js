@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
-const ALL = true; // show everything at once
+const ALL = false; // show everything at once
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
@@ -126,38 +126,74 @@ const PALETTESYSTEM = {
   //     grainColorSecond: "#201a1a59",
   //   }
   // },
-  "Goose": {
-    "background": "#747474",
-    "line": "#17171d4f",
+  // "Goose": {
+  //   "background": "#747474",
+  //   "line": "#17171d4f",
+  //   "base": {
+  //     fillFirst: "#DEDAD415",
+  //     fillSecond: "#d3cdc515",
+  //     strokeFirst: "#DEDAD473",
+  //     strokeSecond: "#DEDAD473",
+  //     grainColorFirst: "#80140d",
+  //     grainColorSecond: "#aa0303",
+  //   },
+  //   "cLevel": {
+  //     fillFirst: "#a39c9215",
+  //     fillSecond: "#B6ADA015",
+  //     strokeFirst: "#afa39273",
+  //     strokeSecond: "#8f877b73",
+  //     grainColorFirst: "#9455551e",
+  //     grainColorSecond: "#804f4f67",
+  //   },
+  //   "bLevel": {
+  //     fillFirst: "#DFE1E215",
+  //     fillSecond: "#c0c5c715",
+  //     strokeFirst: "#DFE1E273",
+  //     strokeSecond: "#c0c5c773",
+  //     grainColorFirst: "#af808038",
+  //     grainColorSecond: "#dab6b659",
+  //   },
+  //   "aLevel": {
+  //     fillFirst: "#DFE8F015",
+  //     fillSecond: "#c0d7ee15",
+  //     strokeFirst: "#adc6db73",
+  //     strokeSecond: "#DFE8F073",
+  //     grainColorFirst: "#4b404038",
+  //     grainColorSecond: "#201a1a59",
+  //   }
+  // },
+  "Gang": {
+    "background": "#1F2B43",
+    "line": "#4649527e",
     "base": {
-      fillFirst: "#DEDAD415",
-      fillSecond: "#d3cdc515",
-      strokeFirst: "#DEDAD473",
-      strokeSecond: "#DEDAD473",
+      fillFirst: "#D7D2CE15",
+      fillSecond: "#ccc4bd15",
+      strokeFirst: "#D7D2CE3d",
+      strokeSecond: "#D7D2CE3d",
       grainColorFirst: "#80140d",
       grainColorSecond: "#aa0303",
     },
     "cLevel": {
-      fillFirst: "#a39c9215",
-      fillSecond: "#B6ADA015",
-      strokeFirst: "#afa39273",
-      strokeSecond: "#8f877b73",
+      fillFirst: "#6C676115",
+      fillSecond: "#6C676115",
+      strokeFirst: "#6c67613d",
+      strokeSecond: "#6c67613d",
       grainColorFirst: "#9455551e",
       grainColorSecond: "#804f4f67",
     },
     "bLevel": {
-      fillFirst: "#DFE1E215",
-      fillSecond: "#c0c5c715",
-      strokeFirst: "#DFE1E273",
-      strokeSecond: "#c0c5c773",
+      fillFirst: "#cacae015",
+      fillSecond: "#cacae015",
+      strokeFirst: "#b7b7da3d",
+      strokeSecond: "#cacae03d",
       grainColorFirst: "#af808038",
       grainColorSecond: "#dab6b659",
     },
     "aLevel": {
-      fillFirst: "#DFE8F015",
-      fillSecond: "#c0d7ee15",
-      strokeFirst: "#adc6db73",
-      strokeSecond: "#DFE8F073",
+      fillFirst: "#4a4e5c15",
+      fillSecond: "#383b4615",
+      strokeFirst: "#36393f3d",
+      strokeSecond: "#393b413d",
       grainColorFirst: "#4b404038",
       grainColorSecond: "#201a1a59",
     }
