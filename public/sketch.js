@@ -23,15 +23,15 @@ let RESCALINGCONSTANT = 800;  // the width the painting was designed in
 let FRAMEDWIDTH = 800;
 let FRAMED = false;
 
-let TITLE = "fox";
+let TITLE = "Birthday Pony";
 let ARTIST = "Stefan Schwaha, @sektionschef";
-let DESCRIPTION = "Javascript on pixel";
+let DESCRIPTION = "Javascript on html canvas";
 let URL = "https://digitalitility.com";
 let YEAR = "2022";
-let PRICE = "ꜩ 3";
-let EDITIONS = "100 editions";
+let PRICE = "ꜩ 1";
+let EDITIONS = "365 editions";
 
-let GRAINAMOUNT = 0.03;
+let GRAINAMOUNT = 0.03;  // shader
 let TIMINGSTATE = "Start";
 
 // let NUMBER_OF_GRIDS = getRandomFromList([2, 3]);
@@ -54,123 +54,76 @@ let BRUSHFULLSPEEDMAX = 6;
 let CURRENTPIXELDENS = 1;
 
 const PALETTESYSTEM = {
-  // "Borscht": {
-  //   "background": "#d3d3d3",
-  //   "base": {
-  //     fillFirst: "#5b5c5e15",
-  //     fillSecond: "#66666915",
-  //     strokeFirst: "#9997971c",
-  //     strokeSecond: "#3f3f3f1c",
-  //   },
-  //   "cLevel": {
-  //     fillFirst: "#5b5e5d15",
-  //     fillSecond: "#4e555215",
-  //     strokeFirst: "#172c7015",
-  //     strokeSecond: "#27345f15",
-  //   },
-  //   "bLevel": {
-  //     fillFirst: "#7f818015",
-  //     fillSecond: "#71797515",
-  //     strokeFirst: "#46254b13",
-  //     strokeSecond: "#282b2713",
-  //   },
-  //   "aLevel": {
-  //     fillFirst: "#e9e4eb15",
-  //     fillSecond: "#e9e4eb15",
-  //     strokeFirst: "#57295e15",
-  //     strokeSecond: "#27252715",
-  //   }
-  // },
-  // "Halt die Fresse": {
-  //   "background": "#4d4b4b",
-  //   "base": {
-  //     fillFirst: "#775e7515",
-  //     fillSecond: "#805e7d15",
-  //     strokeFirst: "#97829618",
-  //     strokeSecond: "#61425f15",
-  //   },
-  //   "cLevel": {
-  //     fillFirst: "#4d1e4915",
-  //     fillSecond: "#3a1b3715",
-  //     strokeFirst: "#74477015",
-  //     strokeSecond: "#2c0e2828",
-  //   },
-  //   "bLevel": {
-  //     fillFirst: "#c3b4c515",
-  //     fillSecond: "#bca9be15",
-  //     strokeFirst: "#e0d0e21f",
-  //     strokeSecond: "#7b6c7c27",
-  //   },
-  //   "aLevel": {
-  //     fillFirst: "#E9EBF815",
-  //     fillSecond: "#d0d3e615",
-  //     strokeFirst: "#887c881c",
-  //     strokeSecond: "#b69bb41a",
-  //   }
-  // },
   // "Boom": {
-  //   "background": "#535353",
+  //   "background": "#8181BB",
+  //   "line": "#17171d4f",
   //   "base": {
-  //     fillFirst: "#8a8ad61f",
-  //     fillSecond: "#7979cf25",
+  //     fillFirst: "#9D9DCD15",
+  //     fillSecond: "#9D9DCD15",
   //     strokeFirst: "#7f7fda9f",
   //     strokeSecond: "#7d7dc7a8",
-  //     grainColorFirst: "#8c8cca",  // 7d7dcc
+  //     grainColorFirst: "#9c9cd8",  // 7d7dcc
   //     grainColorSecond: "#8989c4",
   //   },
   //   "cLevel": {
-  //     fillFirst: "#5858BE15",
-  //     fillSecond: "#4c4cd415",
-  //     strokeFirst: "#3c3c7915",
-  //     strokeSecond: "#45459b15",
+  //     fillFirst: "#4F4F8D15",
+  //     fillSecond: "#45458515",
+  //     strokeFirst: "#03031a15",
+  //     strokeSecond: "#01010815",
+  //     grainColorFirst: "#5555944f",
+  //     grainColorSecond: "#4f4f8067",
   //   },
   //   "bLevel": {
-  //     fillFirst: "#A2A2DA15",
-  //     fillSecond: "#9a9acf15",
-  //     strokeFirst: "#C6C6E915",
-  //     strokeSecond: "#C6C6E915",
+  //     fillFirst: "#B9B9DF15",
+  //     fillSecond: "#aeaed315",
+  //     strokeFirst: "#5a5a6b15",
+  //     strokeSecond: "#4f4f6615",
+  //     grainColorFirst: "#8080af38",
+  //     grainColorSecond: "#b6b6da59",
   //   },
   //   "aLevel": {
-  //     fillFirst: "#4f4fb815",
-  //     fillSecond: "#29296d15",
-  //     strokeFirst: "#03031a15",
-  //     strokeSecond: "#6c6ce415",
+  //     fillFirst: "#6666A915",
+  //     fillSecond: "#59599115",
+  //     strokeFirst: "#2b2b5215",
+  //     strokeSecond: "#42428815",
+  //     grainColorFirst: "#40404b38",
+  //     grainColorSecond: "#1a1a2059",
   //   }
   // },
-  "Boom": {
-    "background": "#8181BB",
+  "Red": {
+    "background": "#8B0817",
     "line": "#17171d4f",
     "base": {
-      fillFirst: "#9D9DCD15",
-      fillSecond: "#9D9DCD15",
-      strokeFirst: "#7f7fda9f",
-      strokeSecond: "#7d7dc7a8",
-      grainColorFirst: "#9c9cd8",  // 7d7dcc
-      grainColorSecond: "#8989c4",
+      fillFirst: "#F4405215",
+      fillSecond: "#F4405215",
+      strokeFirst: "#BB0B209f",
+      strokeSecond: "#BB0B20a8",
+      grainColorFirst: "#80140d",  // 7d7dcc
+      grainColorSecond: "#9c0606",
     },
     "cLevel": {
-      fillFirst: "#4F4F8D15",
-      fillSecond: "#45458515",
-      strokeFirst: "#03031a15",
-      strokeSecond: "#01010815",
-      grainColorFirst: "#5555944f",
-      grainColorSecond: "#4f4f8067",
+      fillFirst: "#BB0B2015",
+      fillSecond: "#BB0B2015",
+      strokeFirst: "#F4405215",
+      strokeSecond: "#F4405215",
+      grainColorFirst: "#9455554f",
+      grainColorSecond: "#804f4f67",
     },
     "bLevel": {
-      fillFirst: "#B9B9DF15",
-      fillSecond: "#aeaed315",
-      strokeFirst: "#5a5a6b15",
-      strokeSecond: "#4f4f6615",
-      grainColorFirst: "#8080af38",
-      grainColorSecond: "#b6b6da59",
+      fillFirst: "#F3394E15",
+      fillSecond: "#F3394E15",
+      strokeFirst: "#F6697915",
+      strokeSecond: "#F6697915",
+      grainColorFirst: "#af808038",
+      grainColorSecond: "#dab6b659",
     },
     "aLevel": {
-      fillFirst: "#6666A915",
-      fillSecond: "#59599115",
-      strokeFirst: "#2b2b5215",
-      strokeSecond: "#42428815",
-      grainColorFirst: "#40404b38",
-      grainColorSecond: "#1a1a2059",
+      fillFirst: "#F6697915",
+      fillSecond: "#F6697915",
+      strokeFirst: "#F3394E15",
+      strokeSecond: "#F3394E15",
+      grainColorFirst: "#4b404038",
+      grainColorSecond: "#201a1a59",
     }
   },
 }
