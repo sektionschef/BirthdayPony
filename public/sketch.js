@@ -41,10 +41,12 @@ let CURRENTPIXELDENS = 1;
 
 let ROUGHYPUFFYRANGE = [0.1, 0.2, 0.3];
 let ROUGHYPUFFY = getRandomFromList(ROUGHYPUFFYRANGE);
+console.log("ROUGHYPUFFY:" + ROUGHYPUFFY);
 let ROUGHYPUFFYLABEL = label_feature(ROUGHYPUFFY, Math.min(...ROUGHYPUFFYRANGE), Math.max(...ROUGHYPUFFYRANGE));
 
 let BRUSHDIRECTIONLABEL;
 let BRUSHDIRECTION = getRandomFromList([0.25, 0.5, 0.75]);
+console.log("BRUSHDIRECTION:" + BRUSHDIRECTION);
 if (BRUSHDIRECTION == 0.25) {
   BRUSHDIRECTIONLABEL = "horizontal";
 } else if (BRUSHDIRECTION == 0.5) {
@@ -54,78 +56,78 @@ if (BRUSHDIRECTION == 0.25) {
 };
 
 const PALETTESYSTEM = {
-  // "Boom": {
-  //   "background": "#8181BB",
-  //   "line": "#17171d4f",
-  //   "base": {
-  //     fillFirst: "#9D9DCD15",
-  //     fillSecond: "#9D9DCD15",
-  //     strokeFirst: "#7f7fda9f",
-  //     strokeSecond: "#7d7dc7a8",
-  //     grainColorFirst: "#9c9cd8",  // 7d7dcc
-  //     grainColorSecond: "#8989c4",
-  //   },
-  //   "cLevel": {
-  //     fillFirst: "#4F4F8D15",
-  //     fillSecond: "#45458515",
-  //     strokeFirst: "#03031a15",
-  //     strokeSecond: "#01010815",
-  //     grainColorFirst: "#5555944f",
-  //     grainColorSecond: "#4f4f8067",
-  //   },
-  //   "bLevel": {
-  //     fillFirst: "#B9B9DF15",
-  //     fillSecond: "#aeaed315",
-  //     strokeFirst: "#5a5a6b15",
-  //     strokeSecond: "#4f4f6615",
-  //     grainColorFirst: "#8080af38",
-  //     grainColorSecond: "#b6b6da59",
-  //   },
-  //   "aLevel": {
-  //     fillFirst: "#6666A915",
-  //     fillSecond: "#59599115",
-  //     strokeFirst: "#2b2b5215",
-  //     strokeSecond: "#42428815",
-  //     grainColorFirst: "#40404b38",
-  //     grainColorSecond: "#1a1a2059",
-  //   }
-  // },
-  // "Red": {
-  //   "background": "#8B0817",
-  //   "line": "#17171d4f",
-  //   "base": {
-  //     fillFirst: "#f44c4015",
-  //     fillSecond: "#f1524715",
-  //     strokeFirst: "#b12c2771",
-  //     strokeSecond: "#ac3d2e73",
-  //     grainColorFirst: "#80140d",
-  //     grainColorSecond: "#aa0303",
-  //   },
-  //   "cLevel": {
-  //     fillFirst: "#8f0c0315",
-  //     fillSecond: "#7e090115",
-  //     strokeFirst: "#770a0273",
-  //     strokeSecond: "#9e130173",
-  //     grainColorFirst: "#9455551e",
-  //     grainColorSecond: "#804f4f67",
-  //   },
-  //   "bLevel": {
-  //     fillFirst: "#f5585215",
-  //     fillSecond: "#f75d5d15",
-  //     strokeFirst: "#f77f7b73",
-  //     strokeSecond: "#d44b4b73",
-  //     grainColorFirst: "#af808038",
-  //     grainColorSecond: "#dab6b659",
-  //   },
-  //   "aLevel": {
-  //     fillFirst: "#db2d212c",
-  //     fillSecond: "#e0302327",
-  //     strokeFirst: "#be342a73",
-  //     strokeSecond: "#f31a0b73",
-  //     grainColorFirst: "#4b404038",
-  //     grainColorSecond: "#201a1a59",
-  //   }
-  // },
+  "Boom": {
+    "background": "#8181BB",
+    "line": "#17171d4f",
+    "base": {
+      fillFirst: "#9D9DCD15",
+      fillSecond: "#9D9DCD15",
+      strokeFirst: "#7f7fda9f",
+      strokeSecond: "#7d7dc7a8",
+      grainColorFirst: "#9c9cd8",  // 7d7dcc
+      grainColorSecond: "#8989c4",
+    },
+    "cLevel": {
+      fillFirst: "#4F4F8D15",
+      fillSecond: "#45458515",
+      strokeFirst: "#03031a15",
+      strokeSecond: "#01010815",
+      grainColorFirst: "#5555944f",
+      grainColorSecond: "#4f4f8067",
+    },
+    "bLevel": {
+      fillFirst: "#B9B9DF15",
+      fillSecond: "#aeaed315",
+      strokeFirst: "#5a5a6b15",
+      strokeSecond: "#4f4f6615",
+      grainColorFirst: "#8080af38",
+      grainColorSecond: "#b6b6da59",
+    },
+    "aLevel": {
+      fillFirst: "#6666A915",
+      fillSecond: "#59599115",
+      strokeFirst: "#2b2b5215",
+      strokeSecond: "#42428815",
+      grainColorFirst: "#40404b38",
+      grainColorSecond: "#1a1a2059",
+    }
+  },
+  "Red": {
+    "background": "#8B0817",
+    "line": "#17171d4f",
+    "base": {
+      fillFirst: "#f44c4015",
+      fillSecond: "#f1524715",
+      strokeFirst: "#b12c2771",
+      strokeSecond: "#ac3d2e73",
+      grainColorFirst: "#80140d",
+      grainColorSecond: "#aa0303",
+    },
+    "cLevel": {
+      fillFirst: "#8f0c0315",
+      fillSecond: "#7e090115",
+      strokeFirst: "#770a0273",
+      strokeSecond: "#9e130173",
+      grainColorFirst: "#9455551e",
+      grainColorSecond: "#804f4f67",
+    },
+    "bLevel": {
+      fillFirst: "#f5585215",
+      fillSecond: "#f75d5d15",
+      strokeFirst: "#f77f7b73",
+      strokeSecond: "#d44b4b73",
+      grainColorFirst: "#af808038",
+      grainColorSecond: "#dab6b659",
+    },
+    "aLevel": {
+      fillFirst: "#db2d212c",
+      fillSecond: "#e0302327",
+      strokeFirst: "#be342a73",
+      strokeSecond: "#f31a0b73",
+      grainColorFirst: "#4b404038",
+      grainColorSecond: "#201a1a59",
+    }
+  },
   "Slummy Yummy": {
     "background": "#747474",
     "line": "#74747431",
@@ -162,42 +164,42 @@ const PALETTESYSTEM = {
       grainColorSecond: "#a3b6c959",
     }
   },
-  // "Gang": {
-  //   "background": "#1F2B43",
-  //   "line": "#4649527e",
-  //   "base": {
-  //     fillFirst: "#D7D2CE15",
-  //     fillSecond: "#ccc4bd15",
-  //     strokeFirst: "#D7D2CE3d",
-  //     strokeSecond: "#D7D2CE3d",
-  //     grainColorFirst: "#80140d",
-  //     grainColorSecond: "#aa0303",
-  //   },
-  //   "cLevel": {
-  //     fillFirst: "#6C676115",
-  //     fillSecond: "#6C676115",
-  //     strokeFirst: "#6c67613d",
-  //     strokeSecond: "#6c67613d",
-  //     grainColorFirst: "#9455551e",
-  //     grainColorSecond: "#804f4f67",
-  //   },
-  //   "bLevel": {
-  //     fillFirst: "#cacae015",
-  //     fillSecond: "#cacae015",
-  //     strokeFirst: "#b7b7da3d",
-  //     strokeSecond: "#cacae03d",
-  //     grainColorFirst: "#af808038",
-  //     grainColorSecond: "#dab6b659",
-  //   },
-  //   "aLevel": {
-  //     fillFirst: "#4a4e5c15",
-  //     fillSecond: "#383b4615",
-  //     strokeFirst: "#36393f3d",
-  //     strokeSecond: "#393b413d",
-  //     grainColorFirst: "#4b404038",
-  //     grainColorSecond: "#201a1a59",
-  //   }
-  // },
+  "Gang": {
+    "background": "#1F2B43",
+    "line": "#4649527e",
+    "base": {
+      fillFirst: "#D7D2CE15",
+      fillSecond: "#ccc4bd15",
+      strokeFirst: "#dfd6ce3d",
+      strokeSecond: "#c7c0bb3d",
+      grainColorFirst: "#D7D2CE38",
+      grainColorSecond: "#afaba759",
+    },
+    "cLevel": {
+      fillFirst: "#6C676115",
+      fillSecond: "#6C676115",
+      strokeFirst: "#6c67613d",
+      strokeSecond: "#6c67613d",
+      grainColorFirst: "#4b453d1e",
+      grainColorSecond: "#7c777267",
+    },
+    "bLevel": {
+      fillFirst: "#cacae015",
+      fillSecond: "#cacae015",
+      strokeFirst: "#b7b7da3d",
+      strokeSecond: "#cacae03d",
+      grainColorFirst: "#9999aa38",
+      grainColorSecond: "#8c8ca359",
+    },
+    "aLevel": {
+      fillFirst: "#4a4e5c15",
+      fillSecond: "#383b4615",
+      strokeFirst: "#36393f3d",
+      strokeSecond: "#393b413d",
+      grainColorFirst: "#4b404038",
+      grainColorSecond: "#201a1a59",
+    }
+  },
 }
 
 choosePalette();
@@ -351,7 +353,6 @@ function setup() {
     stepSize: 0.005 * DOMINANTSIDE,  // 0.001-0.005
   })
 
-
   baseNoise = new TexMex({
     buffer: paintBroBuffer,
     posX: 0,
@@ -476,7 +477,7 @@ function draw() {
 
 
   if (frameCount == 30 || ALL) {
-    // paintBroBuffer.background(color(PALETTE.background));
+    paintBroBuffer.background(color(PALETTE.background));
     paintbro.show("base");
     baseNoise.show();
     console.log("base finished");

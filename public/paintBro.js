@@ -50,7 +50,7 @@ class paintBro {
             // which colors to choose
             // colorNumber = getRandomFromList(["first", "second", "special"]);
 
-            if (fxrand() < 0.1) { // 0.1, 0.2, 0.3
+            if (fxrand() < ROUGHYPUFFY) { // 0.1, 0.2, 0.3
                 colorNumber = "special";
                 specialColor = getRandomFromList([
                     // color(PALETTE.base.fillFirst),
