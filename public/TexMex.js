@@ -46,8 +46,13 @@ class TexMex {
             posX = randomGaussian(this.relCenterX, this.SDevX);
             posY = randomGaussian(this.relCenterY, this.SDevY);
 
-            gradient = constrain(map(posY, this.relCenterY - this.SDevY * 2, this.relCenterY + this.SDevY * 2, -50, 50), 0, 255);
-            fillColor = color(red(fillColor) + gradient, green(fillColor) + gradient, blue(fillColor) + gradient, alpha(fillColor));
+            gradient = map(posY, this.relCenterY - this.SDevY, this.relCenterY + this.SDevY, -20, 20);
+            fillColor = color(
+                constrain(red(fillColor) + gradient, 0, 255),
+                constrain(green(fillColor) + gradient, 0, 255),
+                constrain(blue(fillColor) + gradient, 0, 255),
+                alpha(fillColor)
+            );
 
             insidePolygonSwitchC = false;
             // C Level

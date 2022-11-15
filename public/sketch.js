@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
-const ALL = false; // show everything at once
+const ALL = true; // show everything at once
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
@@ -364,9 +364,9 @@ function setup() {
     fillColor: color(PALETTE.base.grainColorFirst),
     secondaryFillColor: color(PALETTE.base.grainColorSecond),
     numberQuantisizer: 1000,
-    relCenterX: (width / 8 * 5),
-    relCenterY: (height / 8 * 6),  //2-6
-    SDevX: (width / 4),  // 2-5
+    relCenterX: (width / 8 * getRandomFromList([4, 5, 6])),
+    relCenterY: (height / 8 * getRandomFromList([2, 4, 6])),
+    SDevX: (width / getRandomFromList([2, 3, 4])),
     SDevY: (height / 2),
   })
 
@@ -381,10 +381,10 @@ function setup() {
     fillColor: color(PALETTE.cLevel.grainColorFirst),
     secondaryFillColor: color(PALETTE.cLevel.grainColorSecond),
     numberQuantisizer: 1000,
-    relCenterX: (width / 8 * 5),
-    relCenterY: (height / 8 * 4),
-    SDevX: (width / 3),
-    SDevY: (height / 6),
+    relCenterX: (width / 8 * 2),
+    relCenterY: (height / 8 * 2),
+    SDevX: (width / getRandomFromList([3, 4, 5])),
+    SDevY: (height / getRandomFromList([3, 4, 5])),
   })
 
 
@@ -397,11 +397,11 @@ function setup() {
     elementSizeMax: 0.002 * DOMINANTSIDE,
     fillColor: color(PALETTE.bLevel.grainColorFirst),
     secondaryFillColor: color(PALETTE.bLevel.grainColorSecond),
-    numberQuantisizer: 500,
+    numberQuantisizer: 1000,
     relCenterX: (width / 8 * 2),
-    relCenterY: (height / 8 * 4),
-    SDevX: (width / 3),
-    SDevY: (height / 8),
+    relCenterY: (height / 8 * getRandomFromList([3, 4, 5])),
+    SDevX: (width / getRandomFromList([3, 4, 5])),
+    SDevY: (height / 4),
   })
 
   aLevelNoise = new TexMex({
@@ -414,10 +414,10 @@ function setup() {
     fillColor: color(PALETTE.aLevel.grainColorFirst),
     secondaryFillColor: color(PALETTE.aLevel.grainColorSecond),
     numberQuantisizer: 1000,
-    relCenterX: (width / 8 * 5),
-    relCenterY: (height / 8 * 4),
-    SDevX: (width / 3),
-    SDevY: (height / 6),
+    relCenterX: (width / 8 * 2),
+    relCenterY: (height / 8 * getRandomFromList([3, 4, 5])),
+    SDevX: (width / getRandomFromList([3, 4, 5])),
+    SDevY: (height / 3),
   })
 
 
@@ -478,7 +478,7 @@ function draw() {
 
 
   if (frameCount == 30 || ALL) {
-    paintBroBuffer.background(color(PALETTE.background));
+    // paintBroBuffer.background(color(PALETTE.background));
     paintbro.show("base");
     baseNoise.show();
     console.log("base finished");
