@@ -65,7 +65,13 @@ class DrawDots {
             system.add(new Brush(
                 createVector(currentPointX, currentPointY, currentPointZ),
                 createVector(nextPointX, nextPointY, nextPointZ),
-                color(PALETTE.line),
+                // color(PALETTE.line),
+                color(getRandomFromList([
+                    // color(PALETTE.base.fillFirst),
+                    color(PALETTE.aLevel.fillFirst),
+                    color(PALETTE.bLevel.fillFirst),
+                    color(PALETTE.cLevel.fillFirst),
+                ])),
                 category
             ))
         }

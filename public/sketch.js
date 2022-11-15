@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
-const ALL = true; // show everything at once
+const ALL = false; // show everything at once
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
@@ -126,40 +126,40 @@ const PALETTESYSTEM = {
   //     grainColorSecond: "#201a1a59",
   //   }
   // },
-  "Goose": {
+  "Slummy Yummy": {
     "background": "#747474",
-    "line": "#7474744f",
+    "line": "#74747431",
     "base": {
       fillFirst: "#DEDAD415",
       fillSecond: "#d3cdc515",
       strokeFirst: "#dedad42a",
       strokeSecond: "#cfcbc42a",
-      grainColorFirst: "#80140d",
-      grainColorSecond: "#aa0303",
+      grainColorFirst: "#ccc8c1",
+      grainColorSecond: "#d3cdc5",
     },
     "cLevel": {
       fillFirst: "#a39c9215",
       fillSecond: "#6d686115",
       strokeFirst: "#8b857b2a",
       strokeSecond: "#ada5982a",
-      grainColorFirst: "#9455551e",
-      grainColorSecond: "#804f4f67",
+      grainColorFirst: "#ada5981e",
+      grainColorSecond: "#d3cbbd67",
     },
     "bLevel": {
       fillFirst: "#d2dce015",
       fillSecond: "#b5cad115",
-      strokeFirst: "#a1b2b82a",
+      strokeFirst: "#c0d4db2a",
       strokeSecond: "#daeaf02a",
-      grainColorFirst: "#af808038",
-      grainColorSecond: "#dab6b659",
+      grainColorFirst: "#d2dce038",
+      grainColorSecond: "#b5cad159",
     },
     "aLevel": {
       fillFirst: "#add1f015",
       fillSecond: "#c0d7ee15",
       strokeFirst: "#98b9d62a",
       strokeSecond: "#d7e5f32a",
-      grainColorFirst: "#4b404038",
-      grainColorSecond: "#201a1a59",
+      grainColorFirst: "#9ab1c538",
+      grainColorSecond: "#a3b6c959",
     }
   },
   // "Gang": {
@@ -283,6 +283,8 @@ function setup() {
 
   dotSystem = new drawDotsSystem();
 
+  sunny = new sunPolygon();
+
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
     // console.log("Pixel density: " + pixelDensity())
@@ -321,29 +323,6 @@ function setup() {
   // hatchesLong = new Hatches("yx", createVector(100, 100), createVector(750, 300), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
 
   // hatchesBug = new Hatches("y", createVector(717, 50), createVector(898, 898), color(30), 0, 0, DISTANCE_BETWEEN_LINES);
-
-  // sunPolygon = [
-  //   [-0.01 * DOMINANTSIDE, 0.01 * DOMINANTSIDE],
-  //   [0.01 * DOMINANTSIDE, -0.01 * DOMINANTSIDE],
-  //   [width + 0.01 * DOMINANTSIDE, height - 0.01 * DOMINANTSIDE],
-  //   [width - 0.01 * DOMINANTSIDE, height + 0.01 * DOMINANTSIDE],
-  // ]
-
-  // sunPolygon = [
-  //   createVector(-0.05 * DOMINANTSIDE, 0.05 * DOMINANTSIDE),
-  //   createVector(0.05 * DOMINANTSIDE, -0.05 * DOMINANTSIDE),
-  //   createVector(width + 0.05 * DOMINANTSIDE, height - 0.05 * DOMINANTSIDE),
-  //   createVector(width - 0.05 * DOMINANTSIDE, height + 0.05 * DOMINANTSIDE),
-  // ]
-
-  sunPolygon = [
-    createVector(0.19 * DOMINANTSIDE, 0.05 * DOMINANTSIDE),
-    createVector(0.03 * DOMINANTSIDE, 0.05 * DOMINANTSIDE),
-    createVector(width - 0.19 * DOMINANTSIDE, height - 0.05 * DOMINANTSIDE),
-    createVector(width - 0.05 * DOMINANTSIDE, height - 0.05 * DOMINANTSIDE),
-  ]
-
-  // console.log(sunPolygon);
 
   // test structure - 
   // gan = new Gan({
@@ -386,9 +365,9 @@ function setup() {
     secondaryFillColor: color(PALETTE.base.grainColorSecond),
     numberQuantisizer: 1000,
     relCenterX: (width / 8 * 5),
-    relCenterY: (height / 8 * 7),
-    SDevX: (width / 7),
-    SDevY: (height / 7),
+    relCenterY: (height / 8 * 6),  //2-6
+    SDevX: (width / 4),  // 2-5
+    SDevY: (height / 2),
   })
 
 
@@ -501,7 +480,7 @@ function draw() {
   if (frameCount == 30 || ALL) {
     paintBroBuffer.background(color(PALETTE.background));
     paintbro.show("base");
-    // baseNoise.show();
+    baseNoise.show();
     console.log("base finished");
     TIMINGSTATE = "base finished";
     dotSystem.fireBrush("aLevel");
@@ -509,7 +488,7 @@ function draw() {
 
   if (brushSystem.check_all_complete("aLevel") && TIMINGSTATE == "base finished" || ALL) {
     paintbro.show("aLevel");
-    // aLevelNoise.show();
+    aLevelNoise.show();
     console.log("aLevel finished");
     TIMINGSTATE = "aLevel finished"
     dotSystem.fireBrush("bLevel");
@@ -517,7 +496,7 @@ function draw() {
 
   if (brushSystem.check_all_complete("bLevel") && TIMINGSTATE == "aLevel finished" || ALL) {
     paintbro.show("bLevel");
-    // bLevelNoise.show();
+    bLevelNoise.show();
     console.log("bLevel finished");
     TIMINGSTATE = "bLevel finished"
     dotSystem.fireBrush("cLevel");
@@ -525,11 +504,12 @@ function draw() {
 
   if (brushSystem.check_all_complete("cLevel") && TIMINGSTATE == "bLevel finished" || ALL) {
     paintbro.show("cLevel");
-    // cLevelNoise.show();
+    cLevelNoise.show();
     console.log("cLevel finished");
     TIMINGSTATE = "cLevel finished"
     ALLDONE = true;
   };
+
 
 
   // PAINT
@@ -547,6 +527,10 @@ function draw() {
 
   // BRUSHES
   brushSystem.show();
+
+  if (MODE > 1) {
+    sunny.show();
+  }
 
   // TEX
   // push();
@@ -577,29 +561,6 @@ function draw() {
 
   // brushBug.update();
   // brushBug.show();
-
-
-  // SHOW SUNPOLYGON
-  // push();
-  // translate(-width / 2, -height / 2);
-  // noFill();
-  // beginShape();
-  // vertex(sunPolygon[0].x, sunPolygon[0].y);
-  // vertex(sunPolygon[1].x, sunPolygon[1].y);
-  // vertex(sunPolygon[2].x, sunPolygon[2].y);
-  // vertex(sunPolygon[3].x, sunPolygon[3].y);
-  // endShape(CLOSE);
-  // pop();
-
-  // check polygon script manually
-  // sunPolygonList = [
-  //   [sunPolygon[0].x, sunPolygon[0].y],
-  //   [sunPolygon[1].x, sunPolygon[1].y],
-  //   [sunPolygon[2].x, sunPolygon[2].y],
-  //   [sunPolygon[3].x, sunPolygon[3].y]
-  // ]
-
-  // console.log(pointInPolygon(sunPolygonList, [mouseX, mouseY]));
 
 
   if (MODE > 1) {

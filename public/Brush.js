@@ -2,7 +2,8 @@ class Brush {
     constructor(start, end, colorObject, category) {
         // this.buffer = buffer;
         this.fullspeed = 5; // BRUSHFULLSPEED // 2-5;
-        this.radiusMin = 0.001 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
+        this.opacityLevel = 30;
+        this.radiusMin = 0.003 * DOMINANTSIDE; // BRUSHSIZEMIN; // 1;
         this.radiusMax = 0.004 * DOMINANTSIDE; //BRUSHSIZEMAX; // 2;
         // this.brushShape = "Ellipse";
         // this.brushShape = "Line";
@@ -11,8 +12,10 @@ class Brush {
         // this.noiseYzoom = 0.007;  // zoom on noise
         // this.amplitudeNoiseY = 3.5;  // up and down on Y axis
         this.OkLevel = 40;  // some offset is ok.
-        this.fillColor = colorObject;
-        this.strokeColor = colorObject;
+        // this.fillColor = colorObject;
+        this.fillColor = color(red(colorObject), green(colorObject), blue(colorObject), this.opacityLevel);
+        // this.strokeColor = colorObject;
+        this.strokeColor = color(red(colorObject), green(colorObject), blue(colorObject), this.opacityLevel);
         this.strokeSize = 0.2; // BRUSHFIBRESIZE;  // good one
         this.strokeColorDistort = 10; // BRUSHFIBRECOLORNOISE;
 
@@ -213,13 +216,7 @@ class Brush {
 
             this.savePath();
 
-            this.sunPolygon = [
-                [sunPolygon[0].x, sunPolygon[0].y,],
-                [sunPolygon[1].x, sunPolygon[1].y,],
-                [sunPolygon[2].x, sunPolygon[2].y,],
-                [sunPolygon[3].x, sunPolygon[3].y,],
-            ]
-            if (pointInPolygon(this.sunPolygon, [this.pos.x, this.pos.y])) {
+            if (pointInPolygon(sunny.coordsList, [this.pos.x, this.pos.y])) {
                 this.strokeColorTemp = highlightColor(this.strokeColor, 80);
             } else {
                 this.strokeColorTemp = this.strokeColor;

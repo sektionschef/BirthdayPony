@@ -195,15 +195,8 @@ class paintBro {
                 }
 
                 // // S Level
-                currentPolygon = [
-                    [sunPolygon[0].x, sunPolygon[0].y,],
-                    [sunPolygon[1].x, sunPolygon[1].y,],
-                    [sunPolygon[2].x, sunPolygon[2].y,],
-                    [sunPolygon[3].x, sunPolygon[3].y,],
-                ]
 
-                // console.log(currentPolygon);
-                if (pointInPolygon(currentPolygon, [posBX, posBY])) {
+                if (pointInPolygon(sunny.coordsList, [posBX, posBY])) {
                     sunPolygonSwitch = true;
                 }
 

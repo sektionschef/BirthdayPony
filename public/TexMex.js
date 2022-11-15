@@ -153,8 +153,8 @@ class TexMex {
             this.buffer.noStroke();
             this.buffer.fill(element.fillColor);
 
-            // this.buffer.ellipse(element.posXEl, element.posYEl, element.widthShape, element.heightShape);
-            // this.buffer.rect(element.posXRe, element.posYRe, element.widthShape, element.heightShape);
+            // this.buffer.ellipse(element.posX, element.posY, element.widthShape, element.heightShape);
+            // this.buffer.rect(element.posX, element.posY, element.widthShape / 2, element.heightShape / 2);
             this.buffer.triangle(element.posX, element.posY, element.posX + element.widthShape, element.posY, element.posX, (element.posY + element.heightShape));
             this.buffer.pop();
         }
