@@ -46,7 +46,7 @@ class TexMex {
             posX = randomGaussian(this.relCenterX, this.SDevX);
             posY = randomGaussian(this.relCenterY, this.SDevY);
 
-            gradient = map(posY, this.relCenterY - this.SDevY, this.relCenterY + this.SDevY, -20, 20);
+            gradient = map(posY, this.relCenterY - this.SDevY, this.relCenterY + this.SDevY, -10, 10);
             fillColor = color(
                 constrain(red(fillColor) + gradient, 0, 255),
                 constrain(green(fillColor) + gradient, 0, 255),

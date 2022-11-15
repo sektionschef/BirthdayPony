@@ -201,8 +201,8 @@ class paintBro {
                 }
 
                 if (sunPolygonSwitch) {
-                    elementFillColor = highlightColor(elementFillColor, 40);
-                    elementStrokeColor = highlightColor(elementStrokeColor, 40);
+                    elementFillColor = highlightColor(elementFillColor, 30);
+                    elementStrokeColor = highlightColor(elementStrokeColor, 30);
                 }
 
                 this.elements.push({
