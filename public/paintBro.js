@@ -48,8 +48,9 @@ class paintBro {
             step = getRandomFromList([-this.stepSize, this.stepSize]);  // movement of element
 
             // which colors to choose
-            colorNumber = getRandomFromList(["first", "second", "special"]);
-            if (fxrand() < 0.2) {
+            // colorNumber = getRandomFromList(["first", "second", "special"]);
+
+            if (fxrand() < 0.1) { // 0.1, 0.2, 0.3
                 colorNumber = "special";
                 specialColor = getRandomFromList([
                     // color(PALETTE.base.fillFirst),
@@ -63,7 +64,7 @@ class paintBro {
                 colorNumber = "second";
             }
             // direction of brush stroke
-            if (fxrand() < 0.25) {
+            if (fxrand() < BRUSHDIRECTION) { // [0.25, 0.5, 0.75]
                 orientation = "vertical";
             } else {
                 orientation = "horizontal";

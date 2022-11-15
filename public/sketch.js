@@ -12,7 +12,6 @@ if (MODE > 1) {
 let canvas;
 let rescaling_width;
 let rescaling_height;
-// let theShader;
 
 let PALETTE;
 let PALETTE_LABEL;
@@ -34,24 +33,25 @@ let EDITIONS = "365 editions";
 let GRAINAMOUNT = 0.03;  // shader
 let TIMINGSTATE = "Start";
 
-// let NUMBER_OF_GRIDS = getRandomFromList([2, 3]);
-// let BRUSHSIZEMIN = getRandomFromList([0.3, 0.4, 0.5, 0.6, 0.7]);  // 0.5
-// let BRUSHSIZEMAX = getRandomFromList([1, 1.25, 1.5, 1.75, 2, 2.25, 2.5]);  // 1.5
-// let BRUSHSIZELABEL = BRUSHSIZEMIN + "-" + BRUSHSIZEMAX;
 let BRUSHFULLSPEEDMIN = 2;
 let BRUSHFULLSPEEDMAX = 6;
-// let BRUSHFULLSPEED = Math.round(getRandomFromInterval(BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX) * 100) / 100;
-// let BRUSHFULLSPEEDLABEL = label_feature(BRUSHFULLSPEED, BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX);
-// let BRUSHFIBRESIZE = Math.round(getRandomFromInterval(0.2, 0.4) * 100) / 100;
-// let BRUSHFIBRECOLORNOISE = Math.round(getRandomFromInterval(3, 10) * 100) / 100;
-// let BRUSHCOLORDISTORT = Math.round(getRandomFromInterval(5, 10) * 100) / 100;
-// let DISTANCE_BETWEEN_LINES = Math.round(getRandomFromInterval(6, 16));
-// let DISTANCE_BETWEEN_LINES_LABEL = label_feature(DISTANCE_BETWEEN_LINES, 6, 16);
-// let ROTHKOSTROKEOPACITY = Math.round(getRandomFromInterval(5, 30) * 100) / 100;
-// let ROTHKOSTROKEOPACITYLABEL = label_feature(ROTHKOSTROKEOPACITY, 5, 30);
-// let BRUSHSHAPE = getRandomFromList(["Line", "Ellipse", "Triangle"]);
-// let HATCHOFFSET = 2;
+let BRUSHFULLSPEED = Math.round(getRandomFromInterval(BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX) * 100) / 100;
+let BRUSHFULLSPEEDLABEL = label_feature(BRUSHFULLSPEED, BRUSHFULLSPEEDMIN, BRUSHFULLSPEEDMAX);
 let CURRENTPIXELDENS = 1;
+
+let ROUGHYPUFFYRANGE = [0.1, 0.2, 0.3];
+let ROUGHYPUFFY = getRandomFromList(ROUGHYPUFFYRANGE);
+let ROUGHYPUFFYLABEL = label_feature(ROUGHYPUFFY, Math.min(...ROUGHYPUFFYRANGE), Math.max(...ROUGHYPUFFYRANGE));
+
+let BRUSHDIRECTIONLABEL;
+let BRUSHDIRECTION = getRandomFromList([0.25, 0.5, 0.75]);
+if (BRUSHDIRECTION == 0.25) {
+  BRUSHDIRECTIONLABEL = "horizontal";
+} else if (BRUSHDIRECTION == 0.5) {
+  BRUSHDIRECTIONLABEL = "both";
+} else {
+  BRUSHDIRECTIONLABEL = "vertical";
+};
 
 const PALETTESYSTEM = {
   // "Boom": {
@@ -239,7 +239,6 @@ function preload() {
 
 function setup() {
 
-
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
 
@@ -268,7 +267,6 @@ function setup() {
   // cam1.setPosition(1200, 200, 500);
 
   // setCamera(cam1);
-
 
   paintBroBuffer = createGraphics(width, height, "WEBGL");
   // textest = createGraphics(width, height, "WEBGL");
@@ -577,8 +575,6 @@ function draw() {
   // shader
   // applyGrain();
 
-  // console.warn(Math.round(fxrand() * 100) / 100);
-  // noLoop();
 }
 
 function mousePressed() {

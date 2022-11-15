@@ -154,12 +154,17 @@ function label_feature(value, min, max) {
     let label;
     let third = (max - min) / 3
 
+    // console.log("value: " + value);
+    // console.log("min: " + min);
+    // console.log("max: " + max);
+    // console.log("third: " + third);
+    // console.log("lower: " + (min + third));
     if (value < (min + third)) {
         label = "low"
-    } else if (value < min + third * 2) {
-        label = "medium"
-    } else {
+    } else if (value > max - third) {
         label = "high"
+    } else {
+        label = "medium"
     }
     return label
 }
