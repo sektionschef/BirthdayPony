@@ -1,0 +1,1 @@
+window.$fxhashFeatures={Palette:PALETTE_LABEL},console.info(`fxhash: %c${fxhash}`,"font-weight: bold"),console.log(""),console.group(`Palette: %c${PALETTE_LABEL} `,"font-weight: bold"),console.groupEnd();

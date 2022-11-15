@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
-const ALL = false; // show everything at once
+const ALL = true; // show everything at once
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
@@ -126,78 +126,78 @@ const PALETTESYSTEM = {
   //     grainColorSecond: "#201a1a59",
   //   }
   // },
-  // "Goose": {
-  //   "background": "#747474",
-  //   "line": "#17171d4f",
-  //   "base": {
-  //     fillFirst: "#DEDAD415",
-  //     fillSecond: "#d3cdc515",
-  //     strokeFirst: "#DEDAD473",
-  //     strokeSecond: "#DEDAD473",
-  //     grainColorFirst: "#80140d",
-  //     grainColorSecond: "#aa0303",
-  //   },
-  //   "cLevel": {
-  //     fillFirst: "#a39c9215",
-  //     fillSecond: "#B6ADA015",
-  //     strokeFirst: "#afa39273",
-  //     strokeSecond: "#8f877b73",
-  //     grainColorFirst: "#9455551e",
-  //     grainColorSecond: "#804f4f67",
-  //   },
-  //   "bLevel": {
-  //     fillFirst: "#DFE1E215",
-  //     fillSecond: "#c0c5c715",
-  //     strokeFirst: "#DFE1E273",
-  //     strokeSecond: "#c0c5c773",
-  //     grainColorFirst: "#af808038",
-  //     grainColorSecond: "#dab6b659",
-  //   },
-  //   "aLevel": {
-  //     fillFirst: "#DFE8F015",
-  //     fillSecond: "#c0d7ee15",
-  //     strokeFirst: "#adc6db73",
-  //     strokeSecond: "#DFE8F073",
-  //     grainColorFirst: "#4b404038",
-  //     grainColorSecond: "#201a1a59",
-  //   }
-  // },
-  "Gang": {
-    "background": "#1F2B43",
-    "line": "#4649527e",
+  "Goose": {
+    "background": "#747474",
+    "line": "#7474744f",
     "base": {
-      fillFirst: "#D7D2CE15",
-      fillSecond: "#ccc4bd15",
-      strokeFirst: "#D7D2CE3d",
-      strokeSecond: "#D7D2CE3d",
+      fillFirst: "#DEDAD415",
+      fillSecond: "#d3cdc515",
+      strokeFirst: "#dedad42a",
+      strokeSecond: "#cfcbc42a",
       grainColorFirst: "#80140d",
       grainColorSecond: "#aa0303",
     },
     "cLevel": {
-      fillFirst: "#6C676115",
-      fillSecond: "#6C676115",
-      strokeFirst: "#6c67613d",
-      strokeSecond: "#6c67613d",
+      fillFirst: "#a39c9215",
+      fillSecond: "#6d686115",
+      strokeFirst: "#8b857b2a",
+      strokeSecond: "#ada5982a",
       grainColorFirst: "#9455551e",
       grainColorSecond: "#804f4f67",
     },
     "bLevel": {
-      fillFirst: "#cacae015",
-      fillSecond: "#cacae015",
-      strokeFirst: "#b7b7da3d",
-      strokeSecond: "#cacae03d",
+      fillFirst: "#d2dce015",
+      fillSecond: "#b5cad115",
+      strokeFirst: "#a1b2b82a",
+      strokeSecond: "#daeaf02a",
       grainColorFirst: "#af808038",
       grainColorSecond: "#dab6b659",
     },
     "aLevel": {
-      fillFirst: "#4a4e5c15",
-      fillSecond: "#383b4615",
-      strokeFirst: "#36393f3d",
-      strokeSecond: "#393b413d",
+      fillFirst: "#add1f015",
+      fillSecond: "#c0d7ee15",
+      strokeFirst: "#98b9d62a",
+      strokeSecond: "#d7e5f32a",
       grainColorFirst: "#4b404038",
       grainColorSecond: "#201a1a59",
     }
   },
+  // "Gang": {
+  //   "background": "#1F2B43",
+  //   "line": "#4649527e",
+  //   "base": {
+  //     fillFirst: "#D7D2CE15",
+  //     fillSecond: "#ccc4bd15",
+  //     strokeFirst: "#D7D2CE3d",
+  //     strokeSecond: "#D7D2CE3d",
+  //     grainColorFirst: "#80140d",
+  //     grainColorSecond: "#aa0303",
+  //   },
+  //   "cLevel": {
+  //     fillFirst: "#6C676115",
+  //     fillSecond: "#6C676115",
+  //     strokeFirst: "#6c67613d",
+  //     strokeSecond: "#6c67613d",
+  //     grainColorFirst: "#9455551e",
+  //     grainColorSecond: "#804f4f67",
+  //   },
+  //   "bLevel": {
+  //     fillFirst: "#cacae015",
+  //     fillSecond: "#cacae015",
+  //     strokeFirst: "#b7b7da3d",
+  //     strokeSecond: "#cacae03d",
+  //     grainColorFirst: "#af808038",
+  //     grainColorSecond: "#dab6b659",
+  //   },
+  //   "aLevel": {
+  //     fillFirst: "#4a4e5c15",
+  //     fillSecond: "#383b4615",
+  //     strokeFirst: "#36393f3d",
+  //     strokeSecond: "#393b413d",
+  //     grainColorFirst: "#4b404038",
+  //     grainColorSecond: "#201a1a59",
+  //   }
+  // },
 }
 
 choosePalette();
@@ -365,12 +365,12 @@ function setup() {
 
   paintbro = new paintBro({
     buffer: paintBroBuffer,
-    elementSizeMin: 0.01 * DOMINANTSIDE,
+    elementSizeMin: 0.01 * DOMINANTSIDE,  // 0.02
     elementSizeMax: 0.03 * DOMINANTSIDE,  // 0.05-0.08
     strokeWeight: 0.001 * DOMINANTSIDE,  // 0.001-0.0001
     numberQuantisizer: 80,  // 20-50
-    brushLength: 10,  // 20- 60
-    distortionFactor: 0.001 * DOMINANTSIDE,  // 0.00009
+    brushLength: 10,  // 5, 10 | 20-60
+    distortionFactor: 0.001 * DOMINANTSIDE,  // 0.00009 - 0.0001 - 001
     stepSize: 0.005 * DOMINANTSIDE,  // 0.001-0.005
   })
 
