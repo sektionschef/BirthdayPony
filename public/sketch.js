@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
-const ALL = false; // show everything at once
+const ALL = false; // show almost everything at once
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {

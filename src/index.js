@@ -19,19 +19,12 @@
 
 window.$fxhashFeatures = {
     "Palette": PALETTE_LABEL,
-    // "Number of grids": NUMBER_OF_GRIDS,
-    // "Brushsize": BRUSHSIZELABEL,
-    // "Brushspeed": BRUSHFULLSPEEDLABEL,
-    // "Distance between lines": DISTANCE_BETWEEN_LINES_LABEL,
-    // "Background noise": ROTHKOSTROKEOPACITYLABEL,
-    // "Brush shape": BRUSHSHAPE,
+    "Color smudge": ROUGHYPUFFYLABEL,
+    "Brush direction": BRUSHDIRECTIONLABEL,
 }
 
 console.info(`fxhash: %c${fxhash}`, 'font-weight: bold');
-
 console.log('');
-
-
 // console.group(`Palette: %c${PALETTE_LABEL} `, 'font-weight: bold');
 // console.log(`background: %c   `, `background: ${PALETTESYSTEM[PALETTE_LABEL]['background']}; `);
 // console.log(`primaries: %c   `, `background: ${PALETTESYSTEM[PALETTE_LABEL]['primaries'][0]}; `);
