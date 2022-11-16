@@ -1,18 +1,16 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Title</title><meta name="description" content=""><meta name="author" content=""><meta property="og:title" content=""><meta property="og:type" content=""><meta property="og:url" content=""><meta property="og:description" content=""><meta property="og:image" content="thumbnail.png"><link rel="icon" href="favicon.ico"><script id="fxhash-snippet">//---- do not edit the following code (you can indent as you wish)
     let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
     var fxhash = "oo" + Array(49).fill(0).map(_ => alphabet[(Math.random() * alphabet.length) | 0]).join('')
+    // var fxhash = "ooXB3vN4NGykC11axfCBAsLKMwrREJoL2FghcKPBHpQrf5mAfSX"
+    // var fxhash = "oozmHC37ff54XPGhFjriFCV2fihQ72VvyhXuv4LuwmdsBTgpz8N"
+    // var fxhash = "ooUtejyM23vBPKtnv8mXrCQaya1iSJFSYfYXMDYi3RfauDLBtPN"
+
     // var fxhash = "oozjHe23f9kHu59KSH64aiv6Bc2bQ5VHKBMDToQztyNeaBjKg2R"
     // var fxhash = "ooNLJebZCC6mh9SaoupKL8f8iDkpf1UQGZ45QaDjP83mjhsoSuW"
     // var fxhash = "oo8hjXgTDJWtUrTrqjfzWSMioCZNtJVLpHaSSTXb7PXxjxrCy3G"
     // var fxhash = "ooEGqaAxWyEVwruTEpunQQjW71FGuz1HWbFAvENdnC9NNqDRYvY"
     // var fxhash = "oorcbiugTcZBec4WU2c5bmNHzyhmXu5gFwoBPznrZAxBVbHa2HH"
-    // var fxhash = "ooViSFUgdewXMvRWRddApShZN62TM58tUBgXz31WQpcdSTKLyQu"
-    // var fxhash = "ooJuts9iB4B6ndjJjBn5k4TFWzDwiRFt2koAUmYBQ881rgMH9Wv"  // nice
-    // var fxhash = "ooY71vCu4zKTNnH1ytiV667g8xASVhen3bhoyKtJRxPUcqPLqKP"  // cool
-    // var fxhash = "ooM9jwLXUcQ7qc52UVbzZ86gXcsu5mMzV7oUjCwKLv9FhyC8mUH"  // very cool
-    // var fxhash = "oo9x5N1esPt6ZwuVb5DxqrhS3CeKdFW1zu6i3pbsMbn6L7UrRpK"  // fett
-    // var fxhash = "ooWc3SGWwC3RVXUxmPwcGHAyLXTds9K3qAMqYuNbjcveMHHVpWd"  // black and white cool
-    // var fxhash = "oo4LKcJLZrGeSYwB2d2J7piF52TH4iJeL2FtbqaApsK1PhpMEtn"  // cover
+
     let b58dec = str => [...str].reduce((p, c) => p * alphabet.length + alphabet.indexOf(c) | 0, 0)
     let fxhashTrunc = fxhash.slice(2)
     let regex = new RegExp(".{" + ((fxhash.length / 4) | 0) + "}", 'g')
@@ -37,4 +35,4 @@
     function fxpreview() {
       console.log("fxhash: TRIGGER PREVIEW")
     }
-      //---- /do not edit the following code</script><script src="p5.min.js"></script><script src="utils.js" ) }}></script><script src="paintBro.js" ) }}></script><script src="TexMex.js" ) }}></script><script src="DrawDot.js" ) }}></script><script src="Brush.js" ) }}></script><script src="sketch.js" ) }}></script><link rel="stylesheet" href="styles.css"></head><body><div id="Konkas"></div><script defer="defer" src="./bundle.js"></script></body></html>
+      //---- /do not edit the following code</script><script src="p5.min.js"></script><script src="utils.js" ) }}></script><script src="sunPolygon.js" ) }}></script><script src="paintBro.js" ) }}></script><script src="TexMex.js" ) }}></script><script src="DrawDot.js" ) }}></script><script src="Brush.js" ) }}></script><script src="sketch.js" ) }}></script><link rel="stylesheet" href="styles.css"></head><body><div id="Konkas"></div><script defer="defer" src="./bundle.js"></script></body></html>
